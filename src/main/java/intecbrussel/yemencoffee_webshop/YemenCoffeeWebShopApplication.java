@@ -1,6 +1,7 @@
 package intecbrussel.yemencoffee_webshop;
 
 import intecbrussel.yemencoffee_webshop.controller.MainController;
+import intecbrussel.yemencoffee_webshop.email.EmailImpl;
 import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.repositories.CustomerRepo;
 import intecbrussel.yemencoffee_webshop.repositories.ProductRepository;
@@ -27,13 +28,23 @@ public class YemenCoffeeWebShopApplication {
 //
         CustomerServiceImpl customer1 = shoppingCart.getBean(CustomerServiceImpl.class);
 
+        //========================================================
+        //Test of the login (admin or customer)
         if(customer1.checkLogin("bbg@bbg.com", "bbg402")!=null){
             System.out.println(" its found");
         }else {
             System.out.println("its not found");
         }
+        //========================================================
 
-//
+        //========================================================
+        // TEST of sending Email . which I'm gonna use it when the customer confirm the order
+        // then will receive an email of payment confirmation and the list of products
+        EmailImpl email = shoppingCart.getBean("sendEmail",EmailImpl.class);
+        email.sendEmail();
+        //========================================================
+
+
 //        Customer customer =
 //                new Customer("ibrahim", "lok@olk.com",
 //                        0121012,

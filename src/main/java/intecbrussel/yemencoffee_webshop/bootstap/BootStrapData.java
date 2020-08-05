@@ -1,5 +1,6 @@
 //package intecbrussel.yemencoffee_webshop.bootstap;
 //
+//import intecbrussel.yemencoffee_webshop.email.EmailController;
 //import intecbrussel.yemencoffee_webshop.model.*;
 //import intecbrussel.yemencoffee_webshop.repositories.CustomerRepo;
 //import intecbrussel.yemencoffee_webshop.repositories.PaymentRepo;
@@ -11,7 +12,17 @@
 //import java.util.List;
 //
 //public class BootStrapData implements CommandLineRunner {
+//    private EmailController controller;
 //
+//    @Override
+//    public void run(String... args) throws Exception {
+//
+//        controller.sendEmail();
+//        System.out.println("BBG");
+//
+//    }
+
+
 //    private final ProductRepository productRepository;
 //
 //    private final CustomerRepo repo;

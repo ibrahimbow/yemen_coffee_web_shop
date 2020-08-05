@@ -1,5 +1,8 @@
 package intecbrussel.yemencoffee_webshop.cofiguration;
 
+import intecbrussel.yemencoffee_webshop.email.EmailImpl;
+import intecbrussel.yemencoffee_webshop.email.EmailInfo;
+import intecbrussel.yemencoffee_webshop.email.SendEmail;
 import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.model.Product;
 import intecbrussel.yemencoffee_webshop.services.CustomerService;
@@ -36,7 +39,12 @@ public class WebShopConfig {
         return multipartResolver;
     }
 
-//
+    @Bean
+    public SendEmail sendEmail(){
+        return new EmailImpl();
+    }
+
+
 //    @Bean
 //    public Customer customer(){
 //        return new Customer();
