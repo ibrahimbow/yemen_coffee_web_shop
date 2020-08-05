@@ -1,7 +1,12 @@
 package intecbrussel.yemencoffee_webshop.repositories;
 
 import intecbrussel.yemencoffee_webshop.model.Customer;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerRepo extends CrudRepository<Customer, Long> {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CustomerRepo extends JpaRepository<Customer, Long> {
+
+
 }

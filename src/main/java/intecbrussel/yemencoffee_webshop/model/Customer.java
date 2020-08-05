@@ -10,13 +10,16 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "full_name", nullable = false)
     private String full_name;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "phone")
     private int phone;
@@ -43,26 +46,18 @@ public class Customer {
     @ManyToOne(cascade = CascadeType.ALL)
     private Cart cart;
 
-    public Customer(String full_name, String email, int phone, String address, String country, String city, int zipcode) {
-        this.full_name = full_name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.country = country;
-        this.city = city;
-        this.zipcode = zipcode;
-
-
+    public Customer() {
     }
 
 
     //Getters and Setters
 
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -122,6 +117,13 @@ public class Customer {
         this.zipcode = zipcode;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Cart getCart() {
         return cart;
