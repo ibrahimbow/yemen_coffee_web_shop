@@ -1,15 +1,20 @@
 package intecbrussel.yemencoffee_webshop.controller;
 
+import intecbrussel.yemencoffee_webshop.model.Administrator;
 import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.model.Product;
 import intecbrussel.yemencoffee_webshop.services.CustomerServiceImpl;
+import intecbrussel.yemencoffee_webshop.services.ImplementationServices.AdminServiceImpl;
 import intecbrussel.yemencoffee_webshop.services.ProductServiceImpl;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.dom4j.rule.Mode;
+import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +25,9 @@ import javax.servlet.http.HttpSession;
 public class MainController {
 
     public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
-
     private ProductServiceImpl productService;
-
-
     private CustomerServiceImpl customerService;
-
+    private AdminServiceImpl adminService;
 
 
     @Autowired
@@ -38,6 +40,11 @@ public class MainController {
         this.customerService = customerService;
     }
 
+    @Autowired
+    public void setAdminService(AdminServiceImpl adminService) {
+        this.adminService = adminService;
+    }
+
 
 
     //Display the products
@@ -46,7 +53,6 @@ public class MainController {
         model.addAttribute("productList",productService.getAllProducts());
         return "index";
     }
-
 
     @GetMapping("/showAdminProducts")
     public String viewAdminProducts(Model model){
@@ -90,13 +96,14 @@ public class MainController {
 
 //-----------------LOGIN ---------------------
     // to get login form page
-    @RequestMapping(value = "/login_form", method = RequestMethod.GET)
+    @GetMapping("/login_form")
     public String getLoginForm(){
-    return "contents/login_register";
+        return "contents/login_register";
     }
 
     @RequestMapping(value = "/login_form", method = RequestMethod.POST)
-    public String login(@ModelAttribute(name = "user") Customer customer1, Model model){
+    public String login(HttpSession session,
+                        @ModelAttribute(name = "user") Customer customer1, Model model){
     String email = customer1.getEmail();
     String password = customer1.getPassword();
 
@@ -104,7 +111,8 @@ public class MainController {
         // this way to get the name of the user who logged in
         String name = customerService.checkLogin(email,password).getFull_name();
         model.addAttribute("admin_name", name);
-        return "contents/administrator";
+        session.setAttribute("welcome_user_name",name);
+        return "redirect:/";
     }
     model.addAttribute("invalidError", true);
     return "contents/login_register";
@@ -129,5 +137,46 @@ public class MainController {
         return "redirect:/";
     }
 
+
+
+    //===========Admin Login =====================
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String ViewAdminLogin(){
+        return "contents/login_admin";
+    }
+
+
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public String loginAdmin(HttpSession session,
+                             @ModelAttribute(name = "login_admin") Administrator administrator,
+                             Model model){
+
+        String adminName = administrator.getAdmin_username();
+        String password = administrator.getAdmin_password();
+
+        if(adminService.checkingLogin(adminName,password)!=null) {
+            // this way to get the name of the user who logged in
+            String name = adminService.checkingLogin(adminName,password).getAdmin_fullName();
+            model.addAttribute("admin_name", name);
+            session.setAttribute("admin_name", name);
+            return "contents/administrator";
+        }
+        model.addAttribute("invalidError", true);
+        return "contents/login_admin";
+    }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response ) {
+        HttpSession session = request.getSession();
+
+        session.removeAttribute("welcome_user_name");
+        session.invalidate();
+
+        return "redirect:/";
+    }
+
+    //=========================================
 
 }

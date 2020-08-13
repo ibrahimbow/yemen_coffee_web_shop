@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+
 	<title>Administrator_Control_Management_System</title>
 	<!--StyleSheet-->
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/static/css/mystyle.css}"/>
@@ -21,19 +27,16 @@
 <body>
 <div class="topheader">
 	<div class="topnav">
-
-		<nav class="navbar navbar-expand-lg navbar-dark ">
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="mr-auto"></div>
-				<div class="navbar-nav left">
-				<h6 class="text-left"> Welcome :<h6 class="card-title" th:text="${admin_name}" ></h6> </h6>
+				<div class="text-center">
+					<h6> <span sec:authentication="principal.name" ></span></h6>
+					<h6 class="text-center"> Welcome :<h6 class="card-title" th:text="${session.welcome_user_name}" ></h6> </h6>
 				</div>
-				<a href="#" class="nav-item navlink active">
 
-					<h6 class="px-5 ">Logout  |</h6></a>
-			</div>
-		</nav>
-
+				<div>
+					<form action="#" th:action="@{/logout}"  method="get">
+						<input  type="submit"  value="Logout"></input>
+					</form>
+				</div>
 	</div>
 </div>
 <hr>
