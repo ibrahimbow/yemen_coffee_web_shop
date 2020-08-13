@@ -26,7 +26,6 @@ public class Order {
     @Column(name = "deliver_date")
     private LocalDateTime deliver_date;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
@@ -112,7 +111,7 @@ public class Order {
                 "id=" + id +
                 ", order_number=" + order_number +
                 ", customer_id=" + customer.getId() +
-                ", cart_id=" + cart.getCartItems().getProductList() +
+
                 ", quantity=" + quantity +
                 ", total_price=" + total_price +
                 ", order_date=" + order_date +

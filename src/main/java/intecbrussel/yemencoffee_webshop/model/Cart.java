@@ -11,29 +11,29 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private CartItems cartItems;
+    @OneToMany(mappedBy = "cart")
+    private List <CartItem> cartItem;
 
-    @OneToMany
-    private List<Customer> customersList = new ArrayList<>();
+    @OneToOne
+    private Customer customer;
 
 
     public Cart() {
     }
 
-    public CartItems getCartItems() {
-        return cartItems;
+    public List<CartItem> getCartItem() {
+        return cartItem;
     }
 
-    public void setCartItems(CartItems cartItems) {
-        this.cartItems = cartItems;
+    public void setCartItem(List<CartItem> cartItem) {
+        this.cartItem = cartItem;
     }
 
-    public List<Customer> getCustomersList() {
-        return customersList;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomersList(List<Customer> customersList) {
-        this.customersList = customersList;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

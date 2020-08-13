@@ -1,11 +1,6 @@
 package intecbrussel.yemencoffee_webshop.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table (name = "products")
@@ -34,10 +29,6 @@ public class Product {
 
     @Column(name = "product_description")
     private String product_description;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private CartItems cartItems;
-
 
     //Constructor
     public Product() {
@@ -79,9 +70,7 @@ public class Product {
         this.image = image;
     }
 
-    public void setCartItems(CartItems cartItems) {
-        this.cartItems = cartItems;
-    }
+
 
     public String getAmount() {
         return amount;

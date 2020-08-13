@@ -43,7 +43,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orderList = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Cart cart;
 
     public Customer() {
