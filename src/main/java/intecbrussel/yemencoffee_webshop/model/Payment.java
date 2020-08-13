@@ -31,15 +31,19 @@ public class Payment {
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    public Customer getCustomer() {
-        return customer;
+    public Payment() {
     }
 
-    public void setCustomer(Customer customer) {
+    public Payment(String name_card, int credit_card_number, int ex_month, int ex_year, int cvv, Customer customer) {
+        this.name_card = name_card;
+        this.credit_card_number = credit_card_number;
+        this.ex_month = ex_month;
+        this.ex_year = ex_year;
+        this.cvv = cvv;
         this.customer = customer;
     }
 
-// Getters and setters
+    // Getters and setters
 
 
     public int getId() {
@@ -90,6 +94,14 @@ public class Payment {
         this.cvv = cvv;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
@@ -99,7 +111,7 @@ public class Payment {
                 ", ex_month=" + ex_month +
                 ", ex_year=" + ex_year +
                 ", cvv=" + cvv +
-                "customer= " + customer +
+                ", customer=" + customer +
                 '}';
     }
 }

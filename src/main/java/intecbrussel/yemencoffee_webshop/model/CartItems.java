@@ -13,28 +13,26 @@ public class CartItems {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "cartItems" , cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> cartList = new ArrayList<>();
+    @Column(name = "quantity")
+    private int quantity;
 
-    @OneToMany(mappedBy = "cartItems" , cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> productList = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Product product;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 
 
-    public CartItems(List<Cart> cartList, List<Product> productList) {
-        this.cartList = cartList;
-        this.productList = productList;
-    }
 
     public CartItems() {
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public CartItems(int quantity, Product product, Cart cart) {
+        this.quantity = quantity;
+        this.product = product;
+        this.cart = cart;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
 
     public int getId() {
         return id;
@@ -44,12 +42,37 @@ public class CartItems {
         this.id = id;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     @Override
     public String toString() {
         return "CartItems{" +
                 "id=" + id +
-                ", cartList=" + cartList +
-                ", productList=" + productList +
+                ", quantity=" + quantity +
+                ", product=" + product +
+                ", cart=" + cart +
                 '}';
     }
 }

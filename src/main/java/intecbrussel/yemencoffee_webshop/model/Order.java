@@ -28,31 +28,22 @@ public class Order {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Customer customer;
+    private Customer customerOrders;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Cart cart;
+    private Cart cartOrders;
 
-    public Order(LocalDateTime order_date, Customer customer, Cart cart) {
+
+    public Order() {
+    }
+
+    public Order(int order_number, int quantity, double total_price, LocalDateTime order_date, Customer customerOrders, Cart cartOrders) {
+        this.order_number = order_number;
+        this.quantity = quantity;
+        this.total_price = total_price;
         this.order_date = order_date;
-        this.customer = customer;
-        this.cart = cart;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
+        this.customerOrders = customerOrders;
+        this.cartOrders = cartOrders;
     }
 
 //Getters and setters
@@ -106,17 +97,33 @@ public class Order {
         this.deliver_date = deliver_date;
     }
 
+    public Customer getCustomerOrders() {
+        return customerOrders;
+    }
+
+    public void setCustomerOrders(Customer customerOrders) {
+        this.customerOrders = customerOrders;
+    }
+
+    public Cart getCartOrders() {
+        return cartOrders;
+    }
+
+    public void setCartOrders(Cart cartOrders) {
+        this.cartOrders = cartOrders;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", order_number=" + order_number +
-                ", customer_id=" + customer.getId() +
-                ", cart_id=" + cart.getCartItems().getProductList() +
                 ", quantity=" + quantity +
                 ", total_price=" + total_price +
                 ", order_date=" + order_date +
                 ", deliver_date=" + deliver_date +
+                ", customerOrders=" + customerOrders +
+                ", cartOrders=" + cartOrders +
                 '}';
     }
 }

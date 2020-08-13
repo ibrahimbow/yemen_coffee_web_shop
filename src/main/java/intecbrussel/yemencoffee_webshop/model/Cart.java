@@ -12,28 +12,53 @@ public class Cart {
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private CartItems cartItems;
+    private Customer customer;
 
-    @OneToMany
-    private List<Customer> customersList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cartOrders", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> cartItemsList = new ArrayList<>();
+
 
 
     public Cart() {
     }
 
-    public CartItems getCartItems() {
-        return cartItems;
+    public Cart(Customer customer, List<Order> cartItemsList) {
+        this.customer = customer;
+        this.cartItemsList = cartItemsList;
     }
 
-    public void setCartItems(CartItems cartItems) {
-        this.cartItems = cartItems;
+    public int getId() {
+        return id;
     }
 
-    public List<Customer> getCustomersList() {
-        return customersList;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setCustomersList(List<Customer> customersList) {
-        this.customersList = customersList;
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Order> getCartItemsList() {
+        return cartItemsList;
+    }
+
+    public void setCartItemsList(List<Order> cartItemsList) {
+        this.cartItemsList = cartItemsList;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", cartItemsList=" + cartItemsList +
+                '}';
     }
 }

@@ -37,20 +37,34 @@ public class Customer {
     private int zipcode;
 
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Payment> payment_id = new ArrayList<>();
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orderList = new ArrayList<>();
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Cart cart;
+
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> cartList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "customerOrders", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orderList = new ArrayList<>();
 
     public Customer() {
     }
 
-
-    //Getters and Setters
+    public Customer(String full_name, String email, String password, int phone, String address, String country, String city, int zipcode, Cart cart, List<Cart> cartList, List<Order> orderList) {
+        this.full_name = full_name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.country = country;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.cart = cart;
+        this.cartList = cartList;
+        this.orderList = orderList;
+    }
+//Getters and Setters
 
 
     public Long getId() {
@@ -75,6 +89,14 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getPhone() {
@@ -117,14 +139,6 @@ public class Customer {
         this.zipcode = zipcode;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Cart getCart() {
         return cart;
     }
@@ -133,18 +147,38 @@ public class Customer {
         this.cart = cart;
     }
 
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
                 ", full_name='" + full_name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", phone=" + phone +
                 ", address='" + address + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", zipcode=" + zipcode +
-                ", payment_id=" + payment_id +
+                ", cart=" + cart +
+                ", cartList=" + cartList +
+                ", orderList=" + orderList +
                 '}';
     }
 }
