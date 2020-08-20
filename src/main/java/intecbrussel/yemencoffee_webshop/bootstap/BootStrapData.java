@@ -12,17 +12,17 @@
 //import java.util.List;
 //
 //public class BootStrapData implements CommandLineRunner {
-//    private EmailController controller;
+////    private EmailController controller;
 //
-//    @Override
-//    public void run(String... args) throws Exception {
+////    @Override
+////    public void run(String... args) throws Exception {
+////
+////        controller.sendEmail();
+////        System.out.println("BBG");
+////
+////    }
 //
-//        controller.sendEmail();
-//        System.out.println("BBG");
 //
-//    }
-
-
 //    private final ProductRepository productRepository;
 //
 //    private final CustomerRepo repo;

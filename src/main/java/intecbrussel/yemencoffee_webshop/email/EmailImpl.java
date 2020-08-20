@@ -49,6 +49,7 @@ public class EmailImpl implements SendEmail{
         //Text body part
         MimeBodyPart textBodyPart = new MimeBodyPart();
         textBodyPart.setText("My multipart text");
+            // TODO: 8/15/2020  
             // Here we can add the text of message
             // and attached the product with price and confirmation of payment
             // Ex: Dear getCustomerName();

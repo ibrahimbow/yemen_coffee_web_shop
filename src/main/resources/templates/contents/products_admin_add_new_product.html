@@ -51,8 +51,7 @@
 	<h2>Add New Product</h2>
 
 	<form action="#" th:action="@{/saveProduct}" th:object="${add_update_Product}" method="POST">
-		<input type="hidden" th:field="*{id}"
-			   placeholder="Product Name" class="form-control mb-4 col-4">
+		<input type="hidden" th:field="*{id}" placeholder="Product Name" class="form-control mb-4 col-4">
 		<input type="text" th:field="*{product_name}"
 			   placeholder="Product Name" class="form-control mb-4 col-4">
 

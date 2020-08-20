@@ -1,7 +1,8 @@
-package intecbrussel.yemencoffee_webshop.services;
+package intecbrussel.yemencoffee_webshop.services.ImplementationServices;
 
 import intecbrussel.yemencoffee_webshop.model.Product;
 import intecbrussel.yemencoffee_webshop.repositories.ProductRepository;
+import intecbrussel.yemencoffee_webshop.services.ProductService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

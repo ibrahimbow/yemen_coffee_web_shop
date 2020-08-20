@@ -3,6 +3,7 @@ package intecbrussel.yemencoffee_webshop.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "customers")
@@ -37,34 +38,23 @@ public class Customer {
     private int zipcode;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> payment_id = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orderList = new ArrayList<>();
+
+    @OneToOne
     private Cart cart;
 
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> cartList = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "customerOrders", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orderList = new ArrayList<>();
-
+    //constructor
     public Customer() {
     }
 
-    public Customer(String full_name, String email, String password, int phone, String address, String country, String city, int zipcode, Cart cart, List<Cart> cartList, List<Order> orderList) {
-        this.full_name = full_name;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-        this.country = country;
-        this.city = city;
-        this.zipcode = zipcode;
-        this.cart = cart;
-        this.cartList = cartList;
-        this.orderList = orderList;
-    }
-//Getters and Setters
+
+
+    //Getters and Setters
 
 
     public Long getId() {
@@ -139,20 +129,12 @@ public class Customer {
         this.zipcode = zipcode;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<Payment> getPayment_id() {
+        return payment_id;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public List<Cart> getCartList() {
-        return cartList;
-    }
-
-    public void setCartList(List<Cart> cartList) {
-        this.cartList = cartList;
+    public void setPayment_id(List<Payment> payment_id) {
+        this.payment_id = payment_id;
     }
 
     public List<Order> getOrderList() {
@@ -163,6 +145,27 @@ public class Customer {
         this.orderList = orderList;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id) &&
+                Objects.equals(email, customer.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email);
+    }
 
     @Override
     public String toString() {
@@ -176,9 +179,9 @@ public class Customer {
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", zipcode=" + zipcode +
-                ", cart=" + cart +
-                ", cartList=" + cartList +
+                ", payment_id=" + payment_id +
                 ", orderList=" + orderList +
+                ", cart=" + cart +
                 '}';
     }
 }

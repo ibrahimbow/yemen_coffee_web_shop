@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopping Cart</title>
 <!-- stylesheet -->
-<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css"/>
+<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}"/>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="../../static/css/shopping_cart_style.css">
+<link rel="stylesheet"  href="../../static/css/shopping_cart_style.css"  th:href="@{/css/shopping_cart_style.css}">
 
 <!-- font awesome CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
@@ -19,15 +19,14 @@
 
 
 <!-- script -->
-<script type="text/javascript" src="../../static/js/shopping_cart.js"></script>
-<script id="applicationScript" type="text/javascript" src="contents\js/index.js"></script>
+
+<script id="applicationScript" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
 </head>
 <body>
 	<div class="topheader">
 		<div class="topnav">
 		
-		<nav class="navbar navbar-expand-lg navbar-dark ">
-			
+
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="mr-auto"></div>
 			<div class="navbar-nav"></div>
@@ -42,14 +41,10 @@
 			</a>
 		
 			</div>
-
-				
-				
-				
-		
-	</div>
 		</div>
-		
+	</div>
+
+
 	<header style="background-color: black;">
 		<div class="mainheader">
 	
@@ -71,14 +66,19 @@
 
 		
 	</header>
+	<div class="text-center">
+	<h1>Shopping Cart</h1>
 
+		<hr>
+		<br>
+	</div>
 
-	
-	
 <div class="container">
 <!-- partial:index.partial.html -->
-<h1>Shopping Cart</h1>
-54351
+<div class="title">
+	<h2>Product List</h2>
+</div>
+	<br>
 <div class="shopping-cart">
 
   <div class="column-labels">
@@ -86,58 +86,115 @@
     <label class="product-details">Product</label>
     <label class="product-price">Price</label>
     <label class="product-quantity">Quantity</label>
-    <label class="product-removal">Remove</label>
-    <label class="product-line-price">Total</label>
+	<label class="product-removal">Remove</label>
+	  <label class="product-line-price">Total</label>
   </div>
 
-  <div class="product">
-    <div class="product-image">
-      <img src="../../static/images/YemenCoffee01_c.png">
-    </div>
-    <div class="product-details">
-      <div class="product-title">Dingo Dog Bones</div>
-      <p class="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p>
-    </div>
-    <div class="product-price">12.99</div>
-    <div class="product-quantity">
-      <input type="number" value="2" min="1">
-    </div>
-    <div class="product-removal">
-      <button class="remove-product">
-        Remove
-      </button>
-    </div>
-    <div class="product-line-price">25.98</div>
-  </div>
 
-  <div class="product">
-    <div class="product-image">
-		<img src="../../static/images/YemenCoffee01_c.png">
-    </div>
-    <div class="product-details">
-      <div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>
-      <p class="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>
-    </div>
-    <div class="product-price">45.99</div>
-    <div class="product-quantity">
-      <input type="number" value="1" min="1">
-    </div>
-    <div class="product-removal">
-      <button class="remove-product">
-        Remove
-      </button>
-    </div>
-    <div class="product-line-price">45.99</div>
-  </div>
+
+
+		<table border="0" class = "table table-striped table-responsive-md">
+			<thead>
+			<tr>
+<!--				<th>Image</th>-->
+<!--				<th>Coffee Name</th>-->
+<!--				<th>Description</th>-->
+<!--				<th>Price</th>-->
+<!--				<th>Quantity</th>-->
+<!--				<th>total</th>-->
+<!--				<th>Actions </th>-->
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="cartItems: ${session.add_to_cart_items}">
+				<div class="product">
+					<div class="product-image">
+						<img th:src="@{/images/YemenCoffee01_c.png}">
+					</div>
+
+					<div class="product-details">
+						<div class="product-title" th:text="${cartItems.getProduct().getProduct_name()}"></div>
+					<p class="product-description" th:text="${cartItems.getProduct().getProduct_description()}"></p>
+					</div>
+
+					<div class="product-price"  th:text="${cartItems.getProduct().getPrice()}">
+					</div>
+
+					<div class="product-quantity">
+						<input type="number" value="1" min="1" th:value="${cartItems.getQuantity()}">
+					</div>
+
+					<div class="product-removal">
+						<button class="remove-product">
+							<a th:href="@{/deleteCartItems/{id}(id=${cartItems.getProduct().getId()})}" >Delete</a>
+						</button>
+					</div>
+
+					<div class="product-line-price" th:text="${cartItems.getProduct().getPrice() * cartItems.getQuantity()}">
+						</div>
+
+				</div>
+			</tr>
+			</tbody>
+			<a th:href="@{/}" class="btn btn-primary">Continue shopping </a>
+		</table>
+
+		<hr>
+
+		<a th:href = "@{/}"> Back to the website</a>
+
+
+
+
+<!--	<div class="product">-->
+<!--	  <div class="product-image">-->
+<!--		  <img src="../../static/images/YemenCoffee01_c.png">-->
+<!--	  </div>-->
+<!--	  <div class="product-details">-->
+<!--		  <div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>-->
+<!--		  <p class="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>-->
+<!--	  </div>-->
+<!--	  <div class="product-price">45.99</div>-->
+<!--	  <div class="product-quantity">-->
+<!--		  <input type="number" value="1" min="1">-->
+<!--	  </div>-->
+<!--	  <div class="product-removal">-->
+<!--		  <button class="remove-product">-->
+<!--			  Remove-->
+<!--		  </button>-->
+<!--	  </div>-->
+<!--	  <div class="product-line-price">45.99</div>-->
+<!--  </div>-->
+
+
+<!--	<div class="product">-->
+<!--		<div class="product-image">-->
+<!--			<img src="../../static/images/YemenCoffee01_c.png">-->
+<!--		</div>-->
+<!--		<div class="product-details">-->
+<!--			<div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>-->
+<!--			<p class="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>-->
+<!--		</div>-->
+<!--		<div class="product-price">45.99</div>-->
+<!--		<div class="product-quantity">-->
+<!--			<input type="number" value="1" min="1">-->
+<!--		</div>-->
+<!--		<div class="product-removal">-->
+<!--			<button class="remove-product">-->
+<!--				Remove-->
+<!--			</button>-->
+<!--		</div>-->
+<!--		<div class="product-line-price">45.99</div>-->
+<!--	</div>-->
 
   <div class="totals">
     <div class="totals-item">
       <label>Subtotal</label>
-      <div class="totals-value" id="cart-subtotal">71.97</div>
+      <div class="totals-value" id="cart-subtotal">00</div>
     </div>
     <div class="totals-item">
       <label>Tax (5%)</label>
-      <div class="totals-value" id="cart-tax">3.60</div>
+      <div class="totals-value" id="cart-tax">00</div>
     </div>
     <div class="totals-item">
       <label>Shipping</label>
@@ -145,13 +202,17 @@
     </div>
     <div class="totals-item totals-item-total">
       <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">90.57</div>
+      <div class="totals-value" id="cart-total">00</div>
     </div>
   </div>
       
-      <button class="checkout" ><a href="shipping_address.html">continue</a></button>
+      <button class="checkout" ><a th:href = "@{/shipping_address}">continue</a></button>
 
 </div>
+<br>
+	<br>
+	<br>
+
 </div>
 
 
@@ -201,7 +262,7 @@
 	
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script  src="../../static/js/shopping_cart.js"></script>
+<script   th:src="@{/js/shopping_cart.js}" src="../../static/js/shopping_cart.js" ></script>
 	
 	<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

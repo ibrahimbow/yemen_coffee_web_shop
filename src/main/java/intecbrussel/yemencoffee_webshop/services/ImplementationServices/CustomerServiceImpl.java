@@ -1,7 +1,8 @@
-package intecbrussel.yemencoffee_webshop.services;
+package intecbrussel.yemencoffee_webshop.services.ImplementationServices;
 
 import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.repositories.CustomerRepo;
+import intecbrussel.yemencoffee_webshop.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
 
     private EntityManagerFactory entityManagerFactory;

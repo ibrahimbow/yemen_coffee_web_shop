@@ -9,7 +9,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "order_number")
     private int order_number;
@@ -26,34 +26,34 @@ public class Order {
     @Column(name = "deliver_date")
     private LocalDateTime deliver_date;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Customer customer;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Customer customerOrders;
+    private Cart cart;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Cart cartOrders;
+
+    //constructor
 
 
     public Order() {
     }
 
-    public Order(int order_number, int quantity, double total_price, LocalDateTime order_date, Customer customerOrders, Cart cartOrders) {
-        this.order_number = order_number;
-        this.quantity = quantity;
-        this.total_price = total_price;
+    public Order(LocalDateTime order_date, Customer customer, Cart cart) {
         this.order_date = order_date;
-        this.customerOrders = customerOrders;
-        this.cartOrders = cartOrders;
+        this.customer = customer;
+        this.cart = cart;
     }
+
 
 //Getters and setters
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -97,20 +97,20 @@ public class Order {
         this.deliver_date = deliver_date;
     }
 
-    public Customer getCustomerOrders() {
-        return customerOrders;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerOrders(Customer customerOrders) {
-        this.customerOrders = customerOrders;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Cart getCartOrders() {
-        return cartOrders;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCartOrders(Cart cartOrders) {
-        this.cartOrders = cartOrders;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override
@@ -122,8 +122,8 @@ public class Order {
                 ", total_price=" + total_price +
                 ", order_date=" + order_date +
                 ", deliver_date=" + deliver_date +
-                ", customerOrders=" + customerOrders +
-                ", cartOrders=" + cartOrders +
+                ", customer=" + customer +
+                ", cart=" + cart +
                 '}';
     }
 }

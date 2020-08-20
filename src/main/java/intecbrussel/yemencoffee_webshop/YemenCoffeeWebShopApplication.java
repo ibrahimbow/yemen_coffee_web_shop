@@ -1,13 +1,8 @@
 package intecbrussel.yemencoffee_webshop;
 
 import intecbrussel.yemencoffee_webshop.controller.MainController;
-import intecbrussel.yemencoffee_webshop.email.EmailImpl;
-import intecbrussel.yemencoffee_webshop.model.Administrator;
-import intecbrussel.yemencoffee_webshop.model.Customer;
-import intecbrussel.yemencoffee_webshop.repositories.CustomerRepo;
-import intecbrussel.yemencoffee_webshop.repositories.ProductRepository;
 
-import intecbrussel.yemencoffee_webshop.services.CustomerServiceImpl;
+import intecbrussel.yemencoffee_webshop.services.ImplementationServices.CustomerServiceImpl;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.AdminServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

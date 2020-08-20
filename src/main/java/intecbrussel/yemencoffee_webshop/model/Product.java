@@ -33,11 +33,6 @@ public class Product {
     private String product_description;
 
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItems> productItemsList = new ArrayList<>();
-
-
-
     //Constructor
     public Product() {
     }
@@ -78,6 +73,8 @@ public class Product {
         this.image = image;
     }
 
+
+
     public String getAmount() {
         return amount;
     }
@@ -94,6 +91,10 @@ public class Product {
         this.price = price;
     }
 
+    public String getProduct_description() {
+        return product_description;
+    }
+
     public int getRate() {
         return rate;
     }
@@ -102,21 +103,11 @@ public class Product {
         this.rate = rate;
     }
 
-    public String getProduct_description() {
-        return product_description;
-    }
-
     public void setProduct_description(String product_description) {
         this.product_description = product_description;
     }
 
-    public List<CartItems> getProductItemsList() {
-        return productItemsList;
-    }
 
-    public void setProductItemsList(List<CartItems> productItemsList) {
-        this.productItemsList = productItemsList;
-    }
 
     @Override
     public String toString() {
@@ -126,9 +117,7 @@ public class Product {
                 ", image='" + image + '\'' +
                 ", amount='" + amount + '\'' +
                 ", price=" + price +
-                ", rate=" + rate +
                 ", product_description='" + product_description + '\'' +
-                ", productItemsList=" + productItemsList +
                 '}';
     }
 }

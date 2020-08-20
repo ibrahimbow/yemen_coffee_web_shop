@@ -135,7 +135,6 @@ public class AdminRepoImpl implements AdminDao {
     }
 
 
-
     // checking login info
     public Administrator checkLogin(String adminName, String password){
         Administrator administrator = null;

@@ -10,7 +10,7 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "name_card")
     private String name_card;
@@ -27,9 +27,9 @@ public class Payment {
     @Column(name = "cvv")
     private int cvv;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
+
 
     public Payment() {
     }
@@ -46,11 +46,11 @@ public class Payment {
     // Getters and setters
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
