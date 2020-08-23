@@ -1,9 +1,7 @@
 package intecbrussel.yemencoffee_webshop.services.ImplementationServices;
 
 import intecbrussel.yemencoffee_webshop.model.CartItems;
-import intecbrussel.yemencoffee_webshop.model.Product;
-import intecbrussel.yemencoffee_webshop.repositories.CartItemsDao;
-import intecbrussel.yemencoffee_webshop.repositories.ProductRepository;
+import intecbrussel.yemencoffee_webshop.repositories.CartItemsRepo;
 import intecbrussel.yemencoffee_webshop.services.CartItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,48 +12,38 @@ import java.util.Optional;
 @Service
 public class CartItemsServiceImpl implements CartItemsService {
 
-
-    private CartItemsDao cartItemsDao;
-
-
+    private CartItemsRepo cartItemsRepo;
 
     @Autowired
-    public void setCartItemsDao(CartItemsDao cartItemsDao) {
-        this.cartItemsDao = cartItemsDao;
+    public void setCartItemsRepo(CartItemsRepo cartItemsRepo) {
+        this.cartItemsRepo = cartItemsRepo;
     }
-
-
 
     @Override
     public List<CartItems> getAllCartItems() {
-        return cartItemsDao.getAllCartItems();
+        return this.cartItemsRepo.findAll();
     }
 
     @Override
     public void saveCartItems(CartItems cartItems) {
-        this.cartItemsDao.createCartItem(cartItems);
-    }
-
-    @Override
-    public void addCartItems(List<CartItems> cartItems) {
-        for (CartItems cartItemList: cartItems) {
-            this.cartItemsDao.createCartItem(cartItemList);
-        }
+        this.cartItemsRepo.save(cartItems);
     }
 
     @Override
     public CartItems getCartItemsById(Long id) {
-        return this.cartItemsDao.showCartItems(id);
+        Optional<CartItems> optional = cartItemsRepo.findById(id);
+        CartItems cartItems = null;
+        if (optional.isPresent()) {
+            cartItems = optional.get();
+        } else {
+            throw new RuntimeException("Cart_Item is not found for id :: " + id);
+        }
+        return cartItems;
     }
 
     @Override
     public void deleteCartItemsById(long id) {
-        this.cartItemsDao.deleteCartItem(getCartItemsById(id));
-    }
-
-    @Override
-    public CartItems getCartItemsProductById(Long id) {
-        return this.cartItemsDao.checkCartItems(id);
+        this.cartItemsRepo.deleteById(id);
     }
 
 }

@@ -10,7 +10,8 @@
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Expires" content="0">
 
-	<title>Administrator_Control_Management_System</title>
+<!--	<title>Welcome<h6 class="card-title" th:text="${session.welcome_user.full_name}" ></h6></title>-->
+	<title></title>
 	<!--StyleSheet-->
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/static/css/mystyle.css}"/>
 	<link rel="stylesheet"
@@ -40,7 +41,7 @@
 	</div>
 </div>
 <hr>
-
+<h6 class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: 'nothing'"></h6>
 <div class="container">
 	<div class="text-center">
 		<h1>Control Management System</h1>
@@ -53,12 +54,11 @@
 		<br>
 	</div>
 
-
 <div class="container">
 	<div class="text-center list-inline">
-	<a th:href = "@{/showAdminProducts}" ><span>Products</span> </a>
-	<a th:href = "@{/show_admin_customers}" ><span>Customer</span> </a>
-	<a th:href = "@{/show_admin_orders}" ><span>Orders</span> </a>
+<!--		<input type="hidden" class="card-title" th:text="${session.object_customer}" >-->
+	<a th:href = "@{/show_customer_info/{id}(id=${session.welcome_user.id})}" ><span>Customer info</span> </a>
+	<a th:href = "@{/show_customer_orders/{id}(id=${session.welcome_user.id})}" ><span>Orders</span> </a>
 	</div>
 </div>
 <hr>

@@ -79,6 +79,7 @@
 							<tr>
 								<div th:object="${object_add_shipping_address}">
 									<span  th:text="${object_add_shipping_address.full_name}"></span>
+									<input type="hidden" th:field="*{id}">
 								<input type="hidden" th:field="*{full_name}">
 								<br>
 									<span  th:text="${object_add_shipping_address.email}"></span>
@@ -127,7 +128,7 @@
 <!--				click button to update the info-->
 				<p> <a onclick="goBack()" class="btn btn-primary">Update info</a></p>
 
-				<input type="submit" class="btn btn-primary" value="Confirm Order">
+				<input type="submit"  class="btn btn-primary" value="Confirm Order">
 
 
 			</div>

@@ -1,12 +1,13 @@
 package intecbrussel.yemencoffee_webshop.cofiguration;
 
-import intecbrussel.yemencoffee_webshop.email.EmailImpl;
-import intecbrussel.yemencoffee_webshop.email.SendEmail;
 import intecbrussel.yemencoffee_webshop.model.Administrator;
 import intecbrussel.yemencoffee_webshop.model.Product;
+import intecbrussel.yemencoffee_webshop.model.SendEmailInfo;
+import intecbrussel.yemencoffee_webshop.repositories.implementation.EmailImpl;
 import intecbrussel.yemencoffee_webshop.services.*;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.AdminServiceImpl;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.ProductServiceImpl;
+import intecbrussel.yemencoffee_webshop.services.ImplementationServices.SendEmailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +18,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @ComponentScan
 public class WebShopConfig {
 
-
-    @Bean
-    @Scope("prototype")
-    public Product product() {
-        return new Product();
-    }
+//
+//    @Bean
+//    @Scope("prototype")
+//    public Product product() {
+//        return new Product();
+//    }
 
     @Bean
     @Scope("prototype")
@@ -44,8 +45,9 @@ public class WebShopConfig {
     }
 
     @Bean
-    public SendEmail sendEmail(){
-        return new EmailImpl();
+    @Scope("prototype")
+   public SendEmailInfo sendEmailInfo(){
+        return new SendEmailInfo();
     }
 
     @Bean
@@ -63,4 +65,8 @@ public class WebShopConfig {
 //    }
 
 
+    @Bean
+    public SendEmailService sendEmailService(){
+        return new SendEmailServiceImpl();
+    }
 }

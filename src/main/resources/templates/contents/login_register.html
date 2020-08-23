@@ -48,7 +48,7 @@
 					<!--Login Form-->
 					<div class="col-md-4 text-left">
 						<form  th:action="@{/login_form}" th:object="${user}" method="post" >
-							<p th:if="${invalidError}"class="error">email and password is wrong</p>
+							<p th:if="${session.invalidError}"class="error">username or password is wrong</p>
 						<div class="md-form mb-0">
 							<label for="email_login" class="">Your Email</label>
 							<input type="text" id="email_login"  name="email" class="form-control">

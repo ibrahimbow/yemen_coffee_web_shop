@@ -11,31 +11,25 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "cart_Number")
-    private String cartUniNumber;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    private CartItems cartItems;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItems> cartItemsList = new ArrayList<>();
+
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private CartItems cartItems;
-
-    @OneToMany
-    private List<Customer> customersList = new ArrayList<>();
+    private Customer customer;
 
 
-    public Cart(CartItems cartItems) {
-        this.cartItems = cartItems;
-    }
+//    @OneToMany
+//    private List<Customer> customersList = new ArrayList<>();
+
 
     public Cart() {
 
     }
 
-    public String getCartUniNumber() {
-        return cartUniNumber;
-    }
-
-    public void setCartUniNumber(String cartUniNumber) {
-        this.cartUniNumber = cartUniNumber;
-    }
 
     public Long getId() {
         return id;
@@ -45,30 +39,28 @@ public class Cart {
         this.id = id;
     }
 
-    public CartItems getCartItems() {
-        return cartItems;
+    public List<CartItems> getCartItemsList() {
+        return cartItemsList;
     }
 
-    public void setCartItems(CartItems cartItems) {
-        this.cartItems = cartItems;
+    public void setCartItemsList(List<CartItems> cartItemsList) {
+        this.cartItemsList = cartItemsList;
     }
 
-    public List<Customer> getCustomersList() {
-        return customersList;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomersList(List<Customer> customersList) {
-        this.customersList = customersList;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
-
 
     @Override
     public String toString() {
         return "Cart{" +
                 "id=" + id +
-                ", cartUniNumber='" + cartUniNumber + '\'' +
-                ", cartItems=" + cartItems +
-                ", customersList=" + customersList +
+                ", cartItemsList=" + cartItemsList +
+                ", customer=" + customer +
                 '}';
     }
 }

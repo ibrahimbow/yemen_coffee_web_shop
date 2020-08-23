@@ -44,8 +44,11 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orderList = new ArrayList<>();
 
-    @OneToOne
-    private Cart cart;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> cartList = new ArrayList<>();
+
+//    @OneToOne
+//    private Cart cart;
 
 
     //constructor
@@ -145,12 +148,12 @@ public class Customer {
         this.orderList = orderList;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<Cart> getCartList() {
+        return cartList;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 
     @Override
@@ -167,6 +170,7 @@ public class Customer {
         return Objects.hash(id, email);
     }
 
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -181,7 +185,7 @@ public class Customer {
                 ", zipcode=" + zipcode +
                 ", payment_id=" + payment_id +
                 ", orderList=" + orderList +
-                ", cart=" + cart +
+                ", cartList=" + cartList +
                 '}';
     }
 }

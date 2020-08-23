@@ -5,6 +5,7 @@ import intecbrussel.yemencoffee_webshop.repositories.CustomerRepo;
 import intecbrussel.yemencoffee_webshop.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,7 +14,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
 

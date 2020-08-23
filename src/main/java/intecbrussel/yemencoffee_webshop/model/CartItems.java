@@ -13,8 +13,12 @@ public class CartItems {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="CART_ID")
+
+//    @ManyToOne
+//    @JoinColumn(name="CART_ID")
+//    private Cart cart;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private Cart cart;
 
     @ManyToOne
@@ -35,8 +39,7 @@ public class CartItems {
         this.cart = cart;
     }
 
-    public CartItems(Cart cart, Product product, int quantity) {
-        this.cart = cart;
+    public CartItems(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }

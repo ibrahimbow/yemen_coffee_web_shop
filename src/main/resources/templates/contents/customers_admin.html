@@ -51,36 +51,39 @@
 
 
 
-<!--	<table border="1" class = "table table-striped table-responsive-md">-->
-<!--		<thead>-->
-<!--		<tr>-->
-<!--			<th>-->
+	<table border="1" class = "table table-striped table-responsive-md">
+		<thead>
+		<tr>
+			<th>
 
-<!--				Coffee Name-->
-<!--			</th>-->
-<!--			<th>-->
+				Coffee Name
+			</th>
+			<th>
 
-<!--				Description-->
-<!--			</th>-->
-<!--			<th>-->
+				Description
+			</th>
+			<th>
 
-<!--				Price-->
-<!--			</th>-->
-<!--			<th> Actions </th>-->
-<!--		</tr>-->
-<!--		</thead>-->
-<!--		<tbody>-->
-<!--		<tr th:each="product_admin: ${admin_ProductList}">-->
-<!--			<td th:text="${product_admin.getProduct_name()}"></td>-->
-<!--			<td th:text="${product_admin.getProduct_description()}"></td>-->
-<!--			<td th:text="${product_admin.getPrice()}"></td>-->
-<!--			<td> <a th:href="@{/showFormForUpdate/{id}(id=${product_admin.id})}" class="btn btn-primary">Update</a>-->
-<!--				<a th:href="@{/deleteEmployee/{id}(id=${product_admin.id})}" class="btn btn-danger">Delete</a>-->
-<!--			</td>-->
-<!--		</tr>-->
-<!--		</tbody>-->
-<!--		<a th:href="@{/addNewProductForm}" class="btn btn-primary">Add</a>-->
-<!--	</table>-->
+				Price
+			</th>
+			<th> Actions </th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="customer_admin: ${admin_customers_list}">
+			<td th:text="${customer_admin.full_name}"></td>
+			<td th:text="${customer_admin.email}"></td>
+			<td th:text="${customer_admin.address}"></td>
+			<td th:text="${customer_admin.country}"></td>
+			<td th:text="${customer_admin.city}"></td>
+			<td th:text="${customer_admin.zipcode}"></td>
+			<td> <a th:href="@{/showFormForUpdate/{id}(id=${customer_admin.id})}" class="btn btn-primary">Update</a>
+				<a th:href="@{/delete_customer/{id}(id=${customer_admin.id})}" class="btn btn-danger">Delete</a>
+			</td>
+		</tr>
+		</tbody>
+		<a th:href="@{/addNewProductForm}" class="btn btn-primary">Add</a>
+	</table>
 
 
 

@@ -2,6 +2,7 @@ package intecbrussel.yemencoffee_webshop;
 
 import intecbrussel.yemencoffee_webshop.controller.MainController;
 
+import intecbrussel.yemencoffee_webshop.repositories.implementation.EmailImpl;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.CustomerServiceImpl;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.AdminServiceImpl;
 import org.springframework.boot.SpringApplication;

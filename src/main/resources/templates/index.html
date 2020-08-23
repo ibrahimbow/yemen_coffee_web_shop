@@ -25,13 +25,18 @@
 					<form th:action="@{/logout}">
 					<h6 class="text-left"> Welcome :
 						<h6> <span sec:authentication="principal.name" ></span></h6>
-						<h6 class="card-title" th:text="${session.welcome_user_name}"> ></h6> </h6>
+
+							<a th:href="@{/customer_cms}">
+						<h6 class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''"></h6>
+
+							</a>
+					</h6>
 						<input type="submit" value="Logout">
 					</form>
 				</div>
 				<div class="navbar-nav" style="position: fixed"></div>
 
-				<a th:href="@{/register_form}" class="nav-item navlink active">
+				<a th:href="@{/account}" class="nav-item navlink active">
 					<h6 class="px-5 cart">Account</h6></a>
 
 <!--				<a th:href = "@{/showAdminProducts}" class="btn btn-primary btn-sm mb-3"> Add New Product </a>-->
@@ -39,8 +44,10 @@
 				<a href="#" class="nav-item navlink active">
 					<h6 class="px-5 cart">
 						<a th:href="@{/cart_items}">
+<!--							<a th:href = "@{/cart_items/{id}(id=${session.welcome_user.id})}" >-->
 						<i class="fas fa-shopping-cart"></i> Cart
 						<span id="cart_count" th:text="${session.cartItems_quantity}">0</span>
+						</a>
 					</h6>
 				</a>
 			</div>
