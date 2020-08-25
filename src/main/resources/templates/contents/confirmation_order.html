@@ -31,7 +31,7 @@
 			<div class="navbar-nav"></div>
 			<a href="#" class="nav-item navlink active">
 				<h6 class="px-5 cart">Login  |</h6></a>
-			
+				<h6 class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''"></h6>
 			<a href="#" class="nav-item navlink active">
 				<h6 class="px-5 cart">
 					<i class="fas fa-shopping-cart"></i> Cart

@@ -38,13 +38,13 @@ public class Customer {
     private int zipcode;
 
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", orphanRemoval = true)
     private List<Payment> payment_id = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer",orphanRemoval = true)
     private List<Order> orderList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer",  orphanRemoval = true)
     private List<Cart> cartList = new ArrayList<>();
 
 //    @OneToOne

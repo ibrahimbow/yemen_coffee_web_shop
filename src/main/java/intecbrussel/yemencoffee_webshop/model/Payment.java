@@ -27,7 +27,7 @@ public class Payment {
     @Column(name = "cvv")
     private int cvv;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Customer customer;
 
 

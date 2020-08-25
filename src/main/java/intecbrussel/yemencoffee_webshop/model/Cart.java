@@ -14,11 +14,11 @@ public class Cart {
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    private CartItems cartItems;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cart", orphanRemoval = true)
     private List<CartItems> cartItemsList = new ArrayList<>();
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Customer customer;
 
 

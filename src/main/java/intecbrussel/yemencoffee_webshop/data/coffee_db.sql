@@ -13,7 +13,7 @@ create table administrators
 );
 -- insert the admin info to be able to use CMS
 Insert into administrators ( admin_email, admin_fullname, admin_password, admin_username)
-values ( 'bart@b.com ','bart','bart','bart');
+values ( 'bart@b.com ','bbg','bbg','bbg');
 
 create table cart_items
 (
