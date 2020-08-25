@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
@@ -66,6 +67,7 @@ public class WebShopConfig {
 
 
     @Bean
+    @Scope("prototype")
     public SendEmailService sendEmailService(){
         return new SendEmailServiceImpl();
     }

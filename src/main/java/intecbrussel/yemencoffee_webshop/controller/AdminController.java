@@ -4,6 +4,8 @@ import intecbrussel.yemencoffee_webshop.model.Administrator;
 import intecbrussel.yemencoffee_webshop.model.Product;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@ComponentScan
 public class AdminController {
 
     private ProductServiceImpl productService;
@@ -143,7 +146,7 @@ public class AdminController {
     //===========Admin Login =====================
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String ViewAdminLogin(){
+    public String viewAdminLogin(){
         return "contents/login_admin";
     }
 
@@ -156,11 +159,14 @@ public class AdminController {
         String adminName = administrator.getAdmin_username();
         String password = administrator.getAdmin_password();
 
+        System.out.println(adminName + "  0 " + password);
+
         if(adminService.checkingLogin(adminName,password)!=null) {
             // this way to get the name of the user who logged in
             String name = adminService.checkingLogin(adminName,password).getAdmin_fullName();
-            model.addAttribute("admin_name", name);
-            session.setAttribute("admin_name", name);
+            System.out.println(adminName + "  0 " + password);
+//            model.addAttribute("admin_name", name);
+//            session.setAttribute("admin_name", name);
             return "contents/administrator";
         }
         model.addAttribute("invalidError", true);

@@ -80,12 +80,6 @@ public class MainController {
         this.sendEmailServiceImpl = sendEmailServiceImpl;
     }
 
-
-
-
-//    private final List<CartItems> cartItemsList = new ArrayList<>();
-
-
     //Display the products
     @GetMapping("/")
     public String viewProducts(Model model, HttpSession session){

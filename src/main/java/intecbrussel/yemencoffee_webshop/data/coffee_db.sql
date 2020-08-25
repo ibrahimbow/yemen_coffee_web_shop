@@ -15,6 +15,9 @@ create table administrators
 Insert into administrators ( admin_email, admin_fullname, admin_password, admin_username)
 values ( 'bart@b.com ','bbg','bbg','bbg');
 
+
+Insert into administrators ( admin_email, admin_fullname, admin_password, admin_username)
+values ( 'bbg@b.com ','bbg','bbg','ibrahim');
 create table cart_items
 (
     id int auto_increment
