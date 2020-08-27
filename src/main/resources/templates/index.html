@@ -11,152 +11,358 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
 	<!-- bootstrap CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!--For Plugins css-->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<link rel="stylesheet" th:href="@{/css/sina-nav.css}">
 
+	<script>
+		setInterval("my_function();", 1000);
+
+		function my_function() {
+			$('#refresh').load(location.href + ' #current_items');
+		}
+	</script>
+
+
+	<style type="text/css">
+		.nav-container{
+			min-height: 124px;
+		}
+		.sina-nav{
+			top: 40px;
+			position: absolute;
+		}
+		/*.sina-nav.navbar-transparent{*/
+		/*	background: rgba(255, 255, 255, 0.2);*/
+		/*}*/
+	</style>
 	<script id="applicationScript" type="text/javascript" th:src="@{/js/index.js}"></script>
 </head>
 <body>
-<div class="topheader">
-	<div class="topnav">
+<div class="nav-container">
+	<nav class="sina-nav mobile-sidebar navbar-fixed" data-top="0">
+		<div class="container">
+			<div class="extension-nav">
+				<ul>
+					<li class="dropdown">
+<!--						<form th:action="@{/logout}">-->
+						<a th:href="@{/account}">
+							<i class="fa fa-user"> Account</i></a>
+<!--						<span sec:authentication="principal.name" ></span></h6>-->
+<!--						<h6 class="text-center"> Welcome :<h6 class="card-title" th:text="${session.welcome_user_name}" ></h6>-->
 
-		<nav class="navbar navbar-expand-lg navbar-dark ">
+<!--							<input type="submit" value="Logout">-->
+<!--						</form>-->
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+							<i class="fa fa-shopping-bag"></i>
+							<span class="shop-badge" th:text="${session.cartItems_quantity}"></span>
 
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="mr-auto">
-					<form th:action="@{/logout}">
-					<h6 class="text-left"> Welcome :
-						<h6> <span sec:authentication="principal.name" ></span></h6>
-
-							<a th:href="@{/customer_cms}">
-						<h6 class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''"></h6>
-
-							</a>
-					</h6>
-						<input type="submit" value="Logout">
-					</form>
-				</div>
-				<div class="navbar-nav" style="position: fixed"></div>
-
-				<a th:href="@{/account}" class="nav-item navlink active">
-					<h6 class="px-5 cart">Account</h6></a>
-
-<!--				<a th:href = "@{/showAdminProducts}" class="btn btn-primary btn-sm mb-3"> Add New Product </a>-->
-
-				<a href="#" class="nav-item navlink active">
-					<h6 class="px-5 cart">
-						<a th:href="@{/cart_items}">
-<!--							<a th:href = "@{/cart_items/{id}(id=${session.welcome_user.id})}" >-->
-						<i class="fas fa-shopping-cart"></i> Cart
-						<span id="cart_count" th:text="${session.cartItems_quantity}">0</span>
+<!--							<span class="shop-badge" >0</span>-->
 						</a>
-					</h6>
-				</a>
+						<!-- Show itemsShoppingCart -->
+						<ul class="dropdown-menu shop-menu">
+							<li  th:each="cartItems: ${session.list_cart_items}">
+										<a href="#" class="shop-item-photo">
+											<img src="#" alt="" />
+										</a>
+											<p><a  th:text="${cartItems.getProduct().product_name}"></a>
+												<input class="product-quantity" type="hidden" value="1" min="1" th:value="${cartItems.getQuantity()}">
+												<span class="shop-item-price" th:text="${cartItems.getProduct().getPrice()}"></span></p>
+								<div  class="product-line-price" th:text="${cartItems.getProduct().getPrice() * cartItems.getQuantity()}">
+								</div>
+							</li>
+
+							<li>
+								<div class="totals">
+									<div class="totals-item">
+										<label>Subtotal</label>
+										<div class="totals-value" id="cart-subtotal">00</div>
+									</div>
+									<div class="totals-item">
+										<label>Tax (5%)</label>
+										<div class="totals-value" id="cart-tax">00</div>
+									</div>
+									<div class="totals-item">
+										<label>Shipping</label>
+										<div class="totals-value" id="cart-shipping">15.00</div>
+									</div>
+									<div class="totals-item totals-item-total">
+										<label>Grand Total</label>
+										<div class="totals-value" id="cart-total">00</div>
+									</div>
+								</div>
+
+							</li>
+
+							<li class="shop-total-price">
+								<a th:href="@{/cart_items}" class="shop-btn">Cart</a>
+								<span>Total:<span class="shop-total-price"  th:text="${session.total_of_products_price}"></span></span>
+							</li>
+						</ul>
+				</ul>
 			</div>
+			<!-- .extension-nav -->
+			<div class="sina-nav-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+					<i class="fa fa-bars"></i>
+				</button>
+				<a class="sina-brand" href="#">
+					<h2>
+						JAVA KAWAH
+					</h2>
+					<p>Drink the best Quality</p>
+				</a>
+			</div><!-- .sina-nav-header -->
 
-		</nav>
-
-	</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<ul class="sina-menu" data-in="fadeInLeft" data-out="fadeInOut">
+					<li><a href="#home">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#shopping_now">Shopping Now</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- .container -->
+	</nav>
 </div>
 
 <header id="showcase">
 	<div class="mainheader">
 
 		<div class="logo">
-			<img th:src="@{/images/logox2.png}">
+			<!-- <img th:src="@{/images/logox2.png}"> -->
 		</div>
 
-		<div class="mainnav">
-			<nav>
-				<ul class="nav__links">
-					<li><a href="index.html"> HOME </a></li>
-					<li><a href="contents/aboutus.html">ABOUTUS</a> </li>
-					<li><a href="contents/contactus.html">CONTACTUS</a> </li>
-				</ul>
-			</nav>
-		</div>
 	</div>
-
 </header>
 
-
-
-
 <div class="container">
-	<div class="row text-center ">
-		<div class="col my-3 my-md-10">
-			<span class="title">Shopping Now</span>
-			</br>
-		</div>
-	</div>
-</div>
-
-<div class="container">
-	<div class="row text-center ">
-		<!-- first row -->
-		<table th:border="1">
-			<tbody >
-			<tr style="color:palevioletred; text-align: center" th:each="product: ${session.productList}">
-				<div class="col-md-3 col-sm-8 my-3 my-md-10">
-					<form th:action="@{/add_to_cart}"  method="get">
-						<div class="card show">
-							<div>
-<!--								<input type="hidden" th:field="${product.getId()}" placeholder="Product Name" class="form-control mb-4 col-4">-->
-
-								<img alt="image" class="img-fluid card-img-top "
-									 th:src="@{/images/YemenCoffee01_c.png}">
-
-							</div>
-
-							<div class="card-body">
-								<h5 class="card-title" th:text="${product.getProduct_name()}"></h5>
-								<h6>
-									<i class="fas fa-star"></i>
-									<i class="fas fa-star"></i>
-									<i class="fas fa-star"></i>
-									<i class="far fa-star"></i>
-								</h6>
-								<p class="card-text">
-								<h5 class="card-title" th:text="${product.product_description}"></h5>
-
-								</p>
-								<h5>
-									<span class="price" th:text="${product.getPrice()}"></span>
-								</h5>
-
-								<div>
-
-									<input type="number" id="coffee_amount" class="input_quantity my-3" value="1" />
-<!--									<p th:if="${invalidError}"class="error">Already Exists in cart Items</p>-->
-									<a th:href="@{/add_to_cart/{id}(id=${product.getId()})}" >Add to Cart <i class="fas fa-shopping-cart"></i></a>
-<!--									<button type="submit" class=" btn button btn-warning my-3" th:text="${product.id}" name="add">Add to Cart <i class="fas fa-shopping-cart"></i>	</button>-->
-								</div>
-							</div>
+	<div class="row">
+		<div class="col-6 col-lg-12">
+				<!--ShoppingNow-->
+				<div id="shopping_now">
+					<div class="container">
+					<div class="row text-center ">
+						<div class="col my-3 my-md-10">
+							<span class="title">Shopping Now</span>
+							</br>
 						</div>
-					</form>
+					</div>
 				</div>
-			</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
 
-<hr  style="width: 80%; color: aquamarine;">
-</br>
-<div class="container">
-	<div class="row text-center ">
-		<div class="col-md-7 col-sm-8 my-30 my-md-50">
-			<h6 class="title">History of the Coffee</h6>
-			<h5>
-				History records Sufi monasteries on the southern tip of the Arabian Peninsula processing Yemen coffee over 500 years ago. The Yemen farmers to advantage of the unique terrain of their country, which has conditions of climate and environment which were not considered ideal growing conditions for other plants. For 200 years, Yemen was the only source of coffee. Originally the primary mode of travel was by camel, but later, this Arabic Coffee was named after the Mokha Port which is on the coast of the Red Sea, from which these were eventually shipped. By 1650, coffee became popular in Europe, spawning the beginning of coffee shop and café businesses.
-			</h5>
-			</br>
-		</div>
-		<div class="col-md-3 col-sm-8 my-30 my-md-40">
-			</br>
-			<img th:src="@{/images/Mocha_Dapper_1680.png}" alt="image ">
-		</div>
 
+
+				<div class="container">
+					<div class="row text-center ">
+						<!-- first row -->
+						<table th:border="1">
+							<tbody >
+							<tr style="color:palevioletred; text-align: center" th:each="product: ${session.productList}">
+								<div class="col-md-3 col-sm-8 my-3 my-md-10">
+									<form th:action="@{/add_to_cart}"  method="get">
+										<div class="card show">
+											<div>
+												<!--								<input type="hidden" th:field="${product.getId()}" placeholder="Product Name" class="form-control mb-4 col-4">-->
+
+												<img alt="image" class="img-fluid card-img-top "
+													 th:src="@{/images/YemenCoffee01_c.png}">
+
+											</div>
+
+											<div class="card-body">
+												<h5 class="card-title" th:text="${product.getProduct_name()}"></h5>
+												<h6>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="far fa-star"></i>
+												</h6>
+												<p class="card-text">
+												<h5 class="card-title" th:text="${product.product_description}"></h5>
+
+												</p>
+												<h5>
+													<span class="price" th:text="${product.getPrice()}"></span>
+												</h5>
+
+												<div>
+
+													<input type="number" min="1" id="coffee_amount" class="input_quantity my-3" value="1" />
+													<a th:href="@{/add_to_cart/{id}(id=${product.getId()})}"  class=" btn button btn-warning my-3">Add to Cart <i class="fas fa-shopping-cart"></i></a>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+			</div>
+				<!--home-->
+				<div id="home">
+					<hr  style="width: 80%; color: aquamarine;">
+					</br>
+					<div class="container">
+					<div class="row text-center ">
+						<div class="col-md-7 col-sm-8 my-30 my-md-50">
+							<h6 class="title">History of the Coffee</h6>
+							<h5>
+								History records that Yemen was processing the Yemen coffee over 500 years ago. The Yemen farmers to advantage of the unique terrain of their country, which has conditions of climate and environment which were not considered ideal growing conditions for other plants. For 200 years, Yemen was the only source of coffee. Originally the primary mode of travel was by camel, but later, this Arabic Coffee was named after the Mokha Port which is on the coast of the Red Sea, from which these were eventually shipped. By 1650, coffee became popular in Europe, spawning the beginning of coffee shop and café businesses.
+							</h5>
+							</br>
+						</div>
+						<div class="col-md-3 col-sm-8 my-30 my-md-40">
+							</br>
+							<img th:src="@{/images/Mocha_Dapper_1680.png}" alt="image ">
+						</div>
+
+					</div>
+				</div>
+				</div>
+				<br>
+				<hr>
+				<br>
+				<!--aboutus-->
+				<div id="about">
+					<h2 class="h1-responsive font-weight-bold text-center my-4">About us</h2>
+					<div >
+						<!-- <img th:src="@{/images/coffee.png}"> -->
+						<span>We are entrepreneurs from Yemen looking to share the taste of Yemeni coffee with the whole world. We want the world to taste the origins of coffee and understand how it came to be. The birthplace of coffee and its first-ever global supply came from Yemen. This is the story that we were always told as children—and ever since then—we have dreamed of Yemen regaining back its crown and dominating the global supply of coffee. It has become of utmost importance, especially in recent years, as Yemen has become one of the world’s poorest countries. Over half of Yemen’s population live under the poverty line, but we believe coffee can change that! Just like it changed the social norms of the world as we know it and continues to shape up our social lives to this very day. That is why we want to play our role in restoring Yemen’s global position in coffee supply and help its economy, all while educating, rebuilding, and improving the lives of farmers and the people of Yemen</span>
+					</div>
+					<div>
+						<!--						<img th:src="@{/images/farmer.png}">-->
+						<span>“We aim to help improve the lives of Yemeni farmers by sharing the exquisite taste of the history and heritage of Yemeni coffee and bring back the lost legend of the world’s arguably once tastiest coffee.”<br/><br/>“At Coffee Senses, we will strive to create a better future by re-educating, rebuilding, and restoring the coffee culture in Yemen. We are determined to achieve that by sharing the vision of our farmers with the world to help better their lives and bring back Yemeni coffee to its prime of dominating the coffee industry and regaining its position as the most consumed coffee in the world.”</span><br>
+						<img th:src="@{/images/yemen01.png}">
+						<img th:src="@{/images/valy.png}">
+
+					</div>
+				</div>
+				<br>
+				<hr>
+				<br>
+				<!--contuctus-->
+				<div id="contact">
+					<div class="container">
+						<!--Section: Contact v.2-->
+						<section class="mb-4">
+							<!--Section heading-->
+							<h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+							<!--Section description-->
+							<p class="text-center w-responsive mx-auto text-center mb-5">Do you have any questions? Please do not hesitate to contact us directly.
+								Our team will come back to you within a matter of hours to help you.</p>
+
+							<div class="row">
+
+								<!--Grid column-->
+								<div class="col-md-9 mb-md-0 mb-5">
+									<form id="contact-form" name="contact-form" action=" " method="POST">
+
+										<!--Grid row-->
+										<div class="row">
+
+											<!--Grid column-->
+											<div class="col-md-6">
+												<div class="md-form mb-0">
+													<label for="name" class="">Your name</label>
+													<input type="text" id="name" name="name" class="form-control">
+
+												</div>
+											</div>
+											<!--Grid column-->
+
+											<!--Grid column-->
+											<div class="col-md-6">
+												<div class="md-form mb-0">
+													<label for="email" class="">Your email</label>
+													<input type="text" id="email" name="email" class="form-control">
+
+												</div>
+											</div>
+											<!--Grid column-->
+
+										</div>
+										<!--Grid row-->
+										<div class="row">
+											<div class="col-md-12">
+												<div class="md-form mb-0">
+													<label for="subject" class="">Subject</label>
+													<input type="text" id="subject" name="subject" class="form-control">
+
+												</div>
+											</div>
+										</div>
+										<!--Grid row-->
+										<div class="row">
+
+											<!--Grid column-->
+											<div class="col-md-12">
+
+												<div class="md-form">
+													<label for="message">Your message</label>
+													<textarea type="text" id="message" name="message" rows="6" class="form-control md-textarea"></textarea>
+
+												</div>
+
+											</div>
+										</div>
+										<!--Grid row-->
+
+
+										</br>
+										<div class="text-center text-md-right">
+											<a class="btn btn-primary"  style="color: white" onclick="document.getElementById('contact-form').submit();">
+												Send  <i class="far fa-paper-plane"></i>
+												</a>
+										</div>
+										<div class="status"></div>
+									</form>
+								</div>
+
+								<!--Grid column-->
+
+								<!--Grid column-->
+								</br>
+								<div class="col-md-3 text-center ">
+									<ul class="list-unstyled mb-0" style="color: black;">
+										<li style="color: black;"><i class="fas fa-map-marker-alt fa-2x"></i>
+											<p>Sana'a,YEMEN</p>
+										</li>
+
+										<li style="color: black;"><i class="fas fa-phone mt-4 fa-2x"></i>
+											<p>+ 00 000 00 0000</p>
+										</li>
+
+										<li style="color: black;"><i class="fas fa-envelope mt-4 fa-2x"></i>
+											<p style="color: black;">javakawah@yemencoffe.com</p>
+										</li>
+									</ul>
+								</div>
+								<!--Grid column-->
+
+							</div>
+
+						</section>
+						<!--Section: Contact v.2-->
+
+					</div>
+
+				</div>
+				<br>
+			</div>
+		</div>
 	</div>
-</div>
+
+	<hr  style="width: 80%; color: aquamarine;">
+	</br>
+
 </div>
 
 
@@ -166,25 +372,28 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-md-3 col-sm-6 col-xs-12 segment-one">
+				<div class="col-md-3 logo">
 					<div class="logo text-center">
 						<img th:src="@{/images/logox2.png}">
 					</div>
 				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 segment-two">
-					<ul style="color: white">
-						<li><a href="index.html"> HOME </a></li>
-						<li><a href="contents/aboutus.html">ABOUTUS</a> </li>
-						<li><a href="contents/contactus.html">CONTACTUS</a> </li>
+				<div class="links">
+					<ul class="links">
+						<li><a href="#home">Home</a></li>
+						<li><a  href="#about">About</a></li>
+						<li><a  href="#shopping_now">Shopping Now</a></li>
+						<li><a  href="#contact">Contact</a></li>
 					</ul>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 segment-three">
-					<form action="">
+				</div><!-- /.navbar-collapse -->
+				<div class="col-md-4 subscribe ">
+					<form action="#">
+
+						<input id="subscribe1" type="submit" class="btn_email" value="subscribe">
 						<input type="email">
-						<input type="submit" value="subscribe">
+
 					</form>
 				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 segment-four">
+				<div class="col-md-3">
 					<a href="#"><i class="fab fa-facebook"></i></a>
 					<a href="#"><i class="fab fa-twitter"></i></a>
 					<a href="#"><i class="fab fa-linkedin"></i></a>
@@ -202,6 +411,22 @@
 	</div>
 
 </footer>
+
+
+<!-- JS files -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/sina-nav.js}"></script>
+
+<!-- For All Plug-in Activation & Others -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		// WOW animation initialize
+		new WOW().init();
+	});
+</script>
+
 <!-- script bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

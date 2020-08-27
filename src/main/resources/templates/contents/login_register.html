@@ -11,26 +11,104 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css">
 	<!-- bootstrap CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!--For Plugins css-->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<link rel="stylesheet" th:href="@{/css/sina-nav.css}">
 
 	<script id="applicationScript" type="text/javascript" src="contents\js/index.js"></script>
 </head>
 <body>
 <header>
-<div class="mainheader" style="background: black">
-	<div class="logo">
-		<img th:src="@{/static/images/logox2.png}">
-	</div>
+	<div class="nav-container">
+		<nav class="sina-nav mobile-sidebar navbar-fixed" data-top="0">
+			<div class="container">
+				<div class="extension-nav">
+					<ul>
+						<li class="dropdown">
+							<!--						<form th:action="@{/logout}">-->
+							<a th:href="@{/account}">
+								<i class="fa fa-user"> Account</i></a>
 
-	<div class="mainnav" >
-		<nav>
-			<ul class="nav__links">
-				<li><a href="../index.html"> HOME </a></li>
-				<li><a href="aboutus.html">ABOUTUS</a> </li>
-				<li><a href="contactus.html">CONTACTUS</a> </li>
-			</ul>
+
+							<!--							<input type="submit" value="Logout">-->
+							<!--						</form>-->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+								<i class="fa fa-shopping-bag"></i>
+								<span class="shop-badge" th:text="${session.cartItems_quantity}"></span>
+
+								<!--							<span class="shop-badge" >0</span>-->
+							</a>
+							<!-- Show itemsShoppingCart -->
+							<ul class="dropdown-menu shop-menu">
+								<li  th:each="cartItems: ${session.list_cart_items}">
+									<a href="#" class="shop-item-photo">
+										<img src="#" alt="" />
+									</a>
+									<p><a  th:text="${cartItems.getProduct().product_name}"></a>
+										<input class="product-quantity" type="hidden" value="1" min="1" th:value="${cartItems.getQuantity()}">
+										<span class="shop-item-price" th:text="${cartItems.getProduct().getPrice()}"></span></p>
+									<div  class="product-line-price" th:text="${cartItems.getProduct().getPrice() * cartItems.getQuantity()}">
+									</div>
+								</li>
+
+								<li>
+									<div class="totals">
+										<div class="totals-item">
+											<label>Subtotal</label>
+											<div class="totals-value" id="cart-subtotal">00</div>
+										</div>
+										<div class="totals-item">
+											<label>Tax (5%)</label>
+											<div class="totals-value" id="cart-tax">00</div>
+										</div>
+										<div class="totals-item">
+											<label>Shipping</label>
+											<div class="totals-value" id="cart-shipping">15.00</div>
+										</div>
+										<div class="totals-item totals-item-total">
+											<label>Grand Total</label>
+											<div class="totals-value" id="cart-total">00</div>
+										</div>
+									</div>
+
+								</li>
+
+								<li class="shop-total-price">
+									<a th:href="@{/cart_items}" class="shop-btn">Cart</a>
+									<span>Total:<span class="shop-total-price"  th:text="${session.total_of_products_price}"></span></span>
+								</li>
+							</ul>
+					</ul>
+				</div>
+				<!-- .extension-nav -->
+				<div class="sina-nav-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+						<i class="fa fa-bars"></i>
+					</button>
+					<a class="sina-brand" href="#">
+						<h2>
+							JAVA KAWAH
+						</h2>
+						<p>Drink the best Quality</p>
+					</a>
+				</div><!-- .sina-nav-header -->
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="navbar-menu">
+					<ul class="sina-menu" data-in="fadeInLeft" data-out="fadeInOut">
+						<li><a th:href = "@{/}" href="#home">Home</a></li>
+						<li><a th:href = "@{/}" href="#about">About</a></li>
+						<li><a th:href = "@{/}" href="#shopping_now">Shopping Now</a></li>
+						<li><a th:href = "@{/}" href="#contact">Contact</a></li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- .container -->
 		</nav>
 	</div>
-</div>
+
 </header>
 
 
@@ -60,8 +138,9 @@
 
 						</br>
 						<div class="text-center text-md-right">
-							<button type="submit" class="btn btn-info col-2"> Login</button>
+							<button type="submit" class="btn btn-primary col-xl-12"> Login</button>
 						</div>
+
 						</form>
 					</div>
 					<!--Grid column-->
@@ -80,8 +159,10 @@
 								<input type="text" id="email" th:field="*{email}" class="form-control">
 							</div>
 							<div class="col-md-20">
-								<label for="password" class="">Your password</label>
-								<input type="password" id="password" th:field="*{password}" class="form-control">
+								<label for="password1" class="">Your password</label>
+								<input type="text" id="password1" th:field="*{password}" class="form-control">
+								<label for="password2" class="">Reconfirm Your password</label>
+								<input type="text" id="password2" th:field="*{password}" class="form-control">
 							</div>
 					<!--Address-->
 							<br>
@@ -105,25 +186,34 @@
 								<label for="country" class="">Country</label>
 								<input type="text" id="country" th:field="*{country}" class="form-control">
 							</div>
-
+							<br>
 							<div class="text-center text-md-right">
-								<button type="submit" class="btn btn-info col-4"> Sign up</button>
-<!--							<a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Login</a>-->
-						</div>
+								<button type="submit" class="btn btn-primary col-xl-12"> Sign up</button>
+							</div>
+
 						</form>
 					</div>
 				</div>
 		</div>
 	</div>
 </div>
+<br>
+<br>
+<br>
 
-<section>
+<!-- JS files -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/sina-nav.js}"></script>
 
-	<span> copyright</span>
-</section>
-<br>
-<br>
-<br>
+<!-- For All Plug-in Activation & Others -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		// WOW animation initialize
+		new WOW().init();
+	});
+</script>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

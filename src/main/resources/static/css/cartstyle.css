@@ -70,15 +70,17 @@ label {
 
 /* Column headers */
 .column-labels {
-  label {
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid $color-border;
-  }
-  
-  .product-image, .product-details, .product-removal {
-    text-indent: -9999px;
-  }
+
+label {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid $ color-border;
+}
+
+.product-image, .product-details, .product-removal {
+  text-indent: -9999px;
+}
+
 }
 
 
@@ -90,10 +92,12 @@ label {
   
   .product-image {
     text-align: center;
-    img {
-      width: 100px;
-    }
-  }
+
+img {
+  width: 100px;
+}
+
+
   
   .product-details {
     .product-title {
@@ -116,7 +120,7 @@ label {
   .remove-product {
     border: 0;
     padding: 4px 8px;
-    background-color: #c66;
+    background-color: #b10000;
     color: #fff;
     font-family: $font-bold;
     font-size: 12px;
@@ -124,7 +128,7 @@ label {
   }
   
   .remove-product:hover {
-    background-color: #a44;
+    background-color: #340101;
   }
 }
 
@@ -168,7 +172,7 @@ label {
 }
 
 .checkout:hover {
-  background-color: #494;
+  background-color: rgba(46, 59, 208, 0.93);
 }
 
 /* Make adjustments for tablet */

@@ -30,24 +30,40 @@ public class CartController {
     public String addToCart(@PathVariable( value = "id") Long id,
                             ModelMap modelMap,
                             HttpSession session){
-
+        int quantity = 1;
+        List<CartItems> cartItemsList = null;
         if(session.getAttribute("add_to_cart_items")==null){
-            List<CartItems> cartItemsList = new ArrayList<>();
-            cartItemsList.add(new CartItems(productService.getProductById(id),1));
+            cartItemsList = new ArrayList<>();
+            cartItemsList.add(new CartItems(productService.getProductById(id),quantity));
             session.setAttribute("add_to_cart_items",cartItemsList);
             session.setAttribute("cartItems_quantity",cartItemsList.stream().count());
         }else {
-            List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
+            cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
             int index =  isExist(id,cartItemsList);
             if(index ==-1) {
-                cartItemsList.add(new CartItems(productService.getProductById(id),1));
+                cartItemsList.add(new CartItems(productService.getProductById(id),quantity));
                 session.setAttribute("cartItems_quantity",cartItemsList.stream().count());
             }else {
-                int quantity = cartItemsList.get(index).getQuantity() +1;
-                cartItemsList.get(index).setQuantity(quantity);
+                int plusQuantity = cartItemsList.get(index).getQuantity() +1;
+                cartItemsList.get(index).setQuantity(plusQuantity);
                 session.setAttribute("add_to_cart_items",cartItemsList);
             }
         }
+
+//        =================
+        cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
+        session.setAttribute("Total_of_products", cartItemsList.stream().count());
+        session.setAttribute("list_cart_items", cartItemsList);
+        double subtotal = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice()).sum();
+        double tax = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice()).sum() * 0.05;
+        double shipping = 15;
+        double total = subtotal + tax + shipping;
+        session.setAttribute("subtotal_products_price", subtotal);
+        session.setAttribute("tax_products_price", ((Math.abs(tax))));
+        session.setAttribute("shipping_of_products_price", shipping);
+        session.setAttribute("total_of_products_price", total);
+
+//        ================
 
         return "redirect:/";
     }
@@ -81,7 +97,5 @@ public class CartController {
         }
         return "redirect:/cart_items";
     }
-
-
 
 }
