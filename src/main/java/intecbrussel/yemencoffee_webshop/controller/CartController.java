@@ -4,11 +4,12 @@ import intecbrussel.yemencoffee_webshop.model.CartItems;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,11 @@ public class CartController {
 
 
     //============================================-Cart Items section-=================================================
-
     @GetMapping("/add_to_cart/{id}")
     public String addToCart(@PathVariable( value = "id") Long id,
-                            ModelMap modelMap,
+                            @ModelAttribute(name = "quantity_ob") CartItems cartItems,
                             HttpSession session){
-        int quantity = 1;
+        int quantity = cartItems.getQuantity();
         List<CartItems> cartItemsList = null;
         if(session.getAttribute("add_to_cart_items")==null){
             cartItemsList = new ArrayList<>();
@@ -49,7 +49,6 @@ public class CartController {
                 session.setAttribute("add_to_cart_items",cartItemsList);
             }
         }
-
 //        =================
         cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
         session.setAttribute("Total_of_products", cartItemsList.stream().count());
@@ -82,6 +81,7 @@ public class CartController {
     public String viewCartItems(HttpSession session){
         List<CartItems> cartItems = (List<CartItems>) session.getAttribute("add_to_cart_items");
         session.setAttribute("add_to_cart_items",cartItems);
+        session.setAttribute("list_cart_items", cartItems);
         session.getAttribute("welcome_user");
         return "contents/cart";
     }

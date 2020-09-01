@@ -1,17 +1,24 @@
 package intecbrussel.yemencoffee_webshop.controller;
 
+
 import intecbrussel.yemencoffee_webshop.model.CartItems;
 import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.model.Order;
+import intecbrussel.yemencoffee_webshop.services.CartItemsService;
+import intecbrussel.yemencoffee_webshop.services.CartService;
+import intecbrussel.yemencoffee_webshop.services.CustomerOrderService;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 @Controller
 public class CustomerController {
@@ -19,10 +26,28 @@ public class CustomerController {
 
 
     private CustomerServiceImpl customerService;
+    private CartService cartService;
+    private CartItemsService cartItemsService;
+    private CustomerOrderService customerOrderService;
+
+    @Autowired
+    public void setCustomerOrderService(CustomerOrderService customerOrderService) {
+        this.customerOrderService = customerOrderService;
+    }
 
     @Autowired
     public void setCustomerService(CustomerServiceImpl customerService) {
         this.customerService = customerService;
+    }
+
+    @Autowired
+    public void setCartService(CartService cartService) {
+        this.cartService = cartService;
+    }
+
+    @Autowired
+    public void setCartItemsService(CartItemsService cartItemsService) {
+        this.cartItemsService = cartItemsService;
     }
 
     //==========================================================
@@ -50,7 +75,6 @@ public class CustomerController {
             String name = customerService.checkLogin(email,password).getFull_name();
             session.setAttribute("welcome_user_name",name);
             session.setAttribute("welcome_user",customerService.checkLogin(email,password));
-
             return "redirect:/";
         }
         session.setAttribute("invalidError", true);
@@ -112,15 +136,15 @@ public class CustomerController {
 
     @GetMapping("/show_customer_orders/{id}")
     public String showCustomerOrders(@PathVariable (value = "id") Long id, Model model){
-        List<Order> orderList = customerService.getCustomerById(id).getOrderList();
-        List<CartItems> itemsList = new ArrayList<>();
+        if(customerService.getCustomerById(id)!=null) {
 
-        for (int i = 0; i < orderList.get(i).getCart().getCartItemsList().size() ; i++) {
-            itemsList= orderList.get(i).getCart().getCartItemsList();
+            List<Order> orderList = customerService.getCustomerById(id).getOrderList();
+            model.addAttribute("customer_orders", orderList);
+
+            List<CartItems> customerItemsList = customerOrderService.showCustomerItems(id);
+            model.addAttribute("customer_items_list",customerItemsList);
+
         }
-
-        model.addAttribute("customer_orders",orderList);
-        model.addAttribute("items_list",itemsList);
         return "contents/customer_order";
     }
 

@@ -36,22 +36,28 @@ $('a[href*="#"]')
 	});
 
 
+// this function is to hid the list of account if its not logged in yet
+function show_logout(){
+	if(document.getElementById("user_id").value !== "") {
+		// document.getElementById("ok").innerText="show";
+		document.getElementById("logout").style.display='block';
+	}else {
+		// document.getElementById("ok").innerText = "hid";
+		document.getElementById("logout").style.display='none';
+	}
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// this function to hid the point above the cart bag
+function show_cart_items(){
+	if(document.getElementById("quantity_items").value !== "") {
+		document.getElementById("quantity_notification").style.display='block';
+		document.getElementById("cart_items_list").style.display='block';
+	}else {
+		document.getElementById("quantity_notification").style.display='none';
+		document.getElementById("cart_items_list").style.display='none';
+	}
+}
 
 
 

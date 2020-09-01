@@ -1,5 +1,6 @@
 package intecbrussel.yemencoffee_webshop.controller;
 
+import ch.qos.logback.classic.pattern.LineOfCallerConverter;
 import intecbrussel.yemencoffee_webshop.model.*;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,6 +191,7 @@ public class ShippingController {
         // 7- now we can arrange the order
         Order order = new Order(LocalDateTime.now(),customer,cart);
         order.setQuantity(quantity);
+        order.setOrder_number(31321);
         order.setTotal_price(total);
         orderServiceImpl.saveOrder(order);
         //8- get the id for the customer to able to send message to the right person
@@ -201,7 +203,13 @@ public class ShippingController {
     public String successful_purchase(@PathVariable ( value = "id") Long id, HttpSession session){
         List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
 
-        String message = "Thank you for using our web shop\n You will receive email of confirmation your order";
+        String message = "Your order # is:"  +orderServiceImpl.getOrderById(id).getOrder_number() + " \n" +
+                "Thank you for your purchase!\n " +
+                "You will receive email of confirmation your order" +
+                "\n" +
+                "Order details:" +
+                "Order Date:"+ LocalDateTime.now();
+
         session.setAttribute("message",message);
 
         SendEmailInfo send = new SendEmailInfo();

@@ -17,14 +17,6 @@
 	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
 	<link rel="stylesheet" th:href="@{/css/sina-nav.css}">
 
-	<script>
-		setInterval("my_function();", 1000);
-
-		function my_function() {
-			$('#refresh').load(location.href + ' #current_items');
-		}
-	</script>
-
 
 	<style type="text/css">
 		.nav-container{
@@ -40,69 +32,59 @@
 	</style>
 	<script id="applicationScript" type="text/javascript" th:src="@{/js/index.js}"></script>
 </head>
-<body>
+<body onload="show_cart_items()">
+
+<input type="hidden"  id="user_id" th:value="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">
+<input type="hidden"  id="quantity_items" th:value="${session.cartItems_quantity} ? ${session.cartItems_quantity}: ''">
+
 <div class="nav-container">
 	<nav class="sina-nav mobile-sidebar navbar-fixed" data-top="0">
 		<div class="container">
 			<div class="extension-nav">
 				<ul>
 					<li class="dropdown">
-<!--						<form th:action="@{/logout}">-->
-						<a th:href="@{/account}">
-							<i class="fa fa-user"> Account</i></a>
-<!--						<span sec:authentication="principal.name" ></span></h6>-->
-<!--						<h6 class="text-center"> Welcome :<h6 class="card-title" th:text="${session.welcome_user_name}" ></h6>-->
-
-<!--							<input type="submit" value="Logout">-->
-<!--						</form>-->
+						<!--						<a  class="collapse navbar-collapse" data-toggle="dropdown"></a>-->
+						<a th:href="@{/account}" class="collapse navbar-collapse"  onmouseover="show_logout()" >
+							<i class="fa fa-user"></i>
+							<span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">Account</span>
+						</a>
+						<div id="logout" class="text-center" style="display:none">
+							<ul class="dropdown-menu shop-menu">
+								<li class="dropdown">
+									<span sec:authentication="principal.name" ></span>
+								</li>
+								<li><a th:href="@{/customer_cms}" style="color: dodgerblue; float: right" >Settings </a></li>
+								<li><a th:href="@{/logout}" style="color: dodgerblue; float: right">Logout </a></li>
+							</ul>
+						</div>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
 							<i class="fa fa-shopping-bag"></i>
-							<span class="shop-badge" th:text="${session.cartItems_quantity}"></span>
-
-<!--							<span class="shop-badge" >0</span>-->
+							<div id="quantity_notification" style="display:none">
+								<span class="shop-badge" th:text="${session.cartItems_quantity}" >0</span>
+							</div>
 						</a>
 						<!-- Show itemsShoppingCart -->
-						<ul class="dropdown-menu shop-menu">
-							<li  th:each="cartItems: ${session.list_cart_items}">
-										<a href="#" class="shop-item-photo">
-											<img src="#" alt="" />
-										</a>
-											<p><a  th:text="${cartItems.getProduct().product_name}"></a>
-												<input class="product-quantity" type="hidden" value="1" min="1" th:value="${cartItems.getQuantity()}">
-												<span class="shop-item-price" th:text="${cartItems.getProduct().getPrice()}"></span></p>
-								<div  class="product-line-price" th:text="${cartItems.getProduct().getPrice() * cartItems.getQuantity()}">
-								</div>
-							</li>
-
-							<li>
-								<div class="totals">
-									<div class="totals-item">
-										<label>Subtotal</label>
-										<div class="totals-value" id="cart-subtotal">00</div>
-									</div>
-									<div class="totals-item">
-										<label>Tax (5%)</label>
-										<div class="totals-value" id="cart-tax">00</div>
-									</div>
-									<div class="totals-item">
-										<label>Shipping</label>
-										<div class="totals-value" id="cart-shipping">15.00</div>
-									</div>
-									<div class="totals-item totals-item-total">
-										<label>Grand Total</label>
-										<div class="totals-value" id="cart-total">00</div>
-									</div>
-								</div>
-
-							</li>
-
-							<li class="shop-total-price">
-								<a th:href="@{/cart_items}" class="shop-btn">Cart</a>
-								<span>Total:<span class="shop-total-price"  th:text="${session.total_of_products_price}"></span></span>
-							</li>
-						</ul>
+						<div id="cart_items_list" class="text-center" style="display:none">
+							<ul class="dropdown-menu shop-menu" >
+								<li  th:each="cartItems: ${session.list_cart_items}">
+									<a href="#" class="shop-item-photo">
+										<img class="shop-item-photo" th:src="@{/images/YemenCoffee01_c.png}" alt="" />
+									</a>
+									<p><a th:text="${cartItems.getProduct().product_name}"></a>
+										<span>€<span class="shop-item-price" th:text="${cartItems.getProduct().getPrice()}"></span></span>
+										<span>x<span th:text="${cartItems.getQuantity()}"></span></span>
+									</p>
+								</li>
+								<li class="shop-total-price">
+									<a th:href="@{/cart_items}" class="shop-btn">Cart</a>
+									<span>Total:<span class="shop-total-price"  th:text="${session.subtotal_products_price}"></span></span>
+								</li>
+							</ul>
+						</div>
+					</li>
 				</ul>
+
 			</div>
 			<!-- .extension-nav -->
 			<div class="sina-nav-header">
@@ -120,7 +102,7 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar-menu">
 				<ul class="sina-menu" data-in="fadeInLeft" data-out="fadeInOut">
-					<li><a href="#home">Home</a></li>
+					<li><a href="#">Home</a></li>
 					<li><a href="#about">About</a></li>
 					<li><a href="#shopping_now">Shopping Now</a></li>
 					<li><a href="#contact">Contact</a></li>
@@ -143,9 +125,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-6 col-lg-12">
-				<!--ShoppingNow-->
-				<div id="shopping_now">
-					<div class="container">
+			<!--ShoppingNow-->
+			<div id="shopping_now">
+				<br>
+				<br>
+				<div class="container">
 					<div class="row text-center ">
 						<div class="col my-3 my-md-10">
 							<span class="title">Shopping Now</span>
@@ -159,11 +143,13 @@
 				<div class="container">
 					<div class="row text-center ">
 						<!-- first row -->
-						<table th:border="1">
+
+						<!--						<table th:border="none">-->
+						<table>
 							<tbody >
 							<tr style="color:palevioletred; text-align: center" th:each="product: ${session.productList}">
 								<div class="col-md-3 col-sm-8 my-3 my-md-10">
-									<form th:action="@{/add_to_cart}"  method="get">
+									<form th:action="@{/add_to_cart/{id}(id=${product.getId()})}"  method="get">
 										<div class="card show">
 											<div>
 												<!--								<input type="hidden" th:field="${product.getId()}" placeholder="Product Name" class="form-control mb-4 col-4">-->
@@ -175,6 +161,7 @@
 
 											<div class="card-body">
 												<h5 class="card-title" th:text="${product.getProduct_name()}"></h5>
+												<h6 class="card-title" th:text="${product.amount}"></h6>
 												<h6>
 													<i class="fas fa-star"></i>
 													<i class="fas fa-star"></i>
@@ -186,14 +173,14 @@
 
 												</p>
 												<h5>
-													<span class="price" th:text="${product.getPrice()}"></span>
+													<span>€ <span class="price" th:text="${product.getPrice()}"></span></span>
 												</h5>
-
-												<div>
-
-													<input type="number" min="1" id="coffee_amount" class="input_quantity my-3" value="1" />
-													<a th:href="@{/add_to_cart/{id}(id=${product.getId()})}"  class=" btn button btn-warning my-3">Add to Cart <i class="fas fa-shopping-cart"></i></a>
+												<div th:object="${quantity_ob}">
+													<input type="number" th:field="*{quantity}" min="1" max="30" id="quantity_selected"  class="input_quantity my-3" th:value="1" >
+													<input type="submit" value="Add to cart" class=" btn button btn-warning my-3">
+													<!--													<a th:href="@{/add_to_cart/{id}(id=${product.getId()})}"  class=" btn button btn-warning my-3">Add to Cart <i class="fas fa-shopping-cart"></i></a>-->
 												</div>
+
 											</div>
 										</div>
 									</form>
@@ -206,11 +193,11 @@
 
 
 			</div>
-				<!--home-->
-				<div id="home">
-					<hr  style="width: 80%; color: aquamarine;">
-					</br>
-					<div class="container">
+			<!--home-->
+			<div >
+				<hr  style="width: 80%; color: aquamarine;">
+				</br>
+				<div class="container">
 					<div class="row text-center ">
 						<div class="col-md-7 col-sm-8 my-30 my-md-50">
 							<h6 class="title">History of the Coffee</h6>
@@ -226,142 +213,151 @@
 
 					</div>
 				</div>
-				</div>
-				<br>
-				<hr>
-				<br>
-				<!--aboutus-->
-				<div id="about">
-					<h2 class="h1-responsive font-weight-bold text-center my-4">About us</h2>
-					<div >
-						<!-- <img th:src="@{/images/coffee.png}"> -->
-						<span>We are entrepreneurs from Yemen looking to share the taste of Yemeni coffee with the whole world. We want the world to taste the origins of coffee and understand how it came to be. The birthplace of coffee and its first-ever global supply came from Yemen. This is the story that we were always told as children—and ever since then—we have dreamed of Yemen regaining back its crown and dominating the global supply of coffee. It has become of utmost importance, especially in recent years, as Yemen has become one of the world’s poorest countries. Over half of Yemen’s population live under the poverty line, but we believe coffee can change that! Just like it changed the social norms of the world as we know it and continues to shape up our social lives to this very day. That is why we want to play our role in restoring Yemen’s global position in coffee supply and help its economy, all while educating, rebuilding, and improving the lives of farmers and the people of Yemen</span>
-					</div>
-					<div>
-						<!--						<img th:src="@{/images/farmer.png}">-->
-						<span>“We aim to help improve the lives of Yemeni farmers by sharing the exquisite taste of the history and heritage of Yemeni coffee and bring back the lost legend of the world’s arguably once tastiest coffee.”<br/><br/>“At Coffee Senses, we will strive to create a better future by re-educating, rebuilding, and restoring the coffee culture in Yemen. We are determined to achieve that by sharing the vision of our farmers with the world to help better their lives and bring back Yemeni coffee to its prime of dominating the coffee industry and regaining its position as the most consumed coffee in the world.”</span><br>
-						<img th:src="@{/images/yemen01.png}">
-						<img th:src="@{/images/valy.png}">
-
-					</div>
-				</div>
-				<br>
-				<hr>
-				<br>
-				<!--contuctus-->
-				<div id="contact">
-					<div class="container">
-						<!--Section: Contact v.2-->
-						<section class="mb-4">
-							<!--Section heading-->
-							<h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-							<!--Section description-->
-							<p class="text-center w-responsive mx-auto text-center mb-5">Do you have any questions? Please do not hesitate to contact us directly.
-								Our team will come back to you within a matter of hours to help you.</p>
-
-							<div class="row">
-
-								<!--Grid column-->
-								<div class="col-md-9 mb-md-0 mb-5">
-									<form id="contact-form" name="contact-form" action=" " method="POST">
-
-										<!--Grid row-->
-										<div class="row">
-
-											<!--Grid column-->
-											<div class="col-md-6">
-												<div class="md-form mb-0">
-													<label for="name" class="">Your name</label>
-													<input type="text" id="name" name="name" class="form-control">
-
-												</div>
-											</div>
-											<!--Grid column-->
-
-											<!--Grid column-->
-											<div class="col-md-6">
-												<div class="md-form mb-0">
-													<label for="email" class="">Your email</label>
-													<input type="text" id="email" name="email" class="form-control">
-
-												</div>
-											</div>
-											<!--Grid column-->
-
-										</div>
-										<!--Grid row-->
-										<div class="row">
-											<div class="col-md-12">
-												<div class="md-form mb-0">
-													<label for="subject" class="">Subject</label>
-													<input type="text" id="subject" name="subject" class="form-control">
-
-												</div>
-											</div>
-										</div>
-										<!--Grid row-->
-										<div class="row">
-
-											<!--Grid column-->
-											<div class="col-md-12">
-
-												<div class="md-form">
-													<label for="message">Your message</label>
-													<textarea type="text" id="message" name="message" rows="6" class="form-control md-textarea"></textarea>
-
-												</div>
-
-											</div>
-										</div>
-										<!--Grid row-->
-
-
-										</br>
-										<div class="text-center text-md-right">
-											<a class="btn btn-primary"  style="color: white" onclick="document.getElementById('contact-form').submit();">
-												Send  <i class="far fa-paper-plane"></i>
-												</a>
-										</div>
-										<div class="status"></div>
-									</form>
-								</div>
-
-								<!--Grid column-->
-
-								<!--Grid column-->
-								</br>
-								<div class="col-md-3 text-center ">
-									<ul class="list-unstyled mb-0" style="color: black;">
-										<li style="color: black;"><i class="fas fa-map-marker-alt fa-2x"></i>
-											<p>Sana'a,YEMEN</p>
-										</li>
-
-										<li style="color: black;"><i class="fas fa-phone mt-4 fa-2x"></i>
-											<p>+ 00 000 00 0000</p>
-										</li>
-
-										<li style="color: black;"><i class="fas fa-envelope mt-4 fa-2x"></i>
-											<p style="color: black;">javakawah@yemencoffe.com</p>
-										</li>
-									</ul>
-								</div>
-								<!--Grid column-->
-
-							</div>
-
-						</section>
-						<!--Section: Contact v.2-->
-
-					</div>
-
-				</div>
-				<br>
 			</div>
+			<br>
+			<hr>
+			<br>
+			<!--aboutus-->
+			<div id="about"></div>
+			<br>
+			<br>
+			<h2 class="h1-responsive font-weight-bold text-center my-4">About us</h2>
+			<div >
+				<!-- <img th:src="@{/images/coffee.png}"> -->
+				<br clear="left">
+				<span><img class="shop-item-photo" th:src="@{/images/GrandPa.png}" alt="" align="left" />We are entrepreneurs from Yemen looking to share the taste of Yemeni coffee with the whole world. We want the world to taste the origins of coffee and understand how it came to be. The birthplace of coffee and its first-ever global supply came from Yemen. This is the story that we were always told as children—and ever since then—we have dreamed of Yemen regaining back its crown and dominating the global supply of coffee. It has become of utmost importance, especially in recent years, as Yemen has become one of the world’s poorest countries. Over half of Yemen’s population live under the poverty line, but we believe coffee can change that! Just like it changed the social norms of the world as we know it and continues to shape up our social lives to this very day. That is why we want to play our role in restoring Yemen’s global position in coffee supply and help its economy, all while educating, rebuilding, and improving the lives of farmers and the people of Yemen</span>
+			</div>
+
+			<div>
+				<!--						<img th:src="@{/images/farmer.png}">-->
+				<span><img th:src="@{/images/yemen01.png}"  align="right">“We aim to help improve the lives of Yemeni farmers by sharing the exquisite taste of the history and heritage of Yemeni coffee and bring back the lost legend of the world’s arguably once tastiest coffee.”<br/><br/>“At Coffee Senses, we will strive to create a better future by re-educating, rebuilding, and restoring the coffee culture in Yemen. We are determined to achieve that by sharing the vision of our farmers with the world to help better their lives and bring back Yemeni coffee to its prime of dominating the coffee industry and regaining its position as the most consumed coffee in the world.”</span><br>
+				<!--						<img th:src="@{/images/valy.png}"  align="left">-->
+
+
+			</div>
+
+			<br>
+			<br>
+			<br>
+			<hr>
+
+			<br>
+			<!--contuctus-->
+			<div id="contact"></div>
+			<br>
+			<br>
+			<div class="container">
+				<!--Section: Contact v.2-->
+				<section class="mb-4">
+					<!--Section heading-->
+					<h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+					<!--Section description-->
+					<p class="text-center w-responsive mx-auto text-center mb-5">Do you have any questions? Please do not hesitate to contact us directly.
+						Our team will come back to you within a matter of hours to help you.</p>
+
+					<div class="row">
+
+						<!--Grid column-->
+						<div class="col-md-9 mb-md-0 mb-5">
+							<form id="contact-form" name="contact-form" action=" " method="POST">
+
+								<!--Grid row-->
+								<div class="row">
+
+									<!--Grid column-->
+									<div class="col-md-6">
+										<div class="md-form mb-0">
+											<label for="name" class="">Your name</label>
+											<input type="text" id="name" name="name" class="form-control">
+
+										</div>
+									</div>
+									<!--Grid column-->
+
+									<!--Grid column-->
+									<div class="col-md-6">
+										<div class="md-form mb-0">
+											<label for="email" class="">Your email</label>
+											<input type="text" id="email" name="email" class="form-control">
+
+										</div>
+									</div>
+									<!--Grid column-->
+
+								</div>
+								<!--Grid row-->
+								<div class="row">
+									<div class="col-md-12">
+										<div class="md-form mb-0">
+											<label for="subject" class="">Subject</label>
+											<input type="text" id="subject" name="subject" class="form-control">
+
+										</div>
+									</div>
+								</div>
+								<!--Grid row-->
+								<div class="row">
+
+									<!--Grid column-->
+									<div class="col-md-12">
+
+										<div class="md-form">
+											<label for="message">Your message</label>
+											<textarea type="text" id="message" name="message" rows="6" class="form-control md-textarea"></textarea>
+
+										</div>
+
+									</div>
+								</div>
+								<!--Grid row-->
+
+
+								</br>
+								<div class="text-center text-md-right">
+									<a class="btn btn-primary"  style="color: white" onclick="document.getElementById('contact-form').submit();">
+										Send  <i class="far fa-paper-plane"></i>
+									</a>
+								</div>
+								<div class="status"></div>
+							</form>
+						</div>
+
+						<!--Grid column-->
+
+						<!--Grid column-->
+						</br>
+						<div class="col-md-3 text-center ">
+							<ul class="list-unstyled mb-0" style="color: black;">
+								<li style="color: black;"><i class="fas fa-map-marker-alt fa-2x"></i>
+									<p>Sana'a,YEMEN</p>
+								</li>
+
+								<li style="color: black;"><i class="fas fa-phone mt-4 fa-2x"></i>
+									<p>+ 00 000 00 0000</p>
+								</li>
+
+								<li style="color: black;"><i class="fas fa-envelope mt-4 fa-2x"></i>
+									<p style="color: black;">javakawah@yemencoffe.com</p>
+								</li>
+							</ul>
+						</div>
+						<!--Grid column-->
+
+					</div>
+
+				</section>
+				<!--Section: Contact v.2-->
+
+			</div>
+
+			<!--				</div>-->
+			<br>
 		</div>
 	</div>
+</div>
 
-	<hr  style="width: 80%; color: aquamarine;">
-	</br>
+<hr  style="width: 80%; color: aquamarine;">
+</br>
 
 </div>
 

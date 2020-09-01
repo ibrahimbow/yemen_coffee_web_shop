@@ -26,6 +26,13 @@ public class Order {
     @Column(name = "deliver_date")
     private LocalDateTime deliver_date;
 
+    @Column(name = "shipping_cost")
+    private double shippingCost;
+
+    @Column(name="tax")
+    private double tax;
+
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
@@ -105,6 +112,22 @@ public class Order {
         this.customer = customer;
     }
 
+    public double getShippingCost() {
+        return shippingCost;
+    }
+
+    public void setShippingCost(double shippingCost) {
+        this.shippingCost = shippingCost;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
     public Cart getCart() {
         return cart;
     }
@@ -112,6 +135,7 @@ public class Order {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
 
     @Override
     public String toString() {
@@ -122,6 +146,8 @@ public class Order {
                 ", total_price=" + total_price +
                 ", order_date=" + order_date +
                 ", deliver_date=" + deliver_date +
+                ", shippingCost=" + shippingCost +
+                ", tax=" + tax +
                 ", customer=" + customer +
                 ", cart=" + cart +
                 '}';

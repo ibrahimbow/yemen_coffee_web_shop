@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -27,60 +28,45 @@
 				<div class="extension-nav">
 					<ul>
 						<li class="dropdown">
-							<!--						<form th:action="@{/logout}">-->
-							<a th:href="@{/account}">
-								<i class="fa fa-user"> Account</i></a>
-
-
-							<!--							<input type="submit" value="Logout">-->
-							<!--						</form>-->
+							<!--						<a  class="collapse navbar-collapse" data-toggle="dropdown"></a>-->
+							<a th:href="@{/account}" class="collapse navbar-collapse"  onmouseover="show_logout()" >
+								<i class="fa fa-user"></i>
+								<span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">Account</span>
+							</a>
+							<div id="logout" class="text-center" style="display:none">
+								<ul class="dropdown-menu shop-menu">
+									<li class="dropdown">
+										<span sec:authentication="principal.name" ></span>
+									</li>
+									<li><a th:href="@{/customer_cms}" style="color: dodgerblue; float: right" >Settings </a></li>
+									<li><a th:href="@{/logout}" style="color: dodgerblue; float: right">Logout </a></li>
+								</ul>
+							</div>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
 								<i class="fa fa-shopping-bag"></i>
-								<span class="shop-badge" th:text="${session.cartItems_quantity}"></span>
-
-								<!--							<span class="shop-badge" >0</span>-->
+								<div id="quantity_notification" style="display:none">
+									<span class="shop-badge" th:text="${session.cartItems_quantity}" >0</span>
+								</div>
 							</a>
 							<!-- Show itemsShoppingCart -->
-							<ul class="dropdown-menu shop-menu">
-								<li  th:each="cartItems: ${session.list_cart_items}">
-									<a href="#" class="shop-item-photo">
-										<img src="#" alt="" />
-									</a>
-									<p><a  th:text="${cartItems.getProduct().product_name}"></a>
-										<input class="product-quantity" type="hidden" value="1" min="1" th:value="${cartItems.getQuantity()}">
-										<span class="shop-item-price" th:text="${cartItems.getProduct().getPrice()}"></span></p>
-									<div  class="product-line-price" th:text="${cartItems.getProduct().getPrice() * cartItems.getQuantity()}">
-									</div>
-								</li>
-
-								<li>
-									<div class="totals">
-										<div class="totals-item">
-											<label>Subtotal</label>
-											<div class="totals-value" id="cart-subtotal">00</div>
-										</div>
-										<div class="totals-item">
-											<label>Tax (5%)</label>
-											<div class="totals-value" id="cart-tax">00</div>
-										</div>
-										<div class="totals-item">
-											<label>Shipping</label>
-											<div class="totals-value" id="cart-shipping">15.00</div>
-										</div>
-										<div class="totals-item totals-item-total">
-											<label>Grand Total</label>
-											<div class="totals-value" id="cart-total">00</div>
-										</div>
-									</div>
-
-								</li>
-
-								<li class="shop-total-price">
-									<a th:href="@{/cart_items}" class="shop-btn">Cart</a>
-									<span>Total:<span class="shop-total-price"  th:text="${session.total_of_products_price}"></span></span>
-								</li>
-							</ul>
+							<div id="cart_items_list" class="text-center" style="display:none">
+								<ul class="dropdown-menu shop-menu" >
+									<li  th:each="cartItems: ${session.list_cart_items}">
+										<a href="#" class="shop-item-photo">
+											<img class="shop-item-photo" th:src="@{/images/YemenCoffee01_c.png}" alt="" />
+										</a>
+										<p><a th:text="${cartItems.getProduct().product_name}"></a>
+											<span>€<span class="shop-item-price" th:text="${cartItems.getProduct().getPrice()}"></span></span>
+											<span>x<span th:text="${cartItems.getQuantity()}"></span></span>
+										</p>
+									</li>
+									<li class="shop-total-price">
+										<a th:href="@{/cart_items}" class="shop-btn">Cart</a>
+										<span>Total:<span class="shop-total-price"  th:text="${session.subtotal_products_price}"></span></span>
+									</li>
+								</ul>
+							</div>
 					</ul>
 				</div>
 				<!-- .extension-nav -->
@@ -133,7 +119,7 @@
 						</div>
 						<div class="md-form mb-0">
 							<label for="password_login" class="">Your password</label>
-							<input type="password"  id="password_login"  name="password" class="form-control">
+							<input type="password"  id="password_login"  name="password" class="form-control" >
 						</div>
 
 						</br>
@@ -151,7 +137,7 @@
 					<div class="col-md-4 text-left">
 						<form  th:action="@{/register_form}" th:object="${register_new_customer}" method="POST">
 						<div class="col-md-20">
-							<label for="username" class="">Your name</label>
+							<label for="username" class="" >Your name</label>
 							<input type="text" id="username" th:field="*{full_name}"  class="form-control">
 						</div>
 							<div class="col-md-20">

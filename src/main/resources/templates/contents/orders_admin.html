@@ -66,9 +66,11 @@
 		</tr>
 		</thead>
 		<tbody>
+
+
+
 		<tr th:each="orders_admin: ${admin_orders_list}">
 			<td th:text="${orders_admin.customer.full_name}"></td>
-			<td th:text="${orders_admin.getQuantity()}"></td>
 			<td th:text="${orders_admin.getQuantity()}"></td>
 			<td th:text="${orders_admin.getOrder_date()}"></td>
 			<td th:text="${orders_admin.getTotal_price()}"></td>
@@ -79,7 +81,6 @@
 		</tbody>
 
 	</table>
-
 
 
 

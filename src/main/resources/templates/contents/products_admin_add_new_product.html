@@ -50,18 +50,32 @@
 	<hr>
 	<h2>Add New Product</h2>
 
+
+
+
+
+
 	<form action="#" th:action="@{/saveProduct}" th:object="${add_update_Product}" method="POST">
 		<input type="hidden" th:field="*{id}" placeholder="Product Name" class="form-control mb-4 col-4">
+
+		<input type="file" th:field="*{image}" name="imageFiles"
+			   placeholder="Product Image" class="form-control mb-4 col-4" >
+<!--		<input type="submit" class="btn btn-primary"> upload</input>-->
+<hr>
 		<input type="text" th:field="*{product_name}"
 			   placeholder="Product Name" class="form-control mb-4 col-4">
 
 		<input type="text" th:field="*{product_description}"
 			   placeholder="Product Description" class="form-control mb-4 col-4">
 
+		<input type="text" th:field="*{product_quantity}"
+			   placeholder="Product quantity" class="form-control mb-4 col-4">
+
+		<input type="text" th:field="*{amount}"
+			   placeholder="Amount 250 kg" class="form-control mb-4 col-4">
+
 		<input type="text" th:field="*{price}"
 			   placeholder="Price" class="form-control mb-4 col-4">
-		<input type="file" th:field="*{image}" name="imageFiles"
-			   placeholder="Product Image" class="form-control mb-4 col-4" >
 
 
 		<button type="submit" class="btn btn-info col-2"> Save Product</button>

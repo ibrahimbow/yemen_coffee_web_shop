@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -16,6 +18,11 @@
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
 	<!-- bootstrap CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!--For Plugins css-->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<link rel="stylesheet" th:href="@{/css/sina-nav.css}">
 
 	<style type="text/css">
 		ul li{
@@ -39,26 +46,51 @@
 		}
 	</style>
 
-
-
 	<!-- script -->
 	<script type="text/javascript" src="../../static/js/shopping_cart.js" th:src="@{/js/shopping_cart.js}"></script>
 	<script id="applicationScript" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
 </head>
 <body>
-<div class="top_header">
-	<div class="topnav">
-		<h6 class="px-5 cart">Login  |</h6></a>
-		<h6 class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''"></h6>
-	</div>
+
+
+
+<!--This code is using to get to know if the user loged in or not in order to show the hid list of user -->
+<input type="hidden"  id="user_id" th:value="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">
+
+<!-- here can user login -->
+<div class="nav-container">
+	<nav class="sina-nav mobile-sidebar">
+		<div class="container">
+			<div class="extension-nav">
+				<ul>
+					<li class="dropdown">
+						<a th:href="@{/account}" class="collapse navbar-collapse"  onmouseover="show_logout()" >
+							<i class="fa fa-user" style="color: black"></i>
+							<span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">Account</span>
+						</a>
+						<div id="logout" class="text-center" style="display:none">
+							<ul class="dropdown-menu shop-menu">
+								<li class="dropdown">
+									<span sec:authentication="principal.name" ></span>
+								</li>
+								<li><a th:href="@{/customer_cms}" style="color: dodgerblue; float: right" >Settings </a></li>
+								<li><a th:href="@{/logout}" style="color: dodgerblue; float: right">Logout </a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 </div>
 
+<!--here is the summary of the information of the customer and payment and cart Item list -->
 <div class="container" >
 	<div class="row" style="float: right">
 		<ul>
-			<li><i class="fas fa-shopping-cart"></i></li>
+			<li><a th:href="@{/cart_items}" TITLE="cart"><i class="fas fa-shopping-cart"></i></a></li>
 			<li><span style="color: orange">_____________________________</span></li>
-			<li><i class="fas fa-address-card" style="color: orange; box-shadow: 0px 0px 2px orange"></i></li>
+			<li><a th:href = "@{/check_id}" TITLE="checkout"><i class="fas fa-address-card" style="color: orange; box-shadow: 0px 0px 2px orange"></i></a></li>
 			<li><span style="color: orange">_____________________________</span></li>
 			<li><i class="fas fa-money-check-alt" style="color: orange; box-shadow: 0px 0px 2px orange"></i></li>
 		</ul>
@@ -73,7 +105,6 @@
 	<br>
 	<form action="#"  th:action="@{/confirmation}"   method="Post">
 	<div class="row">
-
 			<div class="col-75">
 				<div class="container">
 					<div class="row">
@@ -160,7 +191,9 @@
 					<tbody>
 					<tr th:each="cartItems: ${session.list_cart_items}">
 						<p><a  th:text="${cartItems.getProduct().product_name}"></a>
-							<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></p>
+							<span>x <span class="price" th:text="${cartItems.getQuantity()}"></span>  </span>
+							<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span>
+						</p>
 
 					</tr>
 					<hr>
@@ -188,6 +221,21 @@
 
 
 <!-- script bootstrap -->
+
+
+<!-- JS files -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/sina-nav.js}"></script>
+
+<!-- For All Plug-in Activation & Others -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		// WOW animation initialize
+		new WOW().init();
+	});
+</script>
 
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

@@ -13,11 +13,6 @@ public class CartItems {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-//    @ManyToOne
-//    @JoinColumn(name="CART_ID")
-//    private Cart cart;
-
     @ManyToOne
     private Cart cart;
 
@@ -68,6 +63,9 @@ public class CartItems {
     }
 
     public int getQuantity() {
+        if(quantity==0){
+            return quantity=1;
+        }
         return quantity;
     }
 

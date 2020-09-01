@@ -84,7 +84,7 @@ public class MainController {
     @GetMapping("/")
     public String viewProducts(Model model, HttpSession session){
         session.setAttribute("productList",productService.getAllProducts());
-
+        model.addAttribute("quantity_ob",new CartItems());
         return "index";
     }
 
