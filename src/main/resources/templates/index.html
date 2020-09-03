@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
@@ -77,8 +79,8 @@
 									</p>
 								</li>
 								<li class="shop-total-price">
-									<a th:href="@{/cart_items}" class="shop-btn">Cart</a>
-									<span>Total:<span class="shop-total-price"  th:text="${session.subtotal_products_price}"></span></span>
+									<a th:href="@{/cart_items}" class="shop-btn" onclick="updateQuantity()">Cart</a>
+									<span>Subtotal: <span class="price">€<span class="shop-total-price"  th:text="${session.subtotal_products_price}"></span></span></span>
 								</li>
 							</ul>
 						</div>
@@ -259,7 +261,8 @@
 
 						<!--Grid column-->
 						<div class="col-md-9 mb-md-0 mb-5">
-							<form id="contact-form" name="contact-form" action=" " method="POST">
+
+							<form id="contact-form" name="contact-form" th:action="@{/send_question}" th:object="${user_question}" method="POST">
 
 								<!--Grid row-->
 								<div class="row">
@@ -268,7 +271,7 @@
 									<div class="col-md-6">
 										<div class="md-form mb-0">
 											<label for="name" class="">Your name</label>
-											<input type="text" id="name" name="name" class="form-control">
+											<input type="text" id="name"  th:field="*{usernameWhoHasQuestion}"  name="name" class="form-control">
 
 										</div>
 									</div>
@@ -278,7 +281,7 @@
 									<div class="col-md-6">
 										<div class="md-form mb-0">
 											<label for="email" class="">Your email</label>
-											<input type="text" id="email" name="email" class="form-control">
+											<input type="text" id="email" pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/" th:field="*{emailWhoHasQuestion}" name="email" class="form-control" required />
 
 										</div>
 									</div>
@@ -290,7 +293,7 @@
 									<div class="col-md-12">
 										<div class="md-form mb-0">
 											<label for="subject" class="">Subject</label>
-											<input type="text" id="subject" name="subject" class="form-control">
+											<input type="text" id="subject"  th:field="*{subjectWhoHasQuestion}" name="subject" class="form-control">
 
 										</div>
 									</div>
@@ -303,7 +306,7 @@
 
 										<div class="md-form">
 											<label for="message">Your message</label>
-											<textarea type="text" id="message" name="message" rows="6" class="form-control md-textarea"></textarea>
+											<textarea type="text" id="message" th:field="*{messageWhoHasQuestion}" name="message" rows="6" class="form-control md-textarea"></textarea>
 
 										</div>
 
@@ -313,10 +316,12 @@
 
 
 								</br>
+								<span th:text="${session.Message_is_Sent}"></span>
 								<div class="text-center text-md-right">
-									<a class="btn btn-primary"  style="color: white" onclick="document.getElementById('contact-form').submit();">
+									<button type="submit" class="btn btn-primary"  style="color: white" >
+<!--									<a class="btn btn-primary"  style="color: white" onclick="document.getElementById('contact-form').submit();">-->
 										Send  <i class="far fa-paper-plane"></i>
-									</a>
+									</button>
 								</div>
 								<div class="status"></div>
 							</form>
@@ -361,7 +366,7 @@
 
 </div>
 
-
+<!--fooooooooooooooooter-->
 <footer>
 	<div class="footer">
 		</br>
@@ -382,10 +387,10 @@
 					</ul>
 				</div><!-- /.navbar-collapse -->
 				<div class="col-md-4 subscribe ">
-					<form action="#">
+					<form action="#" th:action="@{/subscribe}" th:object="${subscriber}" method="post">
 
-						<input id="subscribe1" type="submit" class="btn_email" value="subscribe">
-						<input type="email">
+						<input id="subscribe1" type="submit"  class="btn_email" value="subscribe">
+						<input type="email" th:field="*{email}">
 
 					</form>
 				</div>
@@ -421,11 +426,13 @@
 		// WOW animation initialize
 		new WOW().init();
 	});
+
 </script>
 
 <!-- script bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -78,7 +78,29 @@ public class CustomerServiceImpl implements CustomerService {
             entityManager.close();
         }
         return customer;
+    }
 
+
+
+
+
+    // check if the Email is already exists in order to register new client
+    public Customer checkEmail(String email) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        String sqlQuery = "Select c from Customer as c where c.email = :email";
+        TypedQuery<Customer> clientTypedQuery = entityManager.createQuery(sqlQuery, Customer.class);
+        clientTypedQuery.setParameter("email", email);
+        Customer customer = null;
+        try {
+            customer= entityManager.find(Customer.class, clientTypedQuery.getSingleResult().getId());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return customer;
 
     }
+
+
+
+
 }

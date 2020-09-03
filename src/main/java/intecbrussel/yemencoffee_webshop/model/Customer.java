@@ -1,6 +1,9 @@
 package intecbrussel.yemencoffee_webshop.model;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,12 +16,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     @Column(name = "full_name", nullable = false)
     private String full_name;
 
+    @NonNull
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @NonNull
     @Column(name = "password")
     private String password;
 

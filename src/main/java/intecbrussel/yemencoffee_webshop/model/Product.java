@@ -1,12 +1,14 @@
 package intecbrussel.yemencoffee_webshop.model;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table (name = "products")
 public class Product {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,7 @@ public class Product {
     @Column(name = "product_amount")
     private String amount;
 
-    @Column(name = "product_price")
+    @Column(name = "product_price",precision = 10, scale = 2)
     private double price;
 
     @Column(name = "rate")
@@ -118,12 +120,13 @@ public class Product {
 
     @Override
     public String toString() {
+
         return "Product{" +
                 "id=" + id +
                 ", product_name='" + product_name + '\'' +
                 ", image='" + image + '\'' +
                 ", amount='" + amount + '\'' +
-                ", price=" + price +
+                ", price= " + price +
                 ", rate=" + rate +
                 ", product_description='" + product_description + '\'' +
                 ", product_quantity=" + product_quantity +

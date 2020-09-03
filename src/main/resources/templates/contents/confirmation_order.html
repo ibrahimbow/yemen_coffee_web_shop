@@ -115,27 +115,27 @@
 								<tbody>
 								<tr>
 									<div th:object="${object_add_shipping_address}">
-										<p><label> Full Name</label>
+										<p><label> Full Name : </label>
 											<span  th:text="${object_add_shipping_address.full_name}"></span></p>
 										<input type="hidden" th:field="*{id}">
 										<input type="hidden" th:field="*{full_name}">
 
-										<p><label> Email </label>
+										<p><label> Email : </label>
 											<span  th:text="${object_add_shipping_address.email}"></span></p>
 										<input type="hidden" th:field="*{email}">
 
-										<p><label> Address</label>
+										<p><label> Address : </label>
 											<span th:text="${object_add_shipping_address.address}"></span></p>
 										<input type="hidden" th:field="*{address}">
-										<p><label> Country</label>
+										<p><label> Country : </label>
 											<span  th:text="${object_add_shipping_address.country}"></span></p>
 										<input type="hidden" th:field="*{country}">
 
-										<p><label> City</label>
+										<p><label> City : </label>
 											<span  th:text="${object_add_shipping_address.city}"></span></p>
 										<input type="hidden" th:field="*{city}">
 
-										<p><label> Postal Code </label>
+										<p><label> Postal Code : </label>
 											<span  th:text="${object_add_shipping_address.zipcode}"></span></p>
 										<input type="hidden" th:field="*{zipcode}">
 									</div>
@@ -152,23 +152,23 @@
 
 								<tr>
 									<div th:object="${object_add_new_payment}">
-										<p><label> Name on Card</label>
+										<p><label> Name on Card: </label>
 										<span  th:text="${object_add_new_payment.name_card}"></span></p>
 										<input type="hidden" th:field="*{name_card}">
 
-										<p><label> Credit Card Number</label>
+										<p><label> Credit Card Number: </label>
 										<span  th:text="${object_add_new_payment.credit_card_number}"></span></p>
 										<input type="hidden" th:field="*{credit_card_number}">
 
-										<p><label> Ex_Month</label>
+										<p><label> Ex_Month: </label>
 										<span  th:text="${object_add_new_payment.ex_month}"></span></p>
 										<input type="hidden" th:field="*{ex_month}">
 
-										<p><label> Ex_Year</label>
+										<p><label> Ex_Year: </label>
 										<span  th:text="${object_add_new_payment.ex_year}"></span></p>
 										<input type="hidden" th:field="*{ex_year}">
 
-										<p><label> CVV</label>
+										<p><label> CVV: </label>
 										<span  th:text="${object_add_new_payment.cvv}"></span></p>
 											<input type="hidden" th:field="*{cvv}">
 									</div>
@@ -185,24 +185,24 @@
 		<div class="col-25">
 			<div class="container">
 				<h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>
-			  <span th:text="${session.Total_of_products_order}"></span></b></span></h4>
+			  <span th:text="${session.Total_of_products}"></span></b></span></h4>
 				<hr>
 				<table>
 					<tbody>
 					<tr th:each="cartItems: ${session.list_cart_items}">
-						<p><a  th:text="${cartItems.getProduct().product_name}"></a>
-							<span>x <span class="price" th:text="${cartItems.getQuantity()}"></span>  </span>
-							<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span>
-						</p>
+						<p><a th:text="${cartItems.getProduct().getProduct_name()}"></a>
+							<span>&nbsp;&nbsp;x<a th:text="${cartItems.getQuantity()}"></a> </span>
+							<span class="price">€<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></span></p>
 
 					</tr>
 					<hr>
 					<tr>
-						<p>Subtotal<span  class="price" th:text="${session.subtotal_products_price}"></span></p>
-						<p>Tax (5%)<span  class="price" th:text="${session.tax_products_price}"></span></p>
-						<p>Shipping<span class="price" th:text="${session.shipping_of_products_price}"></span></p>
-						<div style="background-color: dodgerblue; border-radius: 5px; height: 30px">
-							<b></b><p>Total<span class="price"  th:text="${session.total_of_products_price}"></span></p></b>
+						<p>Subtotal <span class="price">€<span  class="price" th:text="${session.subtotal_products_price}"></span></span></p>
+						<p>Tax (5%)<span class="price">€<span  class="price" th:text="${session.tax_products_price}"></span></span></p>
+						<p>Shipping <span class="price">€<span class="price" th:text="${session.shipping_of_products_price}">€</span></span></p>
+						<div style="background-color: #78bcff; border-radius: 5px; height: 30px">
+							<b><p style="font-weight: bold; padding-left: 5px; padding-right: 5px"> Total
+								<span class="price">€<span class="price"  th:text="${session.total_of_products_price}"></span></span></p></b>
 						</div>
 					</tr>
 					</tbody>

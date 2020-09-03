@@ -2,6 +2,8 @@ package intecbrussel.yemencoffee_webshop.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Random;
 
 @Entity
 @Table(name = "orders")
@@ -44,9 +46,11 @@ public class Order {
 
 
     public Order() {
+        generateOrderNumbers();
     }
 
     public Order(LocalDateTime order_date, Customer customer, Cart cart) {
+        generateOrderNumbers();
         this.order_date = order_date;
         this.customer = customer;
         this.cart = cart;
@@ -135,6 +139,43 @@ public class Order {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return order_number == order.order_number &&
+                Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, order_number);
+    }
+
+    // generate 4 digits
+    private void generateOrderNumbers() {
+        int generate = 0;
+        Random value = new Random();
+
+        int range = value.nextInt(1000);
+        generate += range;
+        int count = 0;
+        int n = 0;
+        for (int i = 0; i < 12; i++) {
+            if (count == 4) {
+                count = 0;
+            } else
+                n = value.nextInt(1000);
+            generate += n;
+            count++;
+        }
+
+        setOrder_number(generate);
+    }
+
 
 
     @Override

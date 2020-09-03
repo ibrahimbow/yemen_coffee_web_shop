@@ -36,6 +36,7 @@ $('a[href*="#"]')
 	});
 
 
+
 // this function is to hid the list of account if its not logged in yet
 function show_logout(){
 	if(document.getElementById("user_id").value !== "") {
@@ -2765,3 +2766,5 @@ function show_cart_items(){
 // }
 //
 // window.application = new Application();
+
+

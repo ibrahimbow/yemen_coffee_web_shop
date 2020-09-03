@@ -1,27 +1,22 @@
 package intecbrussel.yemencoffee_webshop.repositories.implementation;
 
 import intecbrussel.yemencoffee_webshop.model.CartItems;
+import intecbrussel.yemencoffee_webshop.model.Order;
 import intecbrussel.yemencoffee_webshop.model.SendEmailInfo;
-import intecbrussel.yemencoffee_webshop.repositories.SendEmailRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
+import intecbrussel.yemencoffee_webshop.repositories.SendEmailDao;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.OptionalInt;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.persistence.Entity;
 
 @Repository
-public class EmailImpl implements SendEmailRepo {
+public class EmailImpl implements SendEmailDao {
 
 
 
@@ -52,11 +47,35 @@ public class EmailImpl implements SendEmailRepo {
             //Text body part
             MimeBodyPart textBodyPart = new MimeBodyPart();
 
-//            textBodyPart.setText("<html><body>Here is a cat picture! <img src='cid:id101'/><body></html>");
-//
-            textBodyPart.setText(" Dear " + sendEmailInfo.getCustomer().getFull_name() + "\n\n" + "" +
-                    "We have received your order\n\n" +"" +
-                    " here is your orders");
+            //get formatted date and time
+            String DATE_FORMATTER = "yyyy-MM-dd ' at ' HH:mm:ss";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+
+            // get only the first name
+            String fullName = sendEmailInfo.getCustomer().getFull_name();
+            int space = fullName.indexOf(' ');
+            String firstName = sendEmailInfo.getCustomer().getFull_name();
+            if(space !=-1) {
+                firstName = fullName.substring(0, space);
+            }
+
+            String orderNumber = sendEmailInfo.getCustomer().getOrderList().stream().mapToInt(Order::getOrder_number).findAny().toString();
+
+            textBodyPart.setText("Dear " + firstName +
+                    "\n\n  "+ "Thank you very much for your order. The order number is: " +
+                    orderNumber
+                     + " dated " + String.format(sendEmailInfo.getCustomer().getOrderList().stream()
+                    .map(Order::getOrder_date).toString(),formatter ) +
+                    "has ben sent to the following address \n\n" +
+                    "Address:\n" +
+                    sendEmailInfo.getCustomer().getFull_name() +
+                    "\n" +
+                    sendEmailInfo.getCustomer().getAddress() +
+                    "\n" +
+                    sendEmailInfo.getCustomer().getZipcode() + "  " + sendEmailInfo.getCustomer().getCity()+
+                    "\n" +
+                    sendEmailInfo.getCustomer().getCountry() + " \n\n" +
+                    "Thank you for your purchase and enjoy Drink the best Quality of Yemen Coffee.\n\n\n");
 
             // TODO: 8/15/2020
             // Here we can add the text of message
@@ -87,4 +106,12 @@ public class EmailImpl implements SendEmailRepo {
         }
         // here we can add the catch of io
     }
+
+
+
+
+
+    // Receive Question by email from the user
+
+
 }

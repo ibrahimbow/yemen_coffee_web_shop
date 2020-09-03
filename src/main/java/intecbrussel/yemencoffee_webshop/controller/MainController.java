@@ -2,24 +2,14 @@ package intecbrussel.yemencoffee_webshop.controller;
 
 import intecbrussel.yemencoffee_webshop.model.*;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
-import org.hibernate.annotations.Target;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 
 @Controller
@@ -84,7 +74,12 @@ public class MainController {
     @GetMapping("/")
     public String viewProducts(Model model, HttpSession session){
         session.setAttribute("productList",productService.getAllProducts());
+        // use this to be able to use the quantity of product to be added to the cart item list
         model.addAttribute("quantity_ob",new CartItems());
+        // use this to contact us form
+        model.addAttribute("user_question", new ReceiveEmailFromUser());
+
+        model.addAttribute("subscriber", new Subscribe());
         return "index";
     }
 

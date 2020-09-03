@@ -1,6 +1,5 @@
 package intecbrussel.yemencoffee_webshop.controller;
 
-
 import intecbrussel.yemencoffee_webshop.model.CartItems;
 import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.model.Order;
@@ -8,17 +7,16 @@ import intecbrussel.yemencoffee_webshop.services.CartItemsService;
 import intecbrussel.yemencoffee_webshop.services.CartService;
 import intecbrussel.yemencoffee_webshop.services.CustomerOrderService;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.io.IOException;
 
+import java.util.*;
 
 @Controller
 public class CustomerController {
@@ -57,59 +55,111 @@ public class CustomerController {
     //-----------------LOGIN ---------------------
     // to get login form page
 
-    @RequestMapping(value = "/account", method = RequestMethod.GET)
-    public String ViewLogin(Model model){
-        Customer customer = new Customer();
-        model.addAttribute("register_new_customer",customer);
+    @GetMapping(value = "/account")
+    public String View_Login_Registration(Model model){
+        model.addAttribute("login_register_customer",new Customer());
 
         return "contents/login_register";
     }
 
-    @RequestMapping(value = "/login_form", method = RequestMethod.POST)
-    public String login(HttpSession session, @ModelAttribute(name = "user") Customer customer1, Model model){
+
+
+    @GetMapping(value = "/check_login_form")
+    public String checkEmailLogin(HttpSession session, @ModelAttribute("login_register_customer") Customer customer1,Model model) {
+
         String email = customer1.getEmail();
         String password = customer1.getPassword();
 
-        if(customerService.checkLogin(email,password)!=null) {
-            // this way to get the name of the user who logged in
-            String name = customerService.checkLogin(email,password).getFull_name();
-            session.setAttribute("welcome_user_name",name);
-            session.setAttribute("welcome_user",customerService.checkLogin(email,password));
-            return "redirect:/";
+        if(customerService.checkLogin(email,password)==null) {
+            session.setAttribute("invalid_user_error", true);
+            return "redirect:/account";
         }
-        session.setAttribute("invalidError", true);
-        return "contents/login_register";
+        session.setAttribute("welcome_user",customerService.checkLogin(email,password));
+        return "redirect:/";
     }
 
 //-----------------REGISTRATION---------------------
 //
-//    @GetMapping("/register_form")
-//    public String getRegisterForm(Model model){
-//        Customer customer = new Customer();
-//        model.addAttribute("register_new_customer",customer);
+//    @PostMapping("/check_email_register")
+//    public String checkEmailRegisterCustomer(@ModelAttribute("login_register_customer") Customer customer,
+//                                             HttpSession session,
+//                                             Model model,
+//                                             final RedirectAttributes redirectAttributes){
+//            customerService.addNewCustomer(customer);
+//            session.setAttribute("welcome_user", customer);
+//            return "redirect:/";
 //
-//        return "contents/login_register";
 //    }
 
-    @PostMapping("/register_form")
-    public String registerNewCustomer(HttpSession session,
-                                      @ModelAttribute("register_new_customer") Customer customer, Model model){
-        customerService.addNewCustomer(customer);
 
-        String name = customerService.getCustomerById(customer.getId()).getFull_name();
-//        session.setAttribute("welcome_user_name",customerService.getCustomerById(customer.getId()));
 
-        session.setAttribute("welcome_user",customer);
-//        session.setAttribute("welcome_customer",customer);
-        return "redirect:/";
+
+
+
+    @PostMapping(value = "/check_email_register", produces = "text/html")
+    @ResponseBody
+//    @PostMapping("/check_email_register")
+    public String checkEmailRegisterCustomer(
+                                             HttpServletRequest request,
+                                             HttpServletResponse response,
+                                             HttpSession session
+                                             ) throws IOException {
+
+        String userName = request.getParameter("myuserReg");
+        String email = request.getParameter("email");
+        String pwd = request.getParameter("password_register");
+        String address = request.getParameter("address");
+        String country = request.getParameter("country");
+        String city = request.getParameter("city");
+        String postcode = request.getParameter("postcode");
+        int zipcode = Integer.parseInt(postcode);
+
+        if (customerService.checkEmail(email) != null) {
+//                session.setAttribute("invalid_email_error", true);
+            return "emailIsExist";
+        } else {
+            Customer customer = new Customer();
+            customer.setFull_name(userName);
+            customer.setEmail(email);
+            customer.setPassword(pwd);
+            customer.setAddress(address);
+            customer.setCountry(country);
+            customer.setCity(city);
+            customer.setZipcode(zipcode);
+            customerService.addNewCustomer(customer);
+            session.setAttribute("welcome_user", customer);
+            return "redirect:/";
+        }
     }
 
+
+    @PostMapping(value = "/checkEmailRegister", produces = "text/html")
+    @ResponseBody
+    public String checkEmailNo(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        String email = request.getParameter("param3");
+        try {
+            if(customerService.checkEmail(email)!=null) {
+//                session.setAttribute("invalid_email_error", true);
+                return  "emailIsExist";
+            } else {
+                return  "";
+            }
+        } catch (Exception b) {
+            b.getMessage();
+        }
+        return  "emailIsExist";
+    }
 //=============================================================
+
+
 
 // customer info
 
     @GetMapping("/customer_cms")
-    public String viewCustomer_cms(@ModelAttribute(name = "user") Customer customer1,
+    public String viewCustomer_cms(@ModelAttribute(name = "login_register_customer") Customer customer1,
                                    Model model){
         model.addAttribute("welcome_user",customer1);
         return "contents/customer";

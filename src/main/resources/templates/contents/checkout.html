@@ -137,7 +137,7 @@
 									</div>
 									<div class="col-50">
 										<label for="zip">Postal Code</label>
-										<input type="text"  class="form-control" th:field="*{zipcode}" id="zip" name="zip" placeholder="10001">
+										<input type="text"  class="form-control" maxlength="4" th:field="*{zipcode}" id="zip" name="zip" placeholder="10001">
 									</div>
 								</div>
 							</div>
@@ -153,24 +153,25 @@
 							</div>
 
 							<label for="cname"><i class="fa fa-user"></i> Name on Card</label>
-							<input type="text"  class="form-control" th:field="*{name_card}" id="cname" name="cardname" placeholder="John More Doe">
+							<input type="text"  class="form-control" th:field="*{name_card}" maxlength="14" id="cname" name="cardname" placeholder="ibrahim Alolofi">
 							<label for="ccnum"><i class="fa fa-credit-card"></i> Credit card number</label>
-							<input type="text"  class="form-control" th:field="*{credit_card_number}" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+							<input type="text"  class="form-control" maxlength="6" th:field="*{credit_card_number}" id="ccnum" name="cardnumber" placeholder="123456">
 							<label for="expmonth"><i class="fa fa-calendar-alt"></i> Exp Month</label>
-							<input type="text"  class="form-control" th:field="*{ex_month}" id="expmonth" name="expmonth" placeholder="September">
+							<input type="text"  class="form-control"  min="1" max="12" maxlength="2" th:field="*{ex_month}" id="expmonth" name="expmonth" placeholder="3">
 							<div class="row">
 								<div class="col-50">
 									<label for="expyear"><i class="fa fa-calendar-alt"></i> Exp Year</label>
-									<input type="text"  class="form-control" th:field="*{ex_year}" id="expyear" name="expyear" placeholder="2018">
+									<input type="text"  class="form-control"  maxlength="2" id="expyear" name="expyear" placeholder="23" th:field="*{ex_year}" >
 								</div>
 								<div class="col-50">
 									<label for="cvv">CVV</label>
-									<input type="text"  class="form-control" th:field="*{cvv}" id="cvv" name="cvv" placeholder="352">
+									<input type="text"  class="form-control" maxlength="3" th:field="*{cvv}" id="cvv" name="cvv" placeholder="352">
 								</div>
 							</div>
 						</div>
 					</div>
-					<input type="submit" value="Continue to checkout" class="btn" style="background-color: #78bcff">
+					<input type="submit" value="Continue to checkout" class="btn btn-primary" >
+<!--					<input type="submit" value="Continue to checkout" class="btn" style="background-color: #78bcff; color: white">-->
 				</form>
 			</div>
 		</div>
@@ -183,18 +184,19 @@
 			<table>
 				<tbody>
 				<tr th:each="cartItems: ${session.list_cart_items}">
-					<p><a href="#" th:text="${cartItems.getProduct().getProduct_name()}"></a>
+					<p><a th:text="${cartItems.getProduct().getProduct_name()}"></a>
 						<span>&nbsp;&nbsp;x<a th:text="${cartItems.getQuantity()}"></a> </span>
-						<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></p>
+						<span class="price">€<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></span></p>
 
 				</tr>
 				<hr>
 				<tr>
-					<p>Subtotal<span  class="price" th:text="${session.subtotal_products_price}"></span></p>
-					<p>Tax (5%)<span  class="price" th:text="${session.tax_products_price}"></span></p>
-					<p>Shipping<span class="price" th:text="${session.shipping_of_products_price}"></span></p>
+					<p>Subtotal <span class="price">€<span  class="price" th:text="${session.subtotal_products_price}"></span></span></p>
+					<p>Tax (5%)<span class="price">€<span  class="price" th:text="${session.tax_products_price}"></span></span></p>
+					<p>Shipping <span class="price">€<span class="price" th:text="${session.shipping_of_products_price}">€</span></span></p>
 					<div style="background-color: #78bcff; border-radius: 5px; height: 30px">
-						<b><p style="font-weight: bold; padding-left: 5px"> Total<span class="price"  th:text="${session.total_of_products_price}"></span></p></b>
+						<b><p style="font-weight: bold; padding-left: 5px; padding-right: 5px"> Total
+							<span class="price">€<span class="price"  th:text="${session.total_of_products_price}"></span></span></p></b>
 					</div>
 				</tr>
 				</tbody>

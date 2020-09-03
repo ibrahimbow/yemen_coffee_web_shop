@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class CartController {
     public String addToCart(@PathVariable( value = "id") Long id,
                             @ModelAttribute(name = "quantity_ob") CartItems cartItems,
                             HttpSession session){
+
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+
         int quantity = cartItems.getQuantity();
         List<CartItems> cartItemsList = null;
         if(session.getAttribute("add_to_cart_items")==null){
@@ -53,14 +58,15 @@ public class CartController {
         cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
         session.setAttribute("Total_of_products", cartItemsList.stream().count());
         session.setAttribute("list_cart_items", cartItemsList);
-        double subtotal = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice()).sum();
+
+        double subtotal = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice() * s.getQuantity()).sum();
         double tax = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice()).sum() * 0.05;
         double shipping = 15;
         double total = subtotal + tax + shipping;
-        session.setAttribute("subtotal_products_price", subtotal);
-        session.setAttribute("tax_products_price", ((Math.abs(tax))));
+        session.setAttribute("subtotal_products_price", df.format(subtotal));
+        session.setAttribute("tax_products_price", df.format(tax));
         session.setAttribute("shipping_of_products_price", shipping);
-        session.setAttribute("total_of_products_price", total);
+        session.setAttribute("total_of_products_price", df.format(total));
 
 //        ================
 
@@ -88,6 +94,9 @@ public class CartController {
 
     @GetMapping("/deleteCartItems/{id}")
     public String deleteItem(@PathVariable (value = "id") long id, HttpSession session) {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+
         // call delete product method
         List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
         for(int i = 0 ; i< cartItemsList.size();i++) {
@@ -95,6 +104,9 @@ public class CartController {
                 cartItemsList.remove(i);
             }
         }
+        double subtotal = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice() * s.getQuantity()).sum();
+        session.setAttribute("cartItems_quantity",cartItemsList.stream().count());
+        session.setAttribute("subtotal_products_price", df.format(subtotal));
         return "redirect:/cart_items";
     }
 

@@ -165,8 +165,6 @@ public class AdminController {
             // this way to get the name of the user who logged in
             String name = adminService.checkingLogin(adminName,password).getAdmin_fullName();
             System.out.println(adminName + "  0 " + password);
-//            model.addAttribute("admin_name", name);
-//            session.setAttribute("admin_name", name);
             return "contents/administrator";
         }
         model.addAttribute("invalidError", true);

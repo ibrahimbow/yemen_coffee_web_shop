@@ -6,8 +6,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>contact us</title>
-	<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css"/>
+	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/css/mystyle.css}"/>
 	<!-- font awesome CDN -->
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css">
 	<!-- bootstrap CDN-->
@@ -17,10 +18,15 @@
 	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
 	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
 	<link rel="stylesheet" th:href="@{/css/sina-nav.css}">
+	<!--script-->
+	<script id="applicationScript" type="text/javascript" th:src="@{/js/index.js}"></script>
+	<script id="applicationScript1" type="text/javascript" th:src="@{/js/login_register.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-	<script id="applicationScript" type="text/javascript" src="contents\js/index.js"></script>
 </head>
 <body>
+<!--<input id="check_create_user"  type="hidden" th:text="${session.no_email} ? ${session.no_email.email}: ''">-->
+
 <header>
 	<div class="nav-container">
 		<nav class="sina-nav mobile-sidebar navbar-fixed" data-top="0">
@@ -111,8 +117,8 @@
 					</div>
 					<!--Login Form-->
 					<div class="col-md-4 text-left">
-						<form  th:action="@{/login_form}" th:object="${user}" method="post" >
-							<p th:if="${session.invalidError}"class="error">username or password is wrong</p>
+						<form  th:action="@{/check_login_form}" th:object="${login_register_customer}" method="get" >
+							<p th:if="${session.invalid_user_error}"class="error" style="color:red;">username or password is wrong</p>
 						<div class="md-form mb-0">
 							<label for="email_login" class="">Your Email</label>
 							<input type="text" id="email_login"  name="email" class="form-control">
@@ -135,27 +141,34 @@
 					</div>
 					<!--Registration -->
 					<div class="col-md-4 text-left">
-						<form  th:action="@{/register_form}" th:object="${register_new_customer}" method="POST">
+<!--							<form th:action="@{/check_email_register}" th:object="${login_register_customer}" method="Post">-->
+								<form  id="myformReg" th:object="${login_register_customer}">
 						<div class="col-md-20">
 							<label for="username" class="" >Your name</label>
 							<input type="text" id="username" th:field="*{full_name}"  class="form-control">
 						</div>
 							<div class="col-md-20">
 								<label for="email" class="">Your email</label>
-								<input type="text" id="email" th:field="*{email}" class="form-control">
+<!--								<span  th:if="${session.invalid_email_error}" class="error" style="color:red;">is already Existed..!</span>-->
+								<input type="text" id="email" th:field="*{email}" class="form-control"
+									   onchange="javascript:return check_email()" required/>
 							</div>
 							<div class="col-md-20">
 								<label for="password1" class="">Your password</label>
 								<input type="text" id="password1" th:field="*{password}" class="form-control">
-								<label for="password2" class="">Reconfirm Your password</label>
-								<input type="text" id="password2" th:field="*{password}" class="form-control">
 							</div>
 					<!--Address-->
 							<br>
 							<span style="font-weight: bold"> Shipping Address</span>
+
+							<div class="col-md-20">
+								<label for="country" class="">Country</label>
+								<input type="text" id="country" th:field="*{country}" class="form-control">
+							</div>
+
 						<div class="col-md-20">
 							<label for="address" class="">Address</label>
-							<input type="text" id="address" th:field="*{address}"class="form-control">
+							<input type="text" id="address" th:field="*{address}" class="form-control">
 						</div>
 
 						<div class="col-md-20">
@@ -168,13 +181,11 @@
 								<input type="text" id="zipcode" th:field="*{zipcode}" class="form-control">
 							</div>
 
-							<div class="col-md-20">
-								<label for="country" class="">Country</label>
-								<input type="text" id="country" th:field="*{country}" class="form-control">
-							</div>
+
 							<br>
 							<div class="text-center text-md-right">
-								<button type="submit" class="btn btn-primary col-xl-12"> Sign up</button>
+								<button type="submit" id="submit" class="btn btn-primary col-xl-12"
+										onclick=" return Register_new_client()" disabled> Sign up</button>
 							</div>
 
 						</form>
@@ -200,7 +211,7 @@
 		new WOW().init();
 	});
 </script>
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

@@ -1,10 +1,5 @@
 package intecbrussel.yemencoffee_webshop.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 
@@ -20,7 +15,9 @@ public class SendEmailInfo {
     private Customer customer;
 
     public SendEmailInfo() {
+
     }
+
 
     public String getUsername() {
         return username;
@@ -65,6 +62,7 @@ public class SendEmailInfo {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
 
     @Override
     public String toString() {
