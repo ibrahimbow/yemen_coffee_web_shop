@@ -155,13 +155,15 @@
 							<label for="cname"><i class="fa fa-user"></i> Name on Card</label>
 							<input type="text"  class="form-control" th:field="*{name_card}" maxlength="14" id="cname" name="cardname" placeholder="ibrahim Alolofi">
 							<label for="ccnum"><i class="fa fa-credit-card"></i> Credit card number</label>
-							<input type="text"  class="form-control" maxlength="6" th:field="*{credit_card_number}" id="ccnum" name="cardnumber" placeholder="123456">
-							<label for="expmonth"><i class="fa fa-calendar-alt"></i> Exp Month</label>
-							<input type="text"  class="form-control"  min="1" max="12" maxlength="2" th:field="*{ex_month}" id="expmonth" name="expmonth" placeholder="3">
+							<input type="text"  class="form-control" maxlength="6" th:field="*{credit_card_number}" id="ccnum" name="cardnumber" placeholder="123456" onkeypress="return isNumber(event)">
+<!--							<label for="expmonth"><i class="fa fa-calendar-alt"></i> Exp Month</label>-->
+<!--							<input type="number"  class="form-control"  min="1" max="12" maxlength="2" th:field="*{ex_month}" id="expmonth" name="expmonth" placeholder="3">-->
 							<div class="row">
 								<div class="col-50">
+									<label for="expmonth"><i class="fa fa-calendar-alt"></i> Exp Month</label>
+									<input type="number"  class="form-control"  min="1" max="12" maxlength="2" th:field="*{ex_month}" id="expmonth" name="expmonth" placeholder="3">
 									<label for="expyear"><i class="fa fa-calendar-alt"></i> Exp Year</label>
-									<input type="text"  class="form-control"  maxlength="2" id="expyear" name="expyear" placeholder="23" th:field="*{ex_year}" >
+									<input type="number"  class="form-control" min="22" max="30" maxlength="2" id="expyear" name="expyear" placeholder="23" th:field="*{ex_year}" >
 								</div>
 								<div class="col-50">
 									<label for="cvv">CVV</label>

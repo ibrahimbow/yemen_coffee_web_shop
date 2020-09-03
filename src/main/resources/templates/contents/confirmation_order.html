@@ -149,7 +149,6 @@
 							<hr>
 							<table>
 								<tbody>
-
 								<tr>
 									<div th:object="${object_add_new_payment}">
 										<p><label> Name on Card: </label>
@@ -162,11 +161,11 @@
 
 										<p><label> Ex_Month: </label>
 										<span  th:text="${object_add_new_payment.ex_month}"></span></p>
-										<input type="hidden" th:field="*{ex_month}">
+										<input type="hidden" min="1" max="12" th:field="*{ex_month}">
 
 										<p><label> Ex_Year: </label>
 										<span  th:text="${object_add_new_payment.ex_year}"></span></p>
-										<input type="hidden" th:field="*{ex_year}">
+										<input type="hidden" min="21" max="30" th:field="*{ex_year}">
 
 										<p><label> CVV: </label>
 										<span  th:text="${object_add_new_payment.cvv}"></span></p>

@@ -101,3 +101,9 @@ function congratesRegister() {
         }
     });
 }
+
+//only except numbers
+function isNumber(evt) {
+    var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+    return !(iKeyCode !== 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57));
+}

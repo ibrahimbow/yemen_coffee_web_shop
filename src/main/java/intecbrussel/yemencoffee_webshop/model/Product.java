@@ -21,7 +21,6 @@ public class Product {
     @Column(name = "image")
     private String image;
 
-
     @Column(name = "product_amount")
     private String amount;
 
@@ -34,24 +33,21 @@ public class Product {
     @Column(name = "product_description")
     private String product_description;
 
-    @Column(name="product_quantity")
-    private int product_quantity;
 
     //Constructor
     public Product() {
     }
 
-    public Product(String product_name, String image, String amount, double price, int rate, String product_description, int product_quantity) {
+    public Product(String product_name, String image, String amount, double price, int rate, String product_description) {
         this.product_name = product_name;
         this.image = image;
         this.amount = amount;
         this.price = price;
         this.rate = rate;
         this.product_description = product_description;
-        this.product_quantity = product_quantity;
     }
 
-//Getter and setters
+    //Getter and setters
 
 
     public Long getId() {
@@ -110,13 +106,6 @@ public class Product {
         this.product_description = product_description;
     }
 
-    public int getProduct_quantity() {
-        return product_quantity;
-    }
-
-    public void setProduct_quantity(int product_quantity) {
-        this.product_quantity = product_quantity;
-    }
 
     @Override
     public String toString() {
@@ -129,7 +118,6 @@ public class Product {
                 ", price= " + price +
                 ", rate=" + rate +
                 ", product_description='" + product_description + '\'' +
-                ", product_quantity=" + product_quantity +
                 '}';
     }
 }
