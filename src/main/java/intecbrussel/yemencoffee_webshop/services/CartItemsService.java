@@ -1,7 +1,6 @@
 package intecbrussel.yemencoffee_webshop.services;
 
 import intecbrussel.yemencoffee_webshop.model.CartItems;
-import intecbrussel.yemencoffee_webshop.model.Product;
 
 import java.util.List;
 

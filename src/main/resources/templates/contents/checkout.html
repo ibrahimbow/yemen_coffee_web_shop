@@ -3,21 +3,22 @@
 	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout</title>
-<!-- stylesheet -->
-<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}">
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Checkout</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
+	<!-- stylesheet -->
+	<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="../../static/css/shipping_adderss.css" th:href="@{/css/shipping_adderss.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="../../static/css/shipping_adderss.css" th:href="@{/css/shipping_adderss.css}">
 
-<!-- font awesome CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
-<!-- bootstrap CDN-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!-- font awesome CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
+	<!-- bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 	<!--For Plugins css-->
 	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
@@ -45,9 +46,12 @@
 	</style>
 
 
-<!-- script -->
-<script type="text/javascript" src="../../static/js/shopping_cart.js" th:src="@{/js/shopping_cart.js}"></script>
-<script id="applicationScript" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
+	<!-- script -->
+	<script type="text/javascript" src="../../static/js/shopping_cart.js" th:src="@{/js/shopping_cart.js}"></script>
+	<script id="applicationScript2" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
+	<script id="applicationScript3" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/login_register.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 </head>
 <body>
 
@@ -61,7 +65,6 @@
 			<div class="extension-nav">
 				<ul>
 					<li class="dropdown">
-						<!--						<a  class="collapse navbar-collapse" data-toggle="dropdown"></a>-->
 						<a th:href="@{/account}" class="collapse navbar-collapse"  onmouseover="show_logout()" >
 							<i class="fa fa-user" style="color: black"></i>
 							<span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">Account</span>
@@ -83,61 +86,57 @@
 </div>
 
 
-
-
-
-
-
-	<br>
-	<div class="container" >
-		<div class="row" style="float: right">
-			<ul>
-				<li><a th:href="@{/cart_items}" TITLE="Cart" ><i class="fas fa-shopping-cart" ></i></a></li>
-				<li><span style="color: orange">_____________________________</span></li>
-				<li><i class="fas fa-address-card" style="color: orange; box-shadow: 0px 0px 2px orange"></i></li>
-				<li><span style="color: gray">_____________________________</span></li>
-				<li><i class="fas fa-money-check-alt" style="color: gray; box-shadow: 0px 0px 2px gray"></i></li>
-			</ul>
-
-			<hr>
-		</div>
+<br>
+<div class="container" >
+	<div class="row" style="float: right">
+		<ul>
+			<li><a th:href="@{/cart_items}" TITLE="Cart" ><i class="fas fa-shopping-cart" ></i></a></li>
+			<li><span style="color: orange">_____________________________</span></li>
+			<li><i class="fas fa-address-card" style="color: orange; box-shadow: 0px 0px 2px orange"></i></li>
+			<li><span style="color: gray">_____________________________</span></li>
+			<li><i class="fas fa-money-check-alt" style="color: gray; box-shadow: 0px 0px 2px gray"></i></li>
+		</ul>
+		<hr>
 	</div>
+</div>
 
-	
-	
+
+
 <div class="container">
 	<h2>Checkout Form</h2>
-<hr>
+	<hr>
 	<div class="row">
 		<div class="col-75">
 			<div class="container">
-				<form action="#"  th:action="@{/add_shipping_address}"   method="Get">
+				<form id="checkout_form" action="#"  th:action="@{/add_shipping_address}"    method="Get">
 					<div class="row">
 						<div class="col-50">
 							<h3>Shipping Address</h3>
 							<div th:object="${object_add_shipping_address}">
-								<input type="hidden" th:field="*{id}" placeholder="Product Name" >
+								<input type="hidden"  th:field="*{id}" placeholder="id" >
+								<!--	we use input to check if the user already existed or not to avoid duplicated-->
+								<input type="hidden"  id="check_exist_user" th:value="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">
 
 								<label for="fname"><i class="fa fa-user"></i> Full Name</label>
 								<input type="text"  class="form-control" th:field="*{full_name}" id="fname" name="firstname" placeholder="ibrahim Aref Alolofi" >
 
 								<label for="email"><i class="fa fa-envelope"></i> Email</label>
-								<input type="text"  class="form-control" th:field="*{email}" id="email" name="email" placeholder="john@example.com">
+								<input type="text"  class="form-control" th:field="*{email}" id="email" name="e_mail" placeholder="email@example.com">
 
 								<label for="adr"><i class="fa fa-map-marker-alt"></i> Address</label>
 								<input type="text"  class="form-control" th:field="*{address} "id="adr" name="address" placeholder="542 W. 15th Street">
 
 								<label for="country"><i class="fa fa-globe-europe"></i> Country</label>
-								<input type="text"  class="form-control" th:field="*{country}" id="country" name="country" placeholder="Belgium">
+								<input type="text"  class="form-control" th:field="*{country}" id="country" name="user_country" placeholder="Belgium">
 
 								<div class="row">
 									<div class="col-50">
 										<label for="city"><i class="fa fa-city"></i>City</label>
-										<input type="text"  class="form-control" th:field="*{city}" id="city" name="city" placeholder="Antwerpen">
+										<input type="text"  class="form-control" th:field="*{city}" id="city" name="user_city" placeholder="Antwerpen">
 									</div>
 									<div class="col-50">
 										<label for="zip">Postal Code</label>
-										<input type="text"  class="form-control" maxlength="4" th:field="*{zipcode}" id="zip" name="zip" placeholder="10001">
+										<input type="text"  class="form-control" maxlength="4" th:field="*{zipcode}" onkeypress="return isNumber(event)" id="zip" name="user_zip" placeholder="10001">
 									</div>
 								</div>
 							</div>
@@ -154,63 +153,85 @@
 
 							<label for="cname"><i class="fa fa-user"></i> Name on Card</label>
 							<input type="text"  class="form-control" th:field="*{name_card}" maxlength="14" id="cname" name="cardname" placeholder="ibrahim Alolofi">
+
 							<label for="ccnum"><i class="fa fa-credit-card"></i> Credit card number</label>
-							<input type="text"  class="form-control" maxlength="6" th:field="*{credit_card_number}" id="ccnum" name="cardnumber" placeholder="123456" onkeypress="return isNumber(event)">
-<!--							<label for="expmonth"><i class="fa fa-calendar-alt"></i> Exp Month</label>-->
-<!--							<input type="number"  class="form-control"  min="1" max="12" maxlength="2" th:field="*{ex_month}" id="expmonth" name="expmonth" placeholder="3">-->
+							<input type="text"  class="form-control" maxlength="6" th:field="*{credit_card_number}" onkeypress="return isNumber(event)" id="ccnum" name="cardnumber" placeholder="123456" >
 							<div class="row">
 								<div class="col-50">
 									<label for="expmonth"><i class="fa fa-calendar-alt"></i> Exp Month</label>
-									<input type="number"  class="form-control"  min="1" max="12" maxlength="2" th:field="*{ex_month}" id="expmonth" name="expmonth" placeholder="3">
-									<label for="expyear"><i class="fa fa-calendar-alt"></i> Exp Year</label>
-									<input type="number"  class="form-control" min="22" max="30" maxlength="2" id="expyear" name="expyear" placeholder="23" th:field="*{ex_year}" >
+									<select class="form-control" name="month"  id="expmonth"  th:field="*{ex_month}">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select>
+
+									<p></p>
+									<label for="cvv">CVV</label>
+									<input type="text"  class="form-control" maxlength="3" th:field="*{cvv}"
+										   onkeypress="return isNumber(event)" id="cvv" name="user_cvv" placeholder="352">
 								</div>
 								<div class="col-50">
-									<label for="cvv">CVV</label>
-									<input type="text"  class="form-control" maxlength="3" th:field="*{cvv}" id="cvv" name="cvv" placeholder="352">
+
+									<label for="expyear"><i class="fa fa-calendar-alt"></i> Exp Year</label>
+									<select class="form-control" name="expyears" th:field="*{ex_year}" id="expyear" >
+										<option value="2021">21</option>
+										<option value="2022">22</option>
+										<option value="2023">23</option>
+										<option value="2024">24</option>
+										<option value="20">25</option>
+									</select>
+
 								</div>
 							</div>
 						</div>
 					</div>
-					<input type="submit" value="Continue to checkout" class="btn btn-primary" >
-<!--					<input type="submit" value="Continue to checkout" class="btn" style="background-color: #78bcff; color: white">-->
+					<button type="button" value="Continue to checkout" class="btn btn-primary" onclick="return checkExistUser()">Continue to checkout</button>
 				</form>
 			</div>
 		</div>
 
-	  <div class="col-25">
-		<div class="container">
-		  <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>
+		<div class="col-25">
+			<div class="container">
+				<h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>
 			  <span th:text="${session.Total_of_products}"></span></b></span></h4>
-			<hr>
-			<table>
-				<tbody>
-				<tr th:each="cartItems: ${session.list_cart_items}">
-					<p><a th:text="${cartItems.getProduct().getProduct_name()}"></a>
-						<span>&nbsp;&nbsp;x<a th:text="${cartItems.getQuantity()}"></a> </span>
-						<span class="price">€<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></span></p>
-
-				</tr>
 				<hr>
-				<tr>
-					<p>Subtotal <span class="price">€<span  class="price" th:text="${session.subtotal_products_price}"></span></span></p>
-					<p>Tax (5%)<span class="price">€<span  class="price" th:text="${session.tax_products_price}"></span></span></p>
-					<p>Shipping <span class="price">€<span class="price" th:text="${session.shipping_of_products_price}">€</span></span></p>
-					<div style="background-color: #78bcff; border-radius: 5px; height: 30px">
-						<b><p style="font-weight: bold; padding-left: 5px; padding-right: 5px"> Total
-							<span class="price">€<span class="price"  th:text="${session.total_of_products_price}"></span></span></p></b>
-					</div>
-				</tr>
-				</tbody>
-			</table>
+				<table>
+					<tbody>
+					<tr th:each="cartItems: ${session.list_cart_items}">
+						<p><a th:text="${cartItems.getProduct().getProduct_name()}"></a>
+							<span>&nbsp;&nbsp;x<a th:text="${cartItems.getQuantity()}"></a> </span>
+							<span class="price">€<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></span></p>
+
+					</tr>
+					<hr>
+					<tr>
+						<p>Subtotal <span class="price">€<span  class="price" th:text="${session.subtotal_products_price}"></span></span></p>
+						<p>Tax (5%)<span class="price">€<span  class="price" th:text="${session.tax_products_price}"></span></span></p>
+						<p>Shipping <span class="price">€<span class="price" th:text="${session.shipping_of_products_price}">€</span></span></p>
+						<div style="background-color: #78bcff; border-radius: 5px; height: 30px">
+							<b><p style="font-weight: bold; padding-left: 5px; padding-right: 5px"> Total
+								<span class="price">€<span class="price"  th:text="${session.total_of_products_price}"></span></span></p></b>
+						</div>
+					</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	  </div>
 	</div>
 	<hr>
 	<a th:href = "@{/}"> Back to the website</a>
 </div>
 
-	<!-- script bootstrap -->
+<!-- script bootstrap -->
 
 <!-- JS files -->
 <script th:src="@{/js/jquery.min.js}"></script>
@@ -229,8 +250,9 @@
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script    th:src="@{/js/shopping_cart.js}" src="../../static/js/shopping_cart.js" ></script>
-	
- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>

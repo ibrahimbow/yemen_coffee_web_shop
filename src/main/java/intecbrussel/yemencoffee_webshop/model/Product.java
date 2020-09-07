@@ -1,14 +1,12 @@
 package intecbrussel.yemencoffee_webshop.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table (name = "products")
 public class Product {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,7 +81,9 @@ public class Product {
     }
 
     public double getPrice() {
-        return price;
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.format(new BigDecimal(price));
+        return Double.parseDouble(df.format(new BigDecimal(price)));
     }
 
     public void setPrice(double price) {

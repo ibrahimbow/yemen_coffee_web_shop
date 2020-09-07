@@ -1,9 +1,6 @@
 package intecbrussel.yemencoffee_webshop.model;
 
-import javax.naming.ldap.PagedResultsControl;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "cart_items")

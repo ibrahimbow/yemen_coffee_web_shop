@@ -5,4 +5,5 @@ import intecbrussel.yemencoffee_webshop.model.SendEmailInfo;
 
 public interface SendEmailService {
     void SendEmailTo(SendEmailInfo sendEmailInfo);
+    void sendPassword(SendEmailInfo sendEmailInfo );
 }

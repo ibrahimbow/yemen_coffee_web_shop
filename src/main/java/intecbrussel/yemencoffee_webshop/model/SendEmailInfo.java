@@ -5,9 +5,9 @@ import java.util.List;
 
 public class SendEmailInfo {
 
-    private final String username = "smartman402@hotmail.com";
-    private final String password = "bbg402_BBG402";
-    private final String fromEmail = "smartman402@hotmail.com";
+    private final String username = "javagawah@hotmail.com";
+    private final String password = "JAVA_gawah2020";
+    private final String fromEmail = "javagawah@hotmail.com";
 
     private String toEmail;
     private List<CartItems> productItemsList;
@@ -30,7 +30,7 @@ public class SendEmailInfo {
     public String getFromEmail() {
         return fromEmail;
     }
-    
+
     public String getToEmail() {
         return toEmail;
     }

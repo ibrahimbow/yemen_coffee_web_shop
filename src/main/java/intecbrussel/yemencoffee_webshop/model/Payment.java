@@ -1,8 +1,6 @@
 package intecbrussel.yemencoffee_webshop.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "payment")

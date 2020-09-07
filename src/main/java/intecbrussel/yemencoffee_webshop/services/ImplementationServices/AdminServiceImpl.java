@@ -42,6 +42,4 @@ public class AdminServiceImpl  implements AdminService {
     public Administrator checkingLogin(String username, String password) {
         return this.adminDao.checkLogin(username,password);
     }
-
-
 }

@@ -62,9 +62,128 @@ function show_cart_items(){
 
 
 
-// ///////////////////////////////////////
-// // INITIALIZATION
-// ///////////////////////////////////////
+
+
+
+
+
+// check the input of Contact From
+
+function checkSendingForm() {
+	var email_user = document.forms["contact-form"]["email"].value;
+
+	var user_name = document.getElementById("name").value;
+	// var email_user = document.getElementById("email").value;
+	var subj = document.getElementById("subject").value;
+	var msg = document.getElementById("message").value;
+
+
+	var checkEmailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+	// It can not be registered if one of the fields is empty
+	if (user_name !== "" && email_user !== "" && subj !== ""  && msg !== "") {
+		if (!checkEmailReg.test(email_user)) {
+			swal("please Type your email correctly..! ");
+			return false;
+		} else {
+			congratsSendEmail();
+			return false;
+		}
+	} else {
+		swal("Empty Fields..!");
+		return false;
+	}
+}
+
+
+//Check email of subscribers if it already existed
+function show_exist_email() {
+	var email = document.forms["subscr"]["emails"].value;
+	var bt =  document.getElementById('button1');
+	// It can not be registered if one of the fields is empty
+	if (document.getElementById("emails").value !== "") {
+		var http = new XMLHttpRequest();
+		http.open("Post", "/checkEmailSubs", true);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		var param = "param2=" + email;
+		http.send(param);
+		http.onload = function () {
+			var s = http.responseText.trim();
+			if (s === '' || s === null) {
+				//
+				bt.disabled = false;    // Enable the button.
+				return true;
+			} else {
+				swal("The Email (" + email + ")  is Exists..!");
+				bt.disabled = true; // Disable the button.
+				return false;
+			}
+		};
+	}
+}
+
+
+// add email to the subscribe table in database
+function add_email_subscribe() {
+
+		var email_sub = document.forms["subscr"]["emails"].value;
+		var checkEmailSub = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+		// It can not be registered if one of the fields is empty
+		if (email_sub !== "") {
+
+			if (!checkEmailSub.test(email_sub)) {
+				swal("please Type your email correctly..! ");
+				return false;
+			} else {
+				congratsSubscribe();
+				return false;
+			}
+		} else {
+			swal("Empty Fields..!");
+			return false;
+		}
+
+}
+
+//subscribe congrats
+function congratsSubscribe() {
+	swal({
+		title: "Good job!",
+		text: "You have subscribed !",
+		icon: "success",
+		button: true,
+	}).then((result) => {
+		if (result.value) {
+			//
+		} else {
+			document.forms['subscr'].submit();
+			return false;
+		}
+	});
+}
+
+
+
+function congratsSendEmail() {
+	swal({
+		title: "Good job!",
+		text: "Your message has been sent ! ",
+		icon: "success",
+		button: true,
+	}).then((result) => {
+		if (result.value) {
+			//
+		} else {
+			document.forms['contact-form'].submit();
+			return false;
+		}
+	});
+}
+
+///////////////////////////////////////
+// INITIALIZATION
+///////////////////////////////////////
 //
 // /**
 //  * Functionality for scaling, showing by media query, and navigation between multiple pages on a single page.
@@ -2766,5 +2885,5 @@ function show_cart_items(){
 // }
 //
 // window.application = new Application();
-
-
+//
+//

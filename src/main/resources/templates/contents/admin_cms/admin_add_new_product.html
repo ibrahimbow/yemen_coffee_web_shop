@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Administrator_Control_Management_System</title>
+	<title>Add_new_product_CMS</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<!--StyleSheet-->
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/static/css/mystyle.css}"/>
 	<link rel="stylesheet"
@@ -19,75 +22,57 @@
 	<script id="applicationScript" type="text/javascript" th:src="@{/static/js/index.js}"></script>
 </head>
 <body>
-<div class="top_header">
-	<div class="topnav">
 
-		<nav class="navbar navbar-expand-lg navbar-dark ">
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="mr-auto"></div>
-				<div class="navbar-nav"></div>
-				<a href="#" class="nav-item navlink active">
-					<h6 class="px-2 ">Welcome: admin </h6>
-					<h6 class="px-5 ">Logout  |</h6></a>
-			</div>
-		</nav>
-
+<div class="container">
+	<br>
+	<div class="text-left list-inline">
+		<span>Welcome: <span class="card-title" th:text="${session.welcome_admin} ? ${session.welcome_admin.getAdmin_fullName()}: ''"></span></span>
+		<span sec:authentication="principal.name" ></span>
+		<br>
+		<a th:href="@{/logout}" style="color: dodgerblue; float: left">Logout </a>
+		<br>
 	</div>
-</div>
-<hr><div class="container">
+
+	<hr>
+	<a th:href="@{/setting}" style="color: dodgerblue; float: right" >Settings </a>
 	<div class="text-center list-inline">
-		<a href="products_admin.html" ><span>Products</span> </a>
-		<a href="customers_admin.html" ><span>Customer</span> </a>
-		<a href="orders_admin.html" ><span>Orders</span> </a>
+		<a th:href = "@{/showAdminProducts}" ><span>Products</span> </a>
+		<a th:href = "@{/show_admin_customers}" ><span>Customer</span> </a>
+		<a th:href = "@{/show_admin_orders}" ><span>Orders</span> </a>
 	</div>
 </div>
 <hr>
 
+
 <div class="container">
-	<h1>Customer Management System</h1>
+	<h1>Product Management System</h1>
 	<hr>
-	<h2>List of Customers</h2>
+	<h2>Add New Product</h2>
+
+	<form action="#" th:action="@{/saveProduct}" th:object="${add_update_Product}" method="POST">
+		<input type="hidden" th:field="*{id}" placeholder="Product Name" class="form-control mb-4 col-4">
+
+		<input type="file" th:field="*{image}" name="imageFiles"
+			   placeholder="Product Image" class="form-control mb-4 col-4" >
+		<!--		<input type="submit" class="btn btn-primary"> upload</input>-->
+		<hr>
+		<input type="text" th:field="*{product_name}"
+			   placeholder="Product Name" class="form-control mb-4 col-4">
+
+		<input type="text" th:field="*{product_description}"
+			   placeholder="Product Description" class="form-control mb-4 col-4">
+
+		<input type="text" th:field="*{amount}"
+			   placeholder="Amount 250 kg" class="form-control mb-4 col-4">
+
+		<input type="text" th:field="*{price}"
+			   placeholder="Price" class="form-control mb-4 col-4">
+
+
+		<button type="submit" class="btn btn-primary"> Save Product</button>
+	</form>
+
 	<hr>
-
-
-
-	<table border="1" class = "table table-striped table-responsive-md">
-		<thead>
-		<tr>
-			<th>
-
-				Coffee Name
-			</th>
-			<th>
-
-				Description
-			</th>
-			<th>
-
-				Price
-			</th>
-			<th> Actions </th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr th:each="customer_admin: ${admin_customers_list}">
-			<td th:text="${customer_admin.full_name}"></td>
-			<td th:text="${customer_admin.email}"></td>
-			<td th:text="${customer_admin.address}"></td>
-			<td th:text="${customer_admin.country}"></td>
-			<td th:text="${customer_admin.city}"></td>
-			<td th:text="${customer_admin.zipcode}"></td>
-			<td> <a th:href="@{/showFormForUpdate/{id}(id=${customer_admin.id})}" class="btn btn-primary">Update</a>
-				<a th:href="@{/delete_customer/{id}(id=${customer_admin.id})}" class="btn btn-danger">Delete</a>
-			</td>
-		</tr>
-		</tbody>
-		<a th:href="@{/addNewProductForm}" class="btn btn-primary">Add</a>
-	</table>
-
-
-
-
 	<a th:href = "@{/}"> Back to the website</a>
 </div>
 

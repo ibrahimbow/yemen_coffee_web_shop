@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -22,31 +21,16 @@ import java.util.List;
 @ComponentScan
 public class ShippingController {
 
-
-    private ProductServiceImpl productService;
     private CustomerServiceImpl customerService;
-    private AdminServiceImpl adminService;
     private CartItemsServiceImpl cartItemsServiceImpl;
     private CartServiceImpl cartServiceImpl;
     private PaymentServiceImpl paymentServiceImpl;
     private OrderServiceImpl orderServiceImpl;
     private SendEmailServiceImpl sendEmailServiceImpl;
 
-
-
-    @Autowired
-    public void setProductService(ProductServiceImpl productService) {
-        this.productService = productService;
-    }
-
     @Autowired
     public void setCustomerService(CustomerServiceImpl customerService) {
         this.customerService = customerService;
-    }
-
-    @Autowired
-    public void setAdminService(AdminServiceImpl adminService) {
-        this.adminService = adminService;
     }
 
     @Autowired
@@ -77,7 +61,7 @@ public class ShippingController {
 
     //============================================-Shipping_address section-======================================
 
-
+    // we use this method to know its customer or guest
     @GetMapping("/check_id")
     public String checkId(RedirectAttributes redirectAttributes, HttpSession session){
         Customer customer = (Customer) session.getAttribute("welcome_user");
@@ -91,6 +75,7 @@ public class ShippingController {
     }
 
 
+    // if its guest we send 0, if its customer we send the customer id
     @GetMapping("/shipping_address/{id}")
     public String showProcessOfShipping(@PathVariable( value = "id") Long id,
                                         Model model , HttpSession session){
@@ -114,10 +99,7 @@ public class ShippingController {
         if(id!=0){
             customer = customerService.getCustomerById(id);
         }else {
-
             customer = new Customer();
-
-
         }
         Payment payment = new Payment();
         model.addAttribute("object_add_shipping_address", customer);
@@ -127,24 +109,26 @@ public class ShippingController {
 
 
     // this method is to handel the Form on the checkout page
-    @GetMapping("/add_shipping_address")
+    @GetMapping("/add_shipping_address" )
     public String addShippingAddress(@ModelAttribute("object_add_new_payment") Payment payment,
                                      @ModelAttribute("object_add_shipping_address") Customer customer,
                                      HttpSession session){
 
-            List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
+        List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
 
-            session.setAttribute("object_add_shipping_address", customer);
-            session.setAttribute("object_add_new_payment", payment);
+        session.setAttribute("object_add_shipping_address", customer);
+        session.setAttribute("object_add_new_payment", payment);
 
-            //show the info of the cart items
-            session.setAttribute("Total_of_products_order", cartItemsList.stream().count());
-            session.setAttribute("list_cart_items_order", cartItemsList);
-            return "contents/confirmation_order";
-        }
+        //show the info of the cart items
+        session.setAttribute("Total_of_products_order", cartItemsList.stream().count());
+        session.setAttribute("list_cart_items_order", cartItemsList);
+        return "contents/confirmation_order";
+    }
 
 
-
+    // the customer selected the product and filled information and confirm that
+    // after that we can save the information in database otherwise we do nothing
+    // we use this way to avoid the database from inserting unnecessary data
     @PostMapping("/confirmation")
     public String confirmOrder(@ModelAttribute("object_add_new_payment") Payment payment,
                                @ModelAttribute("object_add_shipping_address") Customer customer1,
@@ -201,18 +185,18 @@ public class ShippingController {
 
 
 
-
+    // send email after confirmed that information is sorted in database
     @GetMapping("/successful/{id}")
     public String successful_purchase(@PathVariable ( value = "id") Long id, HttpSession session){
         List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
 
-        String DATE_FORMATTER = "yyyy-MM-dd ' at ' HH:mm:ss";
+        String DATE_FORMATTER = "yyyy-MM-dd ' at ' HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 
-        String orderNumber =customerService.getCustomerById(id).getOrderList()
+        int orderNumber =customerService.getCustomerById(id).getOrderList()
                 .stream()
                 .mapToInt(Order::getOrder_number)
-                .findAny().toString();
+                .findAny().getAsInt();
 
         String msg1 = "Thank you for your purchase!";
         String msg2 = "Your order Number is : " + orderNumber;
@@ -242,7 +226,4 @@ public class ShippingController {
         session.removeAttribute("cartItems_quantity");
         return "contents/successful";
     }
-
-
-
 }

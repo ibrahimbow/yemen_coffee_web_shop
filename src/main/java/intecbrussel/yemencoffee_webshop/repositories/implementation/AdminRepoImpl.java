@@ -1,11 +1,9 @@
 package intecbrussel.yemencoffee_webshop.repositories.implementation;
 
 import intecbrussel.yemencoffee_webshop.model.Administrator;
-import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.repositories.AdminDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +13,6 @@ public class AdminRepoImpl implements AdminDao {
 
 
     private EntityManagerFactory entityManagerFactory;
-
-    private List<Administrator> admins = new ArrayList<>(); // with this way starts normal the row without null
 
     @Autowired
     public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {

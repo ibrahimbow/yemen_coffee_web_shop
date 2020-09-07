@@ -11,11 +11,16 @@ public class Subscribe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "email_subcriber")
+    @Column(name = "email_subscriber", unique = true)
     private String email;
 
 
     public Subscribe() {
+    }
+
+
+    public Subscribe(String email) {
+        this.email = email;
     }
 
     public long getId() {
@@ -26,9 +31,6 @@ public class Subscribe {
         this.id = id;
     }
 
-    public Subscribe(String email) {
-        this.email = email;
-    }
     public String getEmail() {
         return email;
     }

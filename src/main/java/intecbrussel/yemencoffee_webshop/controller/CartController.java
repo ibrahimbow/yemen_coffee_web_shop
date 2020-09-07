@@ -4,12 +4,7 @@ import intecbrussel.yemencoffee_webshop.model.CartItems;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -54,7 +49,7 @@ public class CartController {
                 session.setAttribute("add_to_cart_items",cartItemsList);
             }
         }
-//        =================
+//----------------------------then we produce the list
         cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
         session.setAttribute("Total_of_products", cartItemsList.stream().count());
         session.setAttribute("list_cart_items", cartItemsList);
@@ -63,16 +58,16 @@ public class CartController {
         double tax = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice()).sum() * 0.05;
         double shipping = 15;
         double total = subtotal + tax + shipping;
+
         session.setAttribute("subtotal_products_price", df.format(subtotal));
         session.setAttribute("tax_products_price", df.format(tax));
         session.setAttribute("shipping_of_products_price", shipping);
         session.setAttribute("total_of_products_price", df.format(total));
 
-//        ================
-
         return "redirect:/";
     }
 
+    // check if the item is already existed in the list
     private int isExist(long id, List<CartItems> cartItems){
         for (int i = 0; i <cartItems.size() ; i++) {
             if (cartItems.get(i).getProduct().getId() == id) {

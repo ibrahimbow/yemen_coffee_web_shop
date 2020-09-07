@@ -1,10 +1,7 @@
 package intecbrussel.yemencoffee_webshop.repositories.implementation;
 
-import intecbrussel.yemencoffee_webshop.model.Administrator;
 import intecbrussel.yemencoffee_webshop.model.CartItems;
-import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.repositories.CustomerOrdersRepo;
-import intecbrussel.yemencoffee_webshop.repositories.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

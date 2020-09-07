@@ -3,29 +3,23 @@ package intecbrussel.yemencoffee_webshop.controller;
 import intecbrussel.yemencoffee_webshop.model.CartItems;
 import intecbrussel.yemencoffee_webshop.model.Customer;
 import intecbrussel.yemencoffee_webshop.model.Order;
-import intecbrussel.yemencoffee_webshop.services.CartItemsService;
-import intecbrussel.yemencoffee_webshop.services.CartService;
 import intecbrussel.yemencoffee_webshop.services.CustomerOrderService;
-import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
+import intecbrussel.yemencoffee_webshop.services.ImplementationServices.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
-import java.util.*;
+import java.util.List;
 
 @Controller
 public class CustomerController {
 
-
-
     private CustomerServiceImpl customerService;
-    private CartService cartService;
-    private CartItemsService cartItemsService;
     private CustomerOrderService customerOrderService;
 
     @Autowired
@@ -38,31 +32,15 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @Autowired
-    public void setCartService(CartService cartService) {
-        this.cartService = cartService;
-    }
-
-    @Autowired
-    public void setCartItemsService(CartItemsService cartItemsService) {
-        this.cartItemsService = cartItemsService;
-    }
-
-    //==========================================================
-    //===============Customer_Administrator=====================
-    //==========================================================
-
-    //-----------------LOGIN ---------------------
+    //==============================================================================================================
+    //====================================Customer_Administrator====================================================
+    //=========================================== LOGIN ============================================================
     // to get login form page
-
     @GetMapping(value = "/account")
     public String View_Login_Registration(Model model){
         model.addAttribute("login_register_customer",new Customer());
-
         return "contents/login_register";
     }
-
-
 
     @GetMapping(value = "/check_login_form")
     public String checkEmailLogin(HttpSession session, @ModelAttribute("login_register_customer") Customer customer1,Model model) {
@@ -78,32 +56,15 @@ public class CustomerController {
         return "redirect:/";
     }
 
-//-----------------REGISTRATION---------------------
-//
-//    @PostMapping("/check_email_register")
-//    public String checkEmailRegisterCustomer(@ModelAttribute("login_register_customer") Customer customer,
-//                                             HttpSession session,
-//                                             Model model,
-//                                             final RedirectAttributes redirectAttributes){
-//            customerService.addNewCustomer(customer);
-//            session.setAttribute("welcome_user", customer);
-//            return "redirect:/";
-//
-//    }
-
-
-
-
-
+//================================================REGISTRATION======================================================
 
     @PostMapping(value = "/check_email_register", produces = "text/html")
     @ResponseBody
-//    @PostMapping("/check_email_register")
     public String checkEmailRegisterCustomer(
-                                             HttpServletRequest request,
-                                             HttpServletResponse response,
-                                             HttpSession session
-                                             ) throws IOException {
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session
+    ) throws IOException {
 
         String userName = request.getParameter("myuserReg");
         String email = request.getParameter("email");
@@ -115,7 +76,6 @@ public class CustomerController {
         int zipcode = Integer.parseInt(postcode);
 
         if (customerService.checkEmail(email) != null) {
-//                session.setAttribute("invalid_email_error", true);
             return "emailIsExist";
         } else {
             Customer customer = new Customer();
@@ -138,38 +98,30 @@ public class CustomerController {
     public String checkEmailNo(
             HttpSession session,
             HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response) throws Exception {
         String email = request.getParameter("param3");
-        try {
+
             if(customerService.checkEmail(email)!=null) {
-//                session.setAttribute("invalid_email_error", true);
                 return  "emailIsExist";
             } else {
-                return  "";
+                return  null;
             }
-        } catch (Exception b) {
-            b.getMessage();
-        }
-        return  "emailIsExist";
     }
-//=============================================================
 
-
-
-// customer info
+//=========================================== customer Settings ====================================================
 
     @GetMapping("/customer_cms")
     public String viewCustomer_cms(@ModelAttribute(name = "login_register_customer") Customer customer1,
                                    Model model){
         model.addAttribute("welcome_user",customer1);
-        return "contents/customer";
+        return "contents/customer_settings/customer_settings";
     }
 
     @GetMapping("/show_customer_info/{id}")
     public String showCustomerInfo(@PathVariable (value = "id") Long id, Model model){
         Customer customer = customerService.getCustomerById(id);
         model.addAttribute("customers_info",customer);
-        return "contents/customer_info";
+        return "contents/customer_settings/customer_info";
     }
 
     @PostMapping("/update_customer_info")
@@ -182,8 +134,6 @@ public class CustomerController {
         return "redirect:/customer_cms";
     }
 
-
-
     @GetMapping("/show_customer_orders/{id}")
     public String showCustomerOrders(@PathVariable (value = "id") Long id, Model model){
         if(customerService.getCustomerById(id)!=null) {
@@ -195,8 +145,7 @@ public class CustomerController {
             model.addAttribute("customer_items_list",customerItemsList);
 
         }
-        return "contents/customer_order";
+        return "contents/customer_settings/customer_order";
     }
-
 
 }

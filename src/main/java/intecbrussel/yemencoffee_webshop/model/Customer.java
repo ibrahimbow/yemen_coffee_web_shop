@@ -3,7 +3,6 @@ package intecbrussel.yemencoffee_webshop.model;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -53,10 +52,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer",  orphanRemoval = true)
     private List<Cart> cartList = new ArrayList<>();
 
-//    @OneToOne
-//    private Cart cart;
-
-
     //constructor
     public Customer() {
     }
@@ -64,8 +59,6 @@ public class Customer {
 
 
     //Getters and Setters
-
-
     public Long getId() {
         return id;
     }

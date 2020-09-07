@@ -1,9 +1,7 @@
 package intecbrussel.yemencoffee_webshop.repositories.implementation;
 
 import intecbrussel.yemencoffee_webshop.model.ReceiveEmailFromUser;
-import intecbrussel.yemencoffee_webshop.model.SendEmailInfo;
 import intecbrussel.yemencoffee_webshop.repositories.ReceiveEmailFromUserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.mail.*;
@@ -64,6 +62,5 @@ public class ReceiveEmailFromUserRepoImpl implements ReceiveEmailFromUserRepo {
                 e.printStackTrace();
             }
         }
-
 }
 

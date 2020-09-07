@@ -4,13 +4,11 @@
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Welcome<span class="card-title" th:text="${session.welcome_user_name}" ></span></title>
+	<title>CMS</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<!--StyleSheet-->
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/static/css/mystyle.css}"/>
-	<link rel="stylesheet"
-		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-		  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-		  crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<!-- font awesome CDN -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
 	<!-- bootstrap CDN-->
@@ -21,9 +19,14 @@
 <body>
 <div class="container">
 	<br>
-	<div class="text-left list-inline"><h6> Welcome: <h6 th:text="${session.welcome_user_name}" ></h6> </h6></div>
-	<a th:href="@{/logout}" style="color: dodgerblue; float: left">Logout </a>
+	<div class="text-left list-inline">
+		<span>Welcome: <span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''"></span></span>
+		<br>
+		<a th:href="@{/logout}" style="color: dodgerblue; float: left">Logout </a>
+		<br>
+	</div>
 	<hr>
+	<a th:href="@{/customer_cms}" style="color: dodgerblue; float: right" >Settings </a>
 	<div class="text-center list-inline">
 		<p><a th:href = "@{/show_customer_info/{id}(id=${session.welcome_user.id})}" ><span>Customer info</span> </a>  |
 			<a th:href = "@{/show_customer_orders/{id}(id=${session.welcome_user.id})}" ><span>Orders</span> </a></p>
@@ -31,71 +34,45 @@
 </div>
 <hr>
 
+
 <div class="container">
-	<h1>Orders Management System</h1>
+	<h2>Customer Information</h2>
 	<hr>
-	<h2>List of Orders</h2>
-	<hr>
+	<br>
+	<div class="row">
+		<div class="w-50 ">
+			<form action="#" th:action="@{/update_customer_info}" th:object="${customers_info}" method="POST">
 
-	<div th:each="orders: ${customer_orders}">
-		<h3>Order</h3>
-		<table border="1" class = "table table-striped table-responsive-md">
-			<thead>
-			<tr style="background-color: #78bcff">
-				<th>Order No</th>
-				<th>Name</th>
-				<th>Order Date </th>
-				<th>Quantity</th>
-				<th>Total Price</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td th:text="${orders.id}"></td>
-				<td th:text="${orders.customer.full_name}"></td>
-				<td th:text="${orders.order_date}"></td>
-				<td th:text="${orders.quantity}"></td>
-				<td th:text="${orders.total_price}"></td>
-			</tr>
-			</tbody>
-			</tr>
-		</table>
+				<table>
+					<tbody>
+					<tr>
+						<div class="form-group input-group-sm">
+							<p><label> Full Name</label>
+								<input type="text" th:field="*{full_name}" class="form-control ">
+								<input type="hidden" th:field="*{id}" class="form-control"></p>
+							<p><label> Email </label>
+								<input type="text" th:field="*{email}" class="form-control"></p>
+							<p><label> Password </label>
+								<input type="text" th:field="*{password}" class="form-control"></p>
+							<p><label> Address</label>
+								<input type="text" th:field="*{address}" class="form-control"></p>
+							<p><label> Country</label>
+								<input type="text" th:field="*{country}" class="form-control"></p>
+							<p><label> City</label>
+								<input type="text" th:field="*{city}" class="form-control"></p>
+							<p><label> Postal Code </label>
+								<input type="text" th:field="*{zipcode}" class="form-control"></p>
+						</div>
+					</tr>
+					</tbody>
+				</table>
 
-
-			<h3>List of items</h3>
-			<table border="1" class = "table table-striped table-responsive-md" style="border-radius: 5px">
-				<thead>
-				<tr style="background-color: #78bcff">
-					<th>Image</th>
-					<th>Product_Name</th>
-					<th>Description</th>
-					<th>Amount</th>
-					<th>Quantity</th>
-					<th>Price</th>
-				</tr>
-				</thead>
-				<tbody>
-				<div th:each="items: ${orders.cart.getCartItemsList()}">
-				<tr>
-					<td th:text="${items.product.image}"></td>
-					<td th:text="${items.product.product_name}"></td>
-					<td th:text="${items.product.product_description}"></td>
-					<td th:text="${items.product.amount}"></td>
-					<td th:text="${items.quantity}"></td>
-					<td th:text="${items.product.price}"></td>
-				</tr>
-				</div>
-				</tbody>
-			</table>
-		<br>
-		<br>
-		<hr>
-		<br>
-		<br>
-
+				<button type="submit" class="btn btn-primary"> Update</button>
+				<a th:href="@{/customer_cms}" class="btn btn-primary">Cancel</a></td>
+			</form>
 		</div>
-
-
+	</div>
+	<br>
 	<hr>
 	<a th:href = "@{/}"> Back to the website</a>
 </div>
@@ -106,5 +83,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</div>
 </body>
 </html>

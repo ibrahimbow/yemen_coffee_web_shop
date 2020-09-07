@@ -125,9 +125,11 @@
 					</div>
 
 					<div class="product-details">
-						<div class="product-title" th:text="${cartItems.getProduct().getProduct_name()}"></div>
+						<div class="product-title" style="font-weight: bold" th:text="${cartItems.getProduct().getProduct_name()}"></div>
 						<p class="product-description" th:text="${cartItems.getProduct().getProduct_description()}"></p>
+						<p class="product-description" th:text="${cartItems.getProduct().getAmount()}"></p>
 					</div>
+
 
 					<div class="product-price"  th:text="${cartItems.getProduct().getPrice()}">
 						<input type="hidden" class="product-price" th:field="*{cartItems.getProduct().getPrice()}" >
@@ -144,8 +146,8 @@
 						</button>
 					</div>
 
-					<div class="product-line-price" th:text="${cartItems.getProduct().getPrice() * cartItems.getQuantity()}">
-
+					<div class="product-line-price" id="decimal_price">
+						<span th:text="${#numbers.formatDecimal((cartItems.getProduct().getPrice() * cartItems.getQuantity()), 0, 'COMMA', 2, 'POINT')}"></span>
 					</div>
 
 				</div>
@@ -206,6 +208,7 @@
 		// WOW animation initialize
 		new WOW().init();
 	});
+
 </script>
 
 <!-- partial -->

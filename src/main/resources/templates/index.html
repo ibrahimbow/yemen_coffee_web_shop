@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>HOME</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/css/mystyle.css}"/>
 	<!-- font awesome CDN -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
@@ -32,7 +33,12 @@
 		/*	background: rgba(255, 255, 255, 0.2);*/
 		/*}*/
 	</style>
-	<script id="applicationScript" type="text/javascript" th:src="@{/js/index.js}"></script>
+	<!-- script -->
+	<script type="text/javascript" src="../../static/js/shopping_cart.js" th:src="@{/js/shopping_cart.js}"></script>
+	<script id="applicationScript2" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
+	<script id="applicationScript3" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/login_register.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 </head>
 <body onload="show_cart_items()">
 
@@ -45,7 +51,6 @@
 			<div class="extension-nav">
 				<ul>
 					<li class="dropdown">
-						<!--						<a  class="collapse navbar-collapse" data-toggle="dropdown"></a>-->
 						<a th:href="@{/account}" class="collapse navbar-collapse"  onmouseover="show_logout()" >
 							<i class="fa fa-user"></i>
 							<span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">Account</span>
@@ -74,7 +79,7 @@
 										<img class="shop-item-photo" th:src="@{/images/YemenCoffee01_c.png}" alt="" />
 									</a>
 									<p><a th:text="${cartItems.getProduct().product_name}"></a>
-										<span>€<span class="shop-item-price" th:text="${cartItems.getProduct().getPrice()}"></span></span>
+										<span>€<span class="shop-item-price" th:text="${#numbers.formatDecimal(cartItems.getProduct().getPrice(), 0, 'DEFAULT', 2, 'DEFAULT')}"></span></span>
 										<span>x<span th:text="${cartItems.getQuantity()}"></span></span>
 									</p>
 								</li>
@@ -95,7 +100,7 @@
 				</button>
 				<a class="sina-brand" href="#">
 					<h2>
-						JAVA KAWAH
+						JAVA GAWAH
 					</h2>
 					<p>Drink the best Quality</p>
 				</a>
@@ -140,13 +145,9 @@
 					</div>
 				</div>
 
-
-
 				<div class="container">
 					<div class="row text-center ">
 						<!-- first row -->
-
-						<!--						<table th:border="none">-->
 						<table>
 							<tbody >
 							<tr style="color:palevioletred; text-align: center" th:each="product: ${session.productList}">
@@ -227,7 +228,7 @@
 			<div >
 				<!-- <img th:src="@{/images/coffee.png}"> -->
 				<br clear="left">
-				<span><img class="shop-item-photo" th:src="@{/images/GrandPa.png}" alt="" align="left" />We are entrepreneurs from Yemen looking to share the taste of Yemeni coffee with the whole world. We want the world to taste the origins of coffee and understand how it came to be. The birthplace of coffee and its first-ever global supply came from Yemen. This is the story that we were always told as children—and ever since then—we have dreamed of Yemen regaining back its crown and dominating the global supply of coffee. It has become of utmost importance, especially in recent years, as Yemen has become one of the world’s poorest countries. Over half of Yemen’s population live under the poverty line, but we believe coffee can change that! Just like it changed the social norms of the world as we know it and continues to shape up our social lives to this very day. That is why we want to play our role in restoring Yemen’s global position in coffee supply and help its economy, all while educating, rebuilding, and improving the lives of farmers and the people of Yemen</span>
+				<span><img class="shop-item-photo" th:src="@{/images/GrandPa.png}" title="My Grandpa" align="left" />We are entrepreneurs from Yemen looking to share the taste of Yemeni coffee with the whole world. We want the world to taste the origins of coffee and understand how it came to be. The birthplace of coffee and its first-ever global supply came from Yemen. This is the story that we were always told as children—and ever since then—we have dreamed of Yemen regaining back its crown and dominating the global supply of coffee. It has become of utmost importance, especially in recent years, as Yemen has become one of the world’s poorest countries. Over half of Yemen’s population live under the poverty line, but we believe coffee can change that! Just like it changed the social norms of the world as we know it and continues to shape up our social lives to this very day. That is why we want to play our role in restoring Yemen’s global position in coffee supply and help its economy, all while educating, rebuilding, and improving the lives of farmers and the people of Yemen</span>
 			</div>
 
 			<div>
@@ -262,11 +263,10 @@
 						<!--Grid column-->
 						<div class="col-md-9 mb-md-0 mb-5">
 
-							<form id="contact-form" name="contact-form" th:action="@{/send_question}" th:object="${user_question}" method="POST">
+							<form id="contact-form" name="contact" th:action="@{/send_question}" th:object="${user_question}" method="POST">
 
 								<!--Grid row-->
 								<div class="row">
-
 									<!--Grid column-->
 									<div class="col-md-6">
 										<div class="md-form mb-0">
@@ -281,7 +281,7 @@
 									<div class="col-md-6">
 										<div class="md-form mb-0">
 											<label for="email" class="">Your email</label>
-											<input type="text" id="email" pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/" th:field="*{emailWhoHasQuestion}" name="email" class="form-control" required />
+											<input type="text" id="email"  name="email" class="form-control" required />
 
 										</div>
 									</div>
@@ -306,7 +306,7 @@
 
 										<div class="md-form">
 											<label for="message">Your message</label>
-											<textarea type="text" id="message" th:field="*{messageWhoHasQuestion}" name="message" rows="6" class="form-control md-textarea"></textarea>
+											<textarea type="text"  maxlength="1500"  id="message" th:field="*{messageWhoHasQuestion}" name="message" rows="6" class="form-control md-textarea"></textarea>
 
 										</div>
 
@@ -318,12 +318,11 @@
 								</br>
 								<span th:text="${session.Message_is_Sent}"></span>
 								<div class="text-center text-md-right">
-									<button type="submit" class="btn btn-primary"  style="color: white" >
-<!--									<a class="btn btn-primary"  style="color: white" onclick="document.getElementById('contact-form').submit();">-->
-										Send  <i class="far fa-paper-plane"></i>
-									</button>
+									<!--									<button type="submit" class="btn btn-primary"  style="color: white" >-->
+
+									<button type="button" class="btn btn-primary"  style="color: white" onclick="return checkSendingForm()">
+										Send  <i class="far fa-paper-plane"></i></button>
 								</div>
-								<div class="status"></div>
 							</form>
 						</div>
 
@@ -342,7 +341,7 @@
 								</li>
 
 								<li style="color: black;"><i class="fas fa-envelope mt-4 fa-2x"></i>
-									<p style="color: black;">javakawah@yemencoffe.com</p>
+									<p style="color: black;" >javagawah@yemencoffee.com</p>
 								</li>
 							</ul>
 						</div>
@@ -358,13 +357,84 @@
 			<!--				</div>-->
 			<br>
 		</div>
+<!--		ibrahim alolofi - Bio-->
+		<div class="container">
+			<hr>
+			<br>
+			<span class="title" style="color: #78bcff">Ibrahim Alolofi</span>
+			<br>
+			<section class="mb-4" style="text-align: justify">
+				<p style="text-align: justify">Passionate about coding and technology in community not even care about the programming ,
+					facing all the obstacles and struggles, fall down and get back up forward again holding the hope and dream,
+					never give up no matter what happened, War started in my country Yemen,
+					I had to flee to Belgium where I found peace and safe then I kept trying to find the gate of my dream,
+					I had to work heavy work and study dutch, then I met an amazing lady (Evy Puelinckx) she believed in me, she helped me to have internship in her company (HetVindingrijk)
+					until I got a golden opportunity that came from Intec Brussel after three times of refusal.
+					<br>
+					<br>Finally tears of happiness brought me the highest level of motivation to keep going a head to learn more and more and improve my skills.
+					<br>
+					I learnt a lot from my teachers Bart, Patrick, Doriana and Jamie. Thank you all.
+					<br>
+				</p>
+				<p>
+					<br>
+					<b>I would like to Thank</b>
+					<br>Wouter van den Berge (General Coordinator) for the high efforts in order to give us a good education with a great environment.
+					<br><b>Employment and social skills</b>
+					<br>Cindy Pipeleers (Team Coordinator), Ilse, Ruud and Ilka
+					<br>They helped me a lot, they encouraged me to learn more and to improve my Dutch.
+					They helped me to make professional C.V. and cover letter. Also they provided me with a list of the companies that could hire me.
+					They keep following up to improve my skills to be able to get a job.
+					Thank you all very much
+					<br><br>
+					Thank you very much <b>Bart</b> for the precious time that you spent to answer all my questions and your assistance in this project is greatly appreciated.
+					<br>
+					I'm really grateful and thankful for everything
+					<br>
+					I won't forget to thank the special lady who keeps the place clean and nice. Thanks for the rest who works silently behind the scenes.
+					<br>
+					<b>THANK YOU ALL</b>
+					<br>
+					<b>My classmates Thank you all for the beautiful and unforgettable moments and I wish the great future for everyone</b>
+					<br>
+				</p>
+				<div class="row">
+					<div class="col-md-7 mb-md-0 mb-5">
+					</div>
+
+				</div>
+			</section>
+		</div>
+
+		<div class="container">
+			<hr>
+
+			<span class="title" style="color: #78bcff">Intec Brussel</span>
+			<div class="row text-center ">
+				<div class="col-md-7 mb-md-0 mb-5">
+					<section class="mb-4">
+					<br>
+					<p style="text-align: left">
+						<b>Our mission</b>
+						<br>In our training center, we want to train jobseekers to become professional technicians in order to participate fully in our multicultural society through work. In order to achieve this, INTEC BRUSSEL vzw provides, on the basis of a clear profile, high-quality IT training which is characterized by: high technical quality of the training an open mind to people from different regions and cultures a democratic, verifiable effect.
+						<br>For more information.. click <a href="http://www.intecbrussel.be/over-ons/">Intec Brussel</a>
+					</p>
+					<br>
+					</section>
+				</div>
+				<div class="col-md-5 mb-md-0 mb-5">
+					<div class="col-md-1 logo">
+						<br><br>
+						<img th:src="@{/images/intecbrussel_02.png}">
+					</div>
+				</div>
+			</div>
+		</div>
+
+<br>
 	</div>
 </div>
 
-<hr  style="width: 80%; color: aquamarine;">
-</br>
-
-</div>
 
 <!--fooooooooooooooooter-->
 <footer>
@@ -375,7 +445,7 @@
 
 				<div class="col-md-3 logo">
 					<div class="logo text-center">
-						<img th:src="@{/images/logox2.png}">
+						<img th:src="@{/images/logox2_01.png}">
 					</div>
 				</div>
 				<div class="links">
@@ -387,10 +457,9 @@
 					</ul>
 				</div><!-- /.navbar-collapse -->
 				<div class="col-md-4 subscribe ">
-					<form action="#" th:action="@{/subscribe}" th:object="${subscriber}" method="post">
-
-						<input id="subscribe1" type="submit"  class="btn_email" value="subscribe">
-						<input type="email" th:field="*{email}">
+					<form id="subscr" th:action="@{/subscribe}" th:object="${subscriber}" method="post">
+						<input type="button" id="button1" value="subscribe" class="btn_email" onclick="return add_email_subscribe()" disabled>
+						<input type="text" id="emails"  th:field="*{email}" onchange="javascript: return show_exist_email()" required/>
 
 					</form>
 				</div>
@@ -401,14 +470,14 @@
 					<a href="#"><i class="fab fa-instagram"></i></a>
 				</div>
 
-
-
 			</div>
 
 		</div>
 
 		<hr style="width: 80%; background-color: gray;">
-		<h6 style="text-align: center; color: honeydew;">copyright@ibrahimAlolofi</h6>
+		<h6 style="text-align: center; color: honeydew; font-weight: lighter">copyright@ibrahimAlolofi</h6>
+			<h6 style="text-align: center; color: honeydew;font-weight: lighter"><a style="color: honeydew;font-weight: lighter" href="http://www.intecbrussel.be/" >Intecbrussel</a></h6>
+		<h6 style="text-align: center; color: honeydew; font-weight: lighter">2020<br></h6>
 	</div>
 
 </footer>
@@ -430,6 +499,9 @@
 </script>
 
 <!-- script bootstrap -->
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

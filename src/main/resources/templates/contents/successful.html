@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout</title>
-<!-- stylesheet -->
-<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}">
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>successful</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
+	<!-- stylesheet -->
+	<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="../../static/css/shipping_adderss.css" th:href="@{/css/shipping_adderss.css}">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="../../static/css/shipping_adderss.css" th:href="@{/css/shipping_adderss.css}">
+	<!-- font awesome CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" /> -->
+	<!-- bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-<!-- font awesome CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" /> -->
-<!-- bootstrap CDN-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-
-
-<!-- script -->
-<script type="text/javascript" src="../../static/js/shopping_cart.js" th:src="@{/js/shopping_cart.js}"></script>
-<script id="applicationScript" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
+	<!-- script -->
+	<script type="text/javascript" src="../../static/js/shopping_cart.js" th:src="@{/js/shopping_cart.js}"></script>
+	<script id="applicationScript" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
 </head>
 <body>
 <div class="container">
-			<span> <h1>Successful</h1></span>
-			<br>
+	<span> <h1>Successful</h1></span>
+	<br>
 	<h3><span th:text="${session.msg1}"></span></b></span></h3><br>
 	<h6><span th:text="${session.msg2}"></span></b></span></h6><br>
 	<h6><span th:text="${session.msg3}"></span></b></span></h6><br>

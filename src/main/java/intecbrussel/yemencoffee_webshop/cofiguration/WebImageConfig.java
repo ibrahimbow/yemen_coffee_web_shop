@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 @ComponentScan
-public class WebConfig implements WebMvcConfigurer {
+public class WebImageConfig implements WebMvcConfigurer {
 
     public static String uploadDirectory= System.getProperty("user.home") + "\\images";
 

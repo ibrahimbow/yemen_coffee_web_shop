@@ -11,20 +11,11 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    private CartItems cartItems;
-
     @OneToMany(mappedBy = "cart", orphanRemoval = true)
     private List<CartItems> cartItemsList = new ArrayList<>();
 
-
     @ManyToOne
     private Customer customer;
-
-
-//    @OneToMany
-//    private List<Customer> customersList = new ArrayList<>();
-
 
     public Cart() {
 

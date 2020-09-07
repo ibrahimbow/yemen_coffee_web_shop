@@ -4,10 +4,7 @@ import intecbrussel.yemencoffee_webshop.model.Administrator;
 import intecbrussel.yemencoffee_webshop.model.ReceiveEmailFromUser;
 import intecbrussel.yemencoffee_webshop.model.SendEmailInfo;
 import intecbrussel.yemencoffee_webshop.services.*;
-import intecbrussel.yemencoffee_webshop.services.ImplementationServices.AdminServiceImpl;
-import intecbrussel.yemencoffee_webshop.services.ImplementationServices.ProductServiceImpl;
-import intecbrussel.yemencoffee_webshop.services.ImplementationServices.ReceiveEmailFromUserServiceImpl;
-import intecbrussel.yemencoffee_webshop.services.ImplementationServices.SendEmailServiceImpl;
+import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
 import org.springframework.context.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -35,7 +32,6 @@ public class WebShopConfig {
     }
 
     @Bean
-
     @Scope("prototype")
    public SendEmailInfo sendEmailInfo(){
         return new SendEmailInfo();
@@ -65,4 +61,5 @@ public class WebShopConfig {
     public ReceiveEmailFromUserService receiveEmailFromUserService(){
         return new ReceiveEmailFromUserServiceImpl();
     }
+
 }

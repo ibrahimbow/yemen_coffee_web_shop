@@ -4,6 +4,7 @@ var shippingRate = 15.00;
 var fadeTime = 300;
 
 
+
 /* Assign actions */
 $('.product-quantity input').change( function() {
   updateQuantity(this);
@@ -32,6 +33,9 @@ function recalculateCart()
   var total = subtotal + tax + shipping;
   
   /* Update totals display */
+
+
+
   $('.totals-value').fadeOut(fadeTime, function() {
     $('#cart-subtotal').html(subtotal.toFixed(2));
     $('#cart-tax').html(tax.toFixed(2));

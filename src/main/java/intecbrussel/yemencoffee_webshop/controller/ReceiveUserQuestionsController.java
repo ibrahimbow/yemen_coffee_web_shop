@@ -7,16 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class ReceiveUserQuestionsController {
 
+    private ReceiveEmailFromUserService receiveEmailFromUserImpl;
 
-   private ReceiveEmailFromUserService receiveEmailFromUserImpl;
-
-   @Autowired
+    @Autowired
     public void setReceiveEmailFromUserImpl(ReceiveEmailFromUserService receiveEmailFromUserImpl) {
         this.receiveEmailFromUserImpl = receiveEmailFromUserImpl;
     }
@@ -25,7 +23,7 @@ public class ReceiveUserQuestionsController {
     public String sendUserQuestion(@ModelAttribute("user_question") ReceiveEmailFromUser userWhoHasQuestion,
                                    HttpSession session){
 
-       SendEmailInfo sendEmailInfo = new SendEmailInfo();
+        SendEmailInfo sendEmailInfo = new SendEmailInfo();
         ReceiveEmailFromUser receiveEmailFromUser = new ReceiveEmailFromUser();
         receiveEmailFromUser.setSendEmailInfo(sendEmailInfo);
         receiveEmailFromUser.setUsernameWhoHasQuestion(userWhoHasQuestion.getUsernameWhoHasQuestion());

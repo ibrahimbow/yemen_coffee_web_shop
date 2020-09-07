@@ -1,11 +1,8 @@
 package intecbrussel.yemencoffee_webshop.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 public class ReceiveEmailFromUser {
 
-    private final String emailToReceiveUserQuestion="bbgonline402@gmail.com";
+    private final String emailToReceiveUserQuestion="javagawah@hotmail.com";
     private String usernameWhoHasQuestion;
     private String subjectWhoHasQuestion;
     private String emailWhoHasQuestion;

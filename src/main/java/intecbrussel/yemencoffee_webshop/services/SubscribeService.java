@@ -4,4 +4,5 @@ import intecbrussel.yemencoffee_webshop.model.Subscribe;
 
 public interface SubscribeService {
     void addNewSubscriber(Subscribe subscribe);
+    Subscribe checkEmailSubscribe(String email);
 }

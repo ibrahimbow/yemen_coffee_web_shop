@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CMS</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
+	<!--StyleSheet-->
+	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/static/css/mystyle.css}"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!-- font awesome CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
+	<!-- bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+	<script id="applicationScript" type="text/javascript" th:src="@{/static/js/index.js}"></script>
+</head>
+<body>
+<div class="container">
+	<br>
+	<div class="text-left list-inline">
+		<span>Welcome: <span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''"></span></span>
+		<br>
+		<a th:href="@{/logout}" style="color: dodgerblue; float: left">Logout </a>
+		<br>
+	</div>
+	<hr>
+	<a th:href="@{/customer_cms}" style="color: dodgerblue; float: right" >Settings </a>
+	<div class="text-center list-inline">
+		<p><a th:href = "@{/show_customer_info/{id}(id=${session.welcome_user.id})}" ><span>Customer info</span> </a>  |
+			<a th:href = "@{/show_customer_orders/{id}(id=${session.welcome_user.id})}" ><span>Orders</span> </a></p>
+	</div>
+</div>
+<hr>
+
+<div class="container">
+	<h1>Orders Management System</h1>
+	<hr>
+	<h2>List of Orders</h2>
+	<hr>
+
+	<div th:each="orders: ${customer_orders}">
+		<h4>Order</h4>
+		<table  class = "table table-responsive-md">
+			<thead>
+			<tr>
+				<th>Order No</th>
+				<th>Name</th>
+				<th>Order Date </th>
+				<th>Quantity</th>
+				<th>Total Price</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td th:text="${orders.order_number}"></td>
+				<td th:text="${orders.customer.full_name}"></td>
+				<td>	<p th:text="${#temporals.format(orders.getOrder_date(), 'dd-MM-yyyy HH:mm')}"></p></td>
+				<td th:text="${orders.quantity}"></td>
+				<td style="font-weight: bold"><span class="price">€<span th:text="${#numbers.formatDecimal(orders.total_price, 0, 'COMMA', 2, 'POINT')}"></span></span></td>
+			</tr>
+			</tbody>
+			</tr>
+		</table>
+
+		<h4>List of items</h4>
+		<table  class = "table table-info table-responsive-md">
+			<thead>
+			<tr >
+				<th>Image</th>
+				<th>Product_Name</th>
+				<th>Description</th>
+				<th>Amount</th>
+				<th>Quantity</th>
+				<th>Unit-Price</th>
+			</tr>
+			</thead>
+			<tbody>
+			<div th:each="items: ${orders.cart.getCartItemsList()}">
+				<tr>
+					<td th:text="${items.product.image}"></td>
+					<td th:text="${items.product.product_name}"></td>
+					<td th:text="${items.product.product_description}"></td>
+					<td th:text="${items.product.amount}"></td>
+					<td th:text="${items.quantity}"></td>
+					<td><span class="price">€ <span th:text="${items.product.price}"></span></span></td>
+				</tr>
+			</div>
+			</tbody>
+		</table>
+		<br>
+		<br>
+		<hr>
+		<br>
+		<br>
+
+	</div>
+
+
+	<hr>
+	<a th:href = "@{/}"> Back to the website</a>
+</div>
+<br>
+<br>
+
+<!-- script bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

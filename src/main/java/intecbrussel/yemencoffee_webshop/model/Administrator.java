@@ -1,9 +1,5 @@
 package intecbrussel.yemencoffee_webshop.model;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.util.Objects;
 

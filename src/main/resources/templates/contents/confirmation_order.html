@@ -7,15 +7,15 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Confirmation Order</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<!-- stylesheet -->
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 	<link rel="stylesheet" href="../../static/css/shipping_adderss.css" th:href="@{/css/shipping_adderss.css}">
 
 	<!-- font awesome CDN -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
 	<!-- bootstrap CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<!--For Plugins css-->
@@ -59,7 +59,7 @@
 
 <!-- here can user login -->
 <div class="nav-container">
-	<nav class="sina-nav mobile-sidebar">
+	<nav class="sina-nav">
 		<div class="container">
 			<div class="extension-nav">
 				<ul>
@@ -87,7 +87,7 @@
 <!--here is the summary of the information of the customer and payment and cart Item list -->
 <div class="container" >
 	<div class="row" style="float: right">
-		<ul>
+		<ul style="float: right">
 			<li><a th:href="@{/cart_items}" TITLE="cart"><i class="fas fa-shopping-cart"></i></a></li>
 			<li><span style="color: orange">_____________________________</span></li>
 			<li><a th:href = "@{/check_id}" TITLE="checkout"><i class="fas fa-address-card" style="color: orange; box-shadow: 0px 0px 2px orange"></i></a></li>
@@ -101,10 +101,10 @@
 
 <div class="container">
 	<h2>Order</h2>
-<hr>
+	<hr>
 	<br>
 	<form action="#"  th:action="@{/confirmation}"   method="Post">
-	<div class="row">
+		<div class="row">
 			<div class="col-75">
 				<div class="container">
 					<div class="row">
@@ -152,24 +152,24 @@
 								<tr>
 									<div th:object="${object_add_new_payment}">
 										<p><label> Name on Card: </label>
-										<span  th:text="${object_add_new_payment.name_card}"></span></p>
+											<span  th:text="${object_add_new_payment.name_card}"></span></p>
 										<input type="hidden" th:field="*{name_card}">
 
 										<p><label> Credit Card Number: </label>
-										<span  th:text="${object_add_new_payment.credit_card_number}"></span></p>
+											<span  th:text="${object_add_new_payment.credit_card_number}"></span></p>
 										<input type="hidden" th:field="*{credit_card_number}">
 
 										<p><label> Ex_Month: </label>
-										<span  th:text="${object_add_new_payment.ex_month}"></span></p>
+											<span  th:text="${object_add_new_payment.ex_month}"></span></p>
 										<input type="hidden" min="1" max="12" th:field="*{ex_month}">
 
 										<p><label> Ex_Year: </label>
-										<span  th:text="${object_add_new_payment.ex_year}"></span></p>
+											<span  th:text="${object_add_new_payment.ex_year}"></span></p>
 										<input type="hidden" min="21" max="30" th:field="*{ex_year}">
 
 										<p><label> CVV: </label>
-										<span  th:text="${object_add_new_payment.cvv}"></span></p>
-											<input type="hidden" th:field="*{cvv}">
+											<span  th:text="${object_add_new_payment.cvv}"></span></p>
+										<input type="hidden" th:field="*{cvv}">
 									</div>
 								</tr>
 								</tbody>
@@ -181,38 +181,38 @@
 				</div>
 			</div>
 
-		<div class="col-25">
-			<div class="container">
-				<h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>
+			<div class="col-25">
+				<div class="container">
+					<h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>
 			  <span th:text="${session.Total_of_products}"></span></b></span></h4>
-				<hr>
-				<table>
-					<tbody>
-					<tr th:each="cartItems: ${session.list_cart_items}">
-						<p><a th:text="${cartItems.getProduct().getProduct_name()}"></a>
-							<span>&nbsp;&nbsp;x<a th:text="${cartItems.getQuantity()}"></a> </span>
-							<span class="price">€<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></span></p>
-
-					</tr>
 					<hr>
-					<tr>
-						<p>Subtotal <span class="price">€<span  class="price" th:text="${session.subtotal_products_price}"></span></span></p>
-						<p>Tax (5%)<span class="price">€<span  class="price" th:text="${session.tax_products_price}"></span></span></p>
-						<p>Shipping <span class="price">€<span class="price" th:text="${session.shipping_of_products_price}">€</span></span></p>
-						<div style="background-color: #78bcff; border-radius: 5px; height: 30px">
-							<b><p style="font-weight: bold; padding-left: 5px; padding-right: 5px"> Total
-								<span class="price">€<span class="price"  th:text="${session.total_of_products_price}"></span></span></p></b>
-						</div>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<!--				click button to update the info-->
-		<a onclick="goBack()" class="btn btn-primary" style="color: white">Update info</a>
+					<table>
+						<tbody>
+						<tr th:each="cartItems: ${session.list_cart_items}">
+							<p><a th:text="${cartItems.getProduct().getProduct_name()}"></a>
+								<span>&nbsp;&nbsp;x<a th:text="${cartItems.getQuantity()}"></a> </span>
+								<span class="price">€<span class="price" th:text="${cartItems.getProduct().getPrice()}"></span></span></p>
 
-		<input type="submit"  class="btn btn-primary" value="Confirm Order">
-	</div>
+						</tr>
+						<hr>
+						<tr>
+							<p>Subtotal <span class="price">€<span  class="price" th:text="${session.subtotal_products_price}"></span></span></p>
+							<p>Tax (5%)<span class="price">€<span  class="price" th:text="${session.tax_products_price}"></span></span></p>
+							<p>Shipping <span class="price">€<span class="price" th:text="${session.shipping_of_products_price}">€</span></span></p>
+							<div style="background-color: #78bcff; border-radius: 5px; height: 30px">
+								<b><p style="font-weight: bold; padding-left: 5px; padding-right: 5px"> Total
+									<span class="price">€<span class="price"  th:text="${session.total_of_products_price}"></span></span></p></b>
+							</div>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--				click button to update the info-->
+			<a onclick="goBack()" class="btn btn-primary" style="color: white">Update info</a>
+
+			<input type="submit"  class="btn btn-primary" value="Confirm Order">
+		</div>
 	</form>
 	<hr>
 	<a th:href = "@{/}"> Back to the website</a>

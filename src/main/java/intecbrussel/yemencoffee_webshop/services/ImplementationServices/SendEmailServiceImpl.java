@@ -22,5 +22,10 @@ public class SendEmailServiceImpl implements SendEmailService {
         this.sendEmailDao.sendEmail(sendEmailInfo);
     }
 
+    @Override
+    public void sendPassword(SendEmailInfo sendEmailInfo) {
+        this.sendEmailDao.sendPassword(sendEmailInfo);
+    }
+
 
 }
