@@ -6,8 +6,8 @@
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Shopping Cart
-		<span th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''"></span></title>
+	<title>Shopping Cart</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<!-- stylesheet -->
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}"/>
 
@@ -121,7 +121,7 @@
 			<tr th:each="cartItems: ${session.add_to_cart_items}">
 				<div class="product">
 					<div class="product-image">
-						<img th:src="@{/images/YemenCoffee01_c.png}">
+						<img th:src="@{${cartItems.getProduct().getImage()}}">
 					</div>
 
 					<div class="product-details">

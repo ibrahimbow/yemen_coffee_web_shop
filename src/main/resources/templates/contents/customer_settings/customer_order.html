@@ -7,14 +7,16 @@
 	<title>CMS</title>
 	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<!--StyleSheet-->
-	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/static/css/mystyle.css}"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet"  href="../../static/css/shopping_cart_style.css"  th:href="@{/css/shopping_cart_style.css}">
+	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/css/mystyle.css}"/>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<!-- font awesome CDN -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
 	<!-- bootstrap CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-	<script id="applicationScript" type="text/javascript" th:src="@{/static/js/index.js}"></script>
+	<script id="applicationScript" type="text/javascript" th:src="@{/js/index.js}"></script>
 </head>
 <body>
 <div class="container">
@@ -44,7 +46,7 @@
 		<h4>Order</h4>
 		<table  class = "table table-responsive-md">
 			<thead>
-			<tr>
+			<tr style="background-color:#06a4e3; color: white">
 				<th>Order No</th>
 				<th>Name</th>
 				<th>Order Date </th>
@@ -65,7 +67,7 @@
 		</table>
 
 		<h4>List of items</h4>
-		<table  class = "table table-info table-responsive-md">
+		<table  class = "table table-light table-responsive-md">
 			<thead>
 			<tr >
 				<th>Image</th>
@@ -79,7 +81,13 @@
 			<tbody>
 			<div th:each="items: ${orders.cart.getCartItemsList()}">
 				<tr>
-					<td th:text="${items.product.image}"></td>
+					<td>
+						<div class="product">
+							<div class="product-image">
+								<img th:src="@{${items.product.image}}">
+							</div>
+						</div>
+					</td>
 					<td th:text="${items.product.product_name}"></td>
 					<td th:text="${items.product.product_description}"></td>
 					<td th:text="${items.product.amount}"></td>

@@ -49,7 +49,7 @@ public class ReceiveEmailFromUserRepoImpl implements ReceiveEmailFromUserRepo {
                 MimeBodyPart textBodyPart = new MimeBodyPart();
 
                 textBodyPart.setText("Message from: " + receiveEmailFromUser.getUsernameWhoHasQuestion()+
-                        "\n\n"+ " Email: " + receiveEmailFromUser.getEmailToReceiveUserQuestion()+
+                        "\n\n"+ " Email: " + receiveEmailFromUser.getEmailWhoHasQuestion()+
                         "\n\n" + "Subject: "+receiveEmailFromUser.getSubjectWhoHasQuestion()+
                         "\n\nMessage: \n\n" + receiveEmailFromUser.getMessageWhoHasQuestion());
 

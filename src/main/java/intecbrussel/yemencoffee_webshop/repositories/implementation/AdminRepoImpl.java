@@ -119,7 +119,7 @@ public class AdminRepoImpl implements AdminDao {
     }
 
 
-    //Check if the person is already exists
+    //Check if the admin is already exists
     public Administrator getById(int admin_id) {
         EntityManager ent = entityManagerFactory.createEntityManager();
         String sqlQueryTransfer = "select a from Administrator as a " +
@@ -131,7 +131,7 @@ public class AdminRepoImpl implements AdminDao {
     }
 
 
-    // checking login info
+    // checking login of admin info
     public Administrator checkLogin(String adminName, String password){
         Administrator administrator = null;
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -151,6 +151,4 @@ public class AdminRepoImpl implements AdminDao {
         }
         return administrator;
     }
-
-
 }

@@ -4,12 +4,15 @@ import intecbrussel.yemencoffee_webshop.model.Administrator;
 import intecbrussel.yemencoffee_webshop.model.Order;
 import intecbrussel.yemencoffee_webshop.model.Product;
 import intecbrussel.yemencoffee_webshop.services.ImplementationServices.*;
+import intecbrussel.yemencoffee_webshop.services.UploadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +27,7 @@ public class AdminController {
     private CustomerServiceImpl customerService;
     private AdminServiceImpl adminService;
     private OrderServiceImpl orderServiceImpl;
+    private UploadImageService uploadImageImpl;
 
     @Autowired
     public void setProductService(ProductServiceImpl productService) {
@@ -45,6 +49,11 @@ public class AdminController {
         this.orderServiceImpl = orderServiceImpl;
     }
 
+    @Autowired
+    public void setUploadImageImpl(UploadImageService uploadImageImpl) {
+        this.uploadImageImpl = uploadImageImpl;
+    }
+
 
     //============================================-Admin section-=================================================
     //============================================== Admin Login =================================================
@@ -64,7 +73,7 @@ public class AdminController {
         String password = administrator.getAdmin_password();
 
         if(adminService.checkingLogin(adminName,password)!=null) {
-            // this way to get the name of the user who logged in
+            // this is way to get the name of the user who logged in
             session.setAttribute("welcome_admin",adminService.checkingLogin(adminName,password));
             return "contents/admin_cms/administrator";
         }
@@ -103,17 +112,39 @@ public class AdminController {
         return "contents/admin_cms/admin_add_new_product";
     }
 
-    // TODO: 9/7/2020
-//    @GetMapping("/uploadImage")
-//    public String uploadImageForm(@RequestParam("imageFile")MultipartFile imageFile){
-//
-//        String  returnValue;
-//    }
+
+    @PostMapping("/uploadImage")
+    public String uploadImageForm(Model model, @RequestParam("imageFile")MultipartFile imageFile){
+        try {
+            uploadImageImpl.saveImageService(imageFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", true);
+
+        }
+        Product productImage =  new Product();
+        productImage.setImage("/images/" + imageFile.getOriginalFilename());
+        model.addAttribute("success", true);
+
+        model.addAttribute("imageUploadObj", productImage);
+
+        return "contents/admin_cms/admin_add_new_product";
+    }
 
 
     @PostMapping("/saveProduct")
-    public String saveProduct(@ModelAttribute("add_update_Product") Product product1){
-        productService.saveProduct(product1);
+    public String saveProduct(@ModelAttribute("add_update_Product") Product product1,
+                              @RequestParam("imageFile")MultipartFile imageFile,
+                              Model model){
+            try {
+                uploadImageImpl.saveImageService(imageFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("error", true);
+            }
+
+            product1.setImage("/images/" + imageFile.getOriginalFilename());
+            productService.saveProduct(product1);
         return "redirect:/showAdminProducts";
     }
 

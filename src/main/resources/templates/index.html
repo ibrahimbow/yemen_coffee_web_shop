@@ -158,7 +158,7 @@
 												<!--								<input type="hidden" th:field="${product.getId()}" placeholder="Product Name" class="form-control mb-4 col-4">-->
 
 												<img alt="image" class="img-fluid card-img-top "
-													 th:src="@{/images/YemenCoffee01_c.png}">
+													 th:src="${product.getImage()}">
 
 											</div>
 
@@ -364,7 +364,7 @@
 			<span class="title" style="color: #78bcff">Ibrahim Alolofi</span>
 			<br>
 			<section class="mb-4" style="text-align: justify">
-				<p style="text-align: justify">Passionate about coding and technology in community not even care about the programming ,
+				<p style="text-align: justify">Passionate about coding and technology,
 					facing all the obstacles and struggles, fall down and get back up forward again holding the hope and dream,
 					never give up no matter what happened, War started in my country Yemen,
 					I had to flee to Belgium where I found peace and safe then I kept trying to find the gate of my dream,
@@ -373,7 +373,7 @@
 					<br>
 					<br>Finally tears of happiness brought me the highest level of motivation to keep going a head to learn more and more and improve my skills.
 					<br>
-					I learnt a lot from my teachers Bart, Patrick, Doriana and Jamie. Thank you all.
+					I learnt a lot from my teachers<b> Bart, Patrick, Doriana</b> and <b>Jamie</b>. Thank you all.
 					<br>
 				</p>
 				<p>
@@ -459,7 +459,7 @@
 				<div class="col-md-4 subscribe ">
 					<form id="subscr" th:action="@{/subscribe}" th:object="${subscriber}" method="post">
 						<input type="button" id="button1" value="subscribe" class="btn_email" onclick="return add_email_subscribe()" disabled>
-						<input type="text" id="emails"  th:field="*{email}" onchange="javascript: return show_exist_email()" required/>
+						<input type="text" id="emails"  th:field="*{email}" onchange="javascript: return show_exist_email()" placeholder="email@email.com" required/>
 
 					</form>
 				</div>

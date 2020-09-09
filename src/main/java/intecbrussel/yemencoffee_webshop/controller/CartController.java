@@ -54,8 +54,9 @@ public class CartController {
         session.setAttribute("Total_of_products", cartItemsList.stream().count());
         session.setAttribute("list_cart_items", cartItemsList);
 
+        double taxRate = 0.05;
         double subtotal = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice() * s.getQuantity()).sum();
-        double tax = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice()).sum() * 0.05;
+        double tax = subtotal * taxRate;
         double shipping = 15;
         double total = subtotal + tax + shipping;
 

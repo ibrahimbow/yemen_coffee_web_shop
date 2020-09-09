@@ -173,6 +173,5 @@ function checkInputShippingAddress() {
         swal("Empty Fields..!");
         return false;
     }
-
 }
 
