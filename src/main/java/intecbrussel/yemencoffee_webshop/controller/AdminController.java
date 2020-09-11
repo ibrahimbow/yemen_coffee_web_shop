@@ -113,25 +113,6 @@ public class AdminController {
     }
 
 
-    @PostMapping("/uploadImage")
-    public String uploadImageForm(Model model, @RequestParam("imageFile")MultipartFile imageFile){
-        try {
-            uploadImageImpl.saveImageService(imageFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("error", true);
-
-        }
-        Product productImage =  new Product();
-        productImage.setImage("/images/" + imageFile.getOriginalFilename());
-        model.addAttribute("success", true);
-
-        model.addAttribute("imageUploadObj", productImage);
-
-        return "contents/admin_cms/admin_add_new_product";
-    }
-
-
     @PostMapping("/saveProduct")
     public String saveProduct(@ModelAttribute("add_update_Product") Product product1,
                               @RequestParam("imageFile")MultipartFile imageFile,

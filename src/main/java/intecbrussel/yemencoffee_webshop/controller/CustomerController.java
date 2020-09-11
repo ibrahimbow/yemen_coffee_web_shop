@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CustomerController {
@@ -139,7 +141,9 @@ public class CustomerController {
         if(customerService.getCustomerById(id)!=null) {
 
             List<Order> orderList = customerService.getCustomerById(id).getOrderList();
-            model.addAttribute("customer_orders", orderList);
+            model.addAttribute("customer_orders", orderList
+                    .stream().sorted(Comparator.comparingLong(Order::getId).reversed())
+                    .collect(Collectors.toList()));
 
             List<CartItems> customerItemsList = customerOrderService.showCustomerItems(id);
             model.addAttribute("customer_items_list",customerItemsList);

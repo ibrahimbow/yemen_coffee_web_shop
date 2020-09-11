@@ -15,7 +15,9 @@ import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @ComponentScan
@@ -78,7 +80,8 @@ public class ShippingController {
     // if its guest we send 0, if its customer we send the customer id
     @GetMapping("/shipping_address/{id}")
     public String showProcessOfShipping(@PathVariable( value = "id") Long id,
-                                        Model model , HttpSession session){
+                                        Model model , HttpSession session,
+                                        @ModelAttribute(name = "quantity_ob") CartItems cartItems){
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
 
@@ -164,7 +167,7 @@ public class ShippingController {
             cartItems.setProduct(cartItemsList.get(i).getProduct());
             cartItems.setQuantity(cartItemsList.get(i).getQuantity());
             cartItems.setCart(cart);
-            //5- save the select product to the database inside the table of cart_items
+            //5- save the selected product to the database inside the table of cart_items
             cartItemsServiceImpl.saveCartItems(cartItems);
             quantity += cartItemsList.get(i).getQuantity();
         }
@@ -194,9 +197,12 @@ public class ShippingController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 
         int orderNumber =customerService.getCustomerById(id).getOrderList()
+                .stream().sorted(Comparator.comparingLong(Order::getId).reversed())
+                .collect(Collectors.toList())
                 .stream()
                 .mapToInt(Order::getOrder_number)
-                .findAny().getAsInt();
+                .findFirst()
+                .getAsInt();
 
         String msg1 = "Thank you for your purchase!";
         String msg2 = "Your order Number is : " + orderNumber;

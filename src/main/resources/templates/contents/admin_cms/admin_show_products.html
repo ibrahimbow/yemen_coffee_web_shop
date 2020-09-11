@@ -9,10 +9,8 @@
 	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<!--StyleSheet-->
 	<link rel="stylesheet" type="text/css" id="applicationStylesheet" th:href="@{/css/mystyle.css}"/>
-	<link rel="stylesheet"
-		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-		  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-		  crossorigin="anonymous">
+	<link rel="stylesheet"  href="../../static/css/shopping_cart_style.css"  th:href="@{/css/shopping_cart_style.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<!-- font awesome CDN -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
 	<!-- bootstrap CDN-->
@@ -34,8 +32,8 @@
 	<hr>
 	<a th:href="@{/setting}" style="color: dodgerblue; float: right" >Settings </a>
 	<div class="text-center list-inline">
-		<a th:href = "@{/showAdminProducts}" ><span>Products</span> </a>
-		<a th:href = "@{/show_admin_customers}" ><span>Customer</span> </a>
+		<a th:href = "@{/showAdminProducts}" ><span>Products | </span> </a>
+		<a th:href = "@{/show_admin_customers}" ><span>Customer | </span> </a>
 		<a th:href = "@{/show_admin_orders}" ><span>Orders</span> </a>
 	</div>
 </div>
@@ -49,6 +47,7 @@
 	<table border="1" class = "table table-striped table-responsive-md">
 		<thead>
 		<tr style="background-color:#06a4e3; color: white">
+			<th>Image</th>
 			<th>Coffee Name</th>
 			<th>Description</th>
 			<th>Amount</th>
@@ -58,6 +57,14 @@
 		</thead>
 		<tbody>
 		<tr th:each="product_admin: ${admin_ProductList}">
+			<td >
+
+				<div class="product">
+					<div class="product-image">
+						<img th:src="@{${product_admin.getImage()}}">
+					</div>
+				</div>
+			</td>
 			<td th:text="${product_admin.getProduct_name()}"></td>
 			<td th:text="${product_admin.getProduct_description()}"></td>
 			<td th:text="${product_admin.getAmount()}"></td>
@@ -67,7 +74,7 @@
 			</td>
 		</tr>
 		</tbody>
-		<a th:href="@{/addNewProductForm}" class="btn btn-primary">Add</a>
+		<a th:href="@{/addNewProductForm}" class="btn btn-primary">Add New product</a>
 	</table>
 	<hr>
 

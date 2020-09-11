@@ -34,8 +34,8 @@
 	<hr>
 	<a th:href="@{/setting}" style="color: dodgerblue; float: right" >Settings </a>
 	<div class="text-center list-inline">
-		<a th:href = "@{/showAdminProducts}" ><span>Products</span> </a>
-		<a th:href = "@{/show_admin_customers}" ><span>Customer</span> </a>
+		<a th:href = "@{/showAdminProducts}" ><span>Products | </span> </a>
+		<a th:href = "@{/show_admin_customers}" ><span>Customer | </span> </a>
 		<a th:href = "@{/show_admin_orders}" ><span>Orders</span> </a>
 	</div>
 </div>
@@ -50,8 +50,7 @@
 		<input type="hidden" th:field="*{id}" placeholder="Product Name" class="form-control mb-4 col-4">
 
 				<p th:if="${error}" class="error" style="color: red">Error something went wrong..!</p>
-		<input type="file" id="imageId" name="imageFile"
-				   placeholder="Product Image" class="form-control mb-4 col-4" >
+		<input type="file" id="imageId" name="imageFile" placeholder="Product Image" class="form-control mb-4 col-4" >
 		<hr>
 
 			<input type="text" id="productName" th:field="*{product_name}"
@@ -66,7 +65,7 @@
 			<input type="text" id="price" th:field="*{price}"
 				   placeholder="Price" class="form-control mb-4 col-4" />
 
-		<button type="button"  onclick="return addNewProductAdmin()"> Save Product</button>
+		<button type="button" class="btn btn-primary" onclick="return addNewProductAdmin()"> Save Product</button>
 	</form>
 
 	<hr>

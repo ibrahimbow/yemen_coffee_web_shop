@@ -126,23 +126,23 @@ function show_exist_email() {
 // add email to the subscribe table in database
 function add_email_subscribe() {
 
-		var email_sub = document.forms["subscr"]["emails"].value;
-		var checkEmailSub = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	var email_sub = document.forms["subscr"]["emails"].value;
+	var checkEmailSub = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-		// It can not be registered if one of the fields is empty
-		if (email_sub !== "") {
+	// It can not be registered if one of the fields is empty
+	if (email_sub !== "") {
 
-			if (!checkEmailSub.test(email_sub)) {
-				swal("please Type your email correctly..! ");
-				return false;
-			} else {
-				congratsSubscribe();
-				return false;
-			}
+		if (!checkEmailSub.test(email_sub)) {
+			swal("please Type your email correctly..! ");
+			return false;
 		} else {
-			swal("Empty Fields..!");
+			congratsSubscribe();
 			return false;
 		}
+	} else {
+		swal("Empty Fields..!");
+		return false;
+	}
 
 }
 
@@ -224,3 +224,13 @@ function congratsAddNewProduct() {
 		}
 	});
 }
+
+
+
+// =====================if change the quantity of product ============================
+
+function addNewQuantity() {
+
+}
+
+

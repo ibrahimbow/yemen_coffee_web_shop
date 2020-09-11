@@ -9,9 +9,8 @@
 	<title>Checkout</title>
 	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
 	<!-- stylesheet -->
-	<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../../static/css/mystyle.css" th:href="@{/css/mystyle.css}">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" type="text/css"  th:href="@{/css/mystyle.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 	<link rel="stylesheet" href="../../static/css/shipping_adderss.css" th:href="@{/css/shipping_adderss.css}">
 
 	<!-- font awesome CDN -->
@@ -111,7 +110,9 @@
 					<div class="row">
 						<div class="col-50">
 							<h3>Shipping Address</h3>
+
 							<div th:object="${object_add_shipping_address}">
+
 								<input type="hidden"  th:field="*{id}" placeholder="id" >
 								<!--	we use input to check if the user already existed or not to avoid duplicated-->
 								<input type="hidden"  id="check_exist_user" th:value="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">
@@ -122,15 +123,17 @@
 								<label for="email"><i class="fa fa-envelope"></i> Email</label>
 								<input type="text"  class="form-control" th:field="*{email}" id="email" name="e_mail" placeholder="email@example.com">
 
-								<label for="adr"><i class="fa fa-map-marker-alt"></i> Address</label>
-								<input type="text"  class="form-control" th:field="*{address} "id="adr" name="address" placeholder="542 W. 15th Street">
+								<label for="adr"><i class="fa fa-map-marker"></i> Address</label>
+								<input type="text"  class="form-control" th:field="*{address} "id="adr" name="address" placeholder=" straat 19">
 
-								<label for="country"><i class="fa fa-globe-europe"></i> Country</label>
+								<label for="country"><i class="fa fa-globe"></i> Country</label>
 								<input type="text"  class="form-control" th:field="*{country}" id="country" name="user_country" placeholder="Belgium">
 
 								<div class="row">
 									<div class="col-50">
-										<label for="city"><i class="fa fa-city"></i>City</label>
+
+
+										<label for="city"><i class="fa fa-car-building"></i>City</label>
 										<input type="text"  class="form-control" th:field="*{city}" id="city" name="user_city" placeholder="Antwerpen">
 									</div>
 									<div class="col-50">
@@ -149,6 +152,7 @@
 								<i class="fab fa-cc-mastercard" style="color:red;"></i>
 								<i class="fab fa-cc-discover" style="color:orange;"></i>
 							</div>
+
 
 							<label for="cname"><i class="fa fa-user"></i> Name on Card</label>
 							<input type="text"  class="form-control" th:field="*{name_card}" maxlength="14" id="cname" name="cardname" placeholder="ibrahim Alolofi">
@@ -244,6 +248,10 @@
 		// WOW animation initialize
 		new WOW().init();
 	});
+
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
 </script>
 
 <!-- partial -->

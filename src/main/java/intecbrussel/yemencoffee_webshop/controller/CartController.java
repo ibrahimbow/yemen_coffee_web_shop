@@ -29,7 +29,7 @@ public class CartController {
 
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
-
+        // cartItems.getQuantity() to get the quantity that selected by the customer
         int quantity = cartItems.getQuantity();
         List<CartItems> cartItemsList = null;
         if(session.getAttribute("add_to_cart_items")==null){
@@ -44,7 +44,7 @@ public class CartController {
                 cartItemsList.add(new CartItems(productService.getProductById(id),quantity));
                 session.setAttribute("cartItems_quantity",cartItemsList.stream().count());
             }else {
-                int plusQuantity = cartItemsList.get(index).getQuantity() +1;
+                int plusQuantity = cartItemsList.get(index).getQuantity() +quantity;
                 cartItemsList.get(index).setQuantity(plusQuantity);
                 session.setAttribute("add_to_cart_items",cartItemsList);
             }
@@ -81,10 +81,12 @@ public class CartController {
 
     @GetMapping("/cart_items")
     public String viewCartItems(HttpSession session){
+
         List<CartItems> cartItems = (List<CartItems>) session.getAttribute("add_to_cart_items");
         session.setAttribute("add_to_cart_items",cartItems);
         session.setAttribute("list_cart_items", cartItems);
         session.getAttribute("welcome_user");
+
         return "contents/cart";
     }
 
@@ -103,6 +105,23 @@ public class CartController {
         double subtotal = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice() * s.getQuantity()).sum();
         session.setAttribute("cartItems_quantity",cartItemsList.stream().count());
         session.setAttribute("subtotal_products_price", df.format(subtotal));
+        return "redirect:/cart_items";
+    }
+
+
+// update the quantity of product
+@GetMapping("/updateCartItems/{id}")
+    public String updateItems(@PathVariable (value = "id") long id,
+                              @RequestParam(name = "productQuantity",value = "productQuantity", required = false, defaultValue = "1") Integer quantity,
+                              HttpSession session) {
+
+        List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");
+        for(int i = 0 ; i< cartItemsList.size();i++) {
+            if(cartItemsList.get(i).getProduct().getId()==id) {
+                cartItemsList.get(i).setQuantity(quantity);
+            }
+        }
+        session.setAttribute("add_to_cart_items",cartItemsList);
         return "redirect:/cart_items";
     }
 

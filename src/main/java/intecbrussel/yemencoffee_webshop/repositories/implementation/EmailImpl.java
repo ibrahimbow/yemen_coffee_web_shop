@@ -6,7 +6,9 @@ import intecbrussel.yemencoffee_webshop.repositories.SendEmailDao;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Properties;
+import java.util.stream.Collectors;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -56,10 +58,13 @@ public class EmailImpl implements SendEmailDao {
                 firstName = fullName.substring(0, space);
             }
             // we use .getAsInt(); to convert OptionalInt[] to int
+
             int orderNumber = sendEmailInfo.getCustomer().getOrderList()
+                    .stream().sorted(Comparator.comparingLong(Order::getId).reversed())
+                    .collect(Collectors.toList())
                     .stream()
                     .mapToInt(Order::getOrder_number)
-                    .findAny()
+                    .findFirst()
                     .getAsInt();
 
             textBodyPart.setText("Dear " + firstName +

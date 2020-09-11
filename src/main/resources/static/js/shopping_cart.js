@@ -1,7 +1,7 @@
 /* Set rates + misc */
 var taxRate = 0.05;
 var shippingRate = 15.00; 
-var fadeTime = 300;
+var fadeTime = 400;
 
 
 
@@ -12,7 +12,7 @@ $('.product-quantity input').change( function() {
 
 
 
-$('.product-removal button').click( function() {
+$('.product-removal a').click( function() {
   removeItem(this);
 });
 

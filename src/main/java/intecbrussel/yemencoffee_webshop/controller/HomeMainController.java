@@ -26,7 +26,7 @@ public class HomeMainController {
         this.productService = productService;
     }
 
-    //Display the products
+    //Display home page and show the products
     @GetMapping("/")
     public String viewProducts(Model model, HttpSession session,
                                HttpServletResponse response, HttpServletRequest request){

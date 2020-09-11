@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -34,11 +35,12 @@
 						<p th:if="${invalidError}"class="error" style="color: red">username or password is wrong</p>
 						<div class="md-form mb-0">
 							<label for="admin_username_login" class="">username</label>
-							<input type="text" id="admin_username_login"  name="admin_username" class="form-control">
+							<input type="text" id="admin_username_login"   name="admin_username" class="form-control">
+
 						</div>
 						<div class="md-form mb-0">
 							<label for="admin_password_login" class="">password</label>
-							<input type="password"  id="admin_password_login"  name="admin_password" class="form-control">
+							<input type="password"  id="admin_password_login" name="admin_password" class="form-control">
 						</div>
 
 						</br>
