@@ -168,7 +168,7 @@ function congratsSubscribe() {
 function congratsSendEmail() {
 	swal({
 		title: "Good job!",
-		text: "you already add new product ! ",
+		text: "you already sent email to us ! ",
 		icon: "success",
 		button: true,
 	}).then((result) => {
@@ -227,10 +227,10 @@ function congratsAddNewProduct() {
 
 
 
-// =====================if change the quantity of product ============================
 
-function addNewQuantity() {
 
-}
-
+//this function is to activate all the tooltip in all part in html
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+})
 

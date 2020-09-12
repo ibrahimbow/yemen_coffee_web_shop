@@ -1,7 +1,6 @@
 package intecbrussel.yemencoffee_webshop.services;
 
 import intecbrussel.yemencoffee_webshop.model.Cart;
-
 import java.util.List;
 
 public interface CartService {

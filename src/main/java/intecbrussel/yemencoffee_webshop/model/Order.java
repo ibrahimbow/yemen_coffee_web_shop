@@ -34,7 +34,6 @@ public class Order {
     @Column(name="tax")
     private double tax;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
@@ -43,8 +42,6 @@ public class Order {
 
 
     //constructor
-
-
     public Order() {
         generateOrderNumbers();
     }
@@ -58,8 +55,6 @@ public class Order {
 
 
 //Getters and setters
-
-
     public Long getId() {
         return id;
     }

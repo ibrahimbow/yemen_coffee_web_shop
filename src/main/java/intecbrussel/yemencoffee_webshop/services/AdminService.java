@@ -1,7 +1,6 @@
 package intecbrussel.yemencoffee_webshop.services;
 
 import intecbrussel.yemencoffee_webshop.model.Administrator;
-
 import java.util.List;
 
 public interface AdminService {

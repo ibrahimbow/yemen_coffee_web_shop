@@ -23,6 +23,7 @@
 </head>
 <body>
 <div class="container">
+	<div class="text-center">
 	<span> <h1>Successful</h1></span>
 	<br>
 	<h3><span th:text="${session.msg1}"></span></b></span></h3><br>
@@ -31,7 +32,9 @@
 	<h6><span th:text="${session.msg4}"></span></b></span></h6><br>
 	<br>
 	<br>
-	<p><a th:href="@{/}">Return To The Home</a></p>
+	</div>
+		<hr>
+	<p><a th:href="@{/}">Return to Home Page</a></p>
 </div>
 
 <!-- partial -->

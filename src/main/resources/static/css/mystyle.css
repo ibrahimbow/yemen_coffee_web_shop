@@ -89,26 +89,6 @@ flex-direction: column;
 }
 
 
-/*.nav__links{*/
-/*    list-style: none;*/
-/*}*/
-/*.nav__links li{*/
-/*display: inline-block;*/
-/*padding: 0 5px;*/
-/*    color: black;*/
-/*}*/
-
-/*.nav__links li a{*/
-/*    transition: all 0.3s ease 0s;*/
-
-/*} */
-
-
-
-/*.nav__links li a:hover{*/
-/*    color: white;*/
-/*} */
-
 .mainnav nav ul{
     float: right;
     margin-right: 10px;

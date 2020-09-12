@@ -108,7 +108,7 @@
 			<div class="collapse navbar-collapse" id="navbar-menu">
 				<ul class="sina-menu" data-in="fadeInLeft" data-out="fadeInOut">
 					<li><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
+					<li><a href="#history">History</a></li>
 					<li><a href="#shopping_now">Shopping Now</a></li>
 					<li><a href="#contact">Contact</a></li>
 				</ul>
@@ -120,6 +120,7 @@
 <header id="showcase">
 	<div class="mainheader">
 		<div class="logo">
+			<div id="home"></div>
 			<!-- <img th:src="@{/images/logox2.png}"> -->
 		</div>
 	</div>
@@ -137,7 +138,7 @@
 				<div class="container">
 					<div class="row text-center ">
 						<div class="col my-3 my-md-10">
-							<span class="title">Shopping Now</span>
+							<h2 class="h1-responsive font-weight-bold text-center my-4">Shopping Now</h2>
 							</br>
 						</div>
 					</div>
@@ -172,7 +173,7 @@
 													<span>€ <span class="price" th:text="${product.getPrice()}"></span></span>
 												</h5>
 												<div th:object="${quantity_ob}">
-													<input type="number" th:field="*{quantity}" min="1" max="30" id="quantity_selected"  class="input_quantity my-3" th:value="1" >
+													<input type="number" th:field="*{quantity}" min="1" max="15" id="quantity_selected"  class="input_quantity my-3" th:value="1" >
 													<button type="submit" value="Add to cart" class=" btn button btn-warning my-3">Add to Cart <i class="fas fa-shopping-cart"></i></button>
 												</div>
 
@@ -188,45 +189,53 @@
 
 
 			</div>
-			<!--home-->
-			<div >
-				<hr  style="width: 80%; color: aquamarine;">
-				</br>
-				<div class="container">
-					<div class="row text-center ">
-						<div class="col-md-7 col-sm-8 my-30 my-md-50">
-							<h6 class="title">History of the Coffee</h6>
-							<h5>
-								History records that Yemen was processing the Yemen coffee over 500 years ago. The Yemen farmers to advantage of the unique terrain of their country, which has conditions of climate and environment which were not considered ideal growing conditions for other plants. For 200 years, Yemen was the only source of coffee. Originally the primary mode of travel was by camel, but later, this Arabic Coffee was named after the Mokha Port which is on the coast of the Red Sea, from which these were eventually shipped. By 1650, coffee became popular in Europe, spawning the beginning of coffee shop and café businesses.
-							</h5>
-							</br>
-						</div>
-						<div class="col-md-3 col-sm-8 my-30 my-md-40">
-							</br>
-							<img th:src="@{/images/Mocha_Dapper_1680.png}" alt="image ">
-						</div>
 
-					</div>
-				</div>
-			</div>
+
 			<br>
 			<hr>
 			<br>
 			<!--aboutus-->
-			<div id="about"></div>
+			<div id="history"></div>
 			<br>
 			<br>
-			<h2 class="h1-responsive font-weight-bold text-center my-4">About us</h2>
+
+			<h2 class="h1-responsive font-weight-bold text-center my-4">History Of The Coffee</h2>
 			<div >
 				<!-- <img th:src="@{/images/coffee.png}"> -->
 				<br clear="left">
-				<span><img class="shop-item-photo" th:src="@{/images/GrandPa.png}" title="My Grandpa" align="left" />We are entrepreneurs from Yemen looking to share the taste of Yemeni coffee with the whole world. We want the world to taste the origins of coffee and understand how it came to be. The birthplace of coffee and its first-ever global supply came from Yemen. This is the story that we were always told as children—and ever since then—we have dreamed of Yemen regaining back its crown and dominating the global supply of coffee. It has become of utmost importance, especially in recent years, as Yemen has become one of the world’s poorest countries. Over half of Yemen’s population live under the poverty line, but we believe coffee can change that! Just like it changed the social norms of the world as we know it and continues to shape up our social lives to this very day. That is why we want to play our role in restoring Yemen’s global position in coffee supply and help its economy, all while educating, rebuilding, and improving the lives of farmers and the people of Yemen</span>
+				<p style="text-align: justify"><img class="shop-item-photo" th:src="@{/images/GrandPa.png}" title="My Grandpa" align="left" />
+					<img th:src="@{/images/Mocha_Dapper_1680.png}" alt="image " align="right" style="padding-left: 10px">
+
+					History records that Yemen was processing the Yemen coffee over 500 years ago.
+					The Yemen farmers to advantage of the unique terrain of their country,
+					which has conditions of climate and environment which were not considered ideal growing conditions
+					for other plants. For 200 years, Yemen was the only source of coffee.
+					Originally the primary mode of travel was by camel, but later,
+					this Arabic Coffee was named after the Mokha Port which is on the coast of the Red Sea,
+					from which these were eventually shipped. By 1650, coffee became popular in Europe,
+					spawning the beginning of coffee shop and café businesses.
+					Recently We discovered that most of the people don't know that Yemen is the birthplace of coffee,
+					therefore we decided to create this website in order to share the taste of Yemeni coffee with the whole world.
+					where everyone knows mocha coffee. Mokha is, in fact, the port city where Yemeni coffee beans were loaded up into
+					wooden hulled sailing ships manned by low-land sailors coming home from the Indonesia island of Java,
+					hence Mokha-Java blend.
+				</p>
 			</div>
 
 			<div>
 				<!--						<img th:src="@{/images/farmer.png}">-->
-				<span><img th:src="@{/images/yemen01.png}"  align="right">“We aim to help improve the lives of Yemeni farmers by sharing the exquisite taste of the history and heritage of Yemeni coffee and bring back the lost legend of the world’s arguably once tastiest coffee.”<br/><br/>“At Coffee Senses, we will strive to create a better future by re-educating, rebuilding, and restoring the coffee culture in Yemen. We are determined to achieve that by sharing the vision of our farmers with the world to help better their lives and bring back Yemeni coffee to its prime of dominating the coffee industry and regaining its position as the most consumed coffee in the world.”</span><br>
-				<!--						<img th:src="@{/images/valy.png}"  align="left">-->
+				<p style="text-align: justify"><img class="shop-item-photo" th:src="@{/images/yemen01.png}"  align="right" style="padding-left: 10px">
+					There the language was initially called Oak after an oak tree that stood outside Gosling's office.
+					Later the project went by the name Green and was finally renamed Java,
+					Java is an island of Indonesia where the first coffee was produced (called java coffee).
+					Now we know the relation between Java coffee and Java programming language and the Yemen coffee.
+					Therefore we want the world to taste the origins of coffee, especially java developers.
+					Maybe you will be like James Gosling.
+					Moreover we need to support the Yemeni farmers by re-educating, rebuilding,
+					and restoring the coffee culture in Yemen in this way we aim to help improve the lives of Yemeni farmers
+					by sharing the exquisite taste of the history and heritage of Yemeni coffee and bring back the lost legend
+					of the world’s arguably once tastiest coffee.
+				</p><br>
 
 
 			</div>
@@ -264,21 +273,16 @@
 										<div class="md-form mb-0">
 											<label for="name" class="">Your name</label>
 											<input type="text" id="name"  th:field="*{usernameWhoHasQuestion}"  name="name" class="form-control">
-
 										</div>
 									</div>
-									<!--Grid column-->
-
 									<!--Grid column-->
 									<div class="col-md-6">
 										<div class="md-form mb-0">
 											<label for="email" class="">Your email</label>
-											<input type="text" id="email"  name="email" class="form-control" required />
-
+											<input type="text" id="email"  th:field="*{emailWhoHasQuestion}" name="email" class="form-control" required />
 										</div>
 									</div>
 									<!--Grid column-->
-
 								</div>
 								<!--Grid row-->
 								<div class="row">
@@ -349,7 +353,7 @@
 			<!--				</div>-->
 			<br>
 		</div>
-<!--		ibrahim alolofi - Bio-->
+		<!--		ibrahim alolofi - Bio-->
 		<div class="container">
 			<hr>
 			<br>
@@ -391,7 +395,7 @@
 					<br>
 				</p>
 				<div class="row">
-						<div class="col-md-7 mb-md-0 mb-5">
+					<div class="col-md-7 mb-md-0 mb-5">
 					</div>
 
 				</div>
@@ -405,13 +409,13 @@
 			<div class="row text-center ">
 				<div class="col-md-7 mb-md-0 mb-5">
 					<section class="mb-4">
-					<br>
-					<p style="text-align: left">
-						<b>Our mission</b>
-						<br>In our training center, we want to train jobseekers to become professional technicians in order to participate fully in our multicultural society through work. In order to achieve this, INTEC BRUSSEL vzw provides, on the basis of a clear profile, high-quality IT training which is characterized by: high technical quality of the training an open mind to people from different regions and cultures a democratic, verifiable effect.
-						<br>For more information.. click <a href="http://www.intecbrussel.be/over-ons/">Intec Brussel</a>
-					</p>
-					<br>
+						<br>
+						<p style="text-align: left">
+							<b>Our mission</b>
+							<br>In our training center, we want to train jobseekers to become professional technicians in order to participate fully in our multicultural society through work. In order to achieve this, INTEC BRUSSEL vzw provides, on the basis of a clear profile, high-quality IT training which is characterized by: high technical quality of the training an open mind to people from different regions and cultures a democratic, verifiable effect.
+							<br>For more information.. click <a href="http://www.intecbrussel.be/over-ons/">Intec Brussel</a>
+						</p>
+						<br>
 					</section>
 				</div>
 				<div class="col-md-5 mb-md-0 mb-5">
@@ -421,9 +425,12 @@
 					</div>
 				</div>
 			</div>
+			<hr>
 		</div>
+		<br>
+		<br>
+		<br>
 
-<br>
 	</div>
 </div>
 
@@ -440,11 +447,12 @@
 					</div>
 				</div>
 				<div class="links">
-					<ul class="links">
-						<li><a href="#home">Home</a></li>
-						<li><a  href="#about">About</a></li>
+					<ul class="links" style="font-size: 13px">
+						<li><a href="#">Home</a></li>
+						<li><a  href="#history">History</a></li>
 						<li><a  href="#shopping_now">Shopping Now</a></li>
 						<li><a  href="#contact">Contact</a></li>
+						<li><a th:href="@{/about}">About The Project</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 				<div class="col-md-4 subscribe ">
@@ -455,13 +463,10 @@
 					</form>
 				</div>
 				<div class="col-md-3">
-
 					<a href="#"><i class="fab fa-facebook"></i></a>
 					<a href="#"><i class="fab fa-twitter"></i></a>
 					<a href="#"><i class="fab fa-linkedin"></i></a>
 					<a href="#"><i class="fab fa-instagram"></i></a>
-
-
 				</div>
 
 			</div>
@@ -469,9 +474,11 @@
 		</div>
 
 		<hr style="width: 80%; background-color: gray;">
-		<h6 style="text-align: center; color: honeydew; font-weight: lighter">copyright@ibrahimAlolofi</h6>
-			<h6 style="text-align: center; color: honeydew;font-weight: lighter"><a style="color: honeydew;font-weight: lighter" href="http://www.intecbrussel.be/" >Intecbrussel</a></h6>
-		<h6 style="text-align: center; color: honeydew; font-weight: lighter">2020<br></h6>
+		<div class="text-center">
+		<span style="font-size: 12px; text-align: center; color: honeydew; font-weight: lighter">copyright©ibrahimAlolofi </span><br>
+		<span style="font-size: 12px; text-align: center; color: honeydew;font-weight: lighter"><a style="color: honeydew;font-weight: lighter" href="http://www.intecbrussel.be/" > Intecbrussel</a></span>
+		<span style="font-size: 12px; text-align: center; color: honeydew; font-weight: lighter"> 2020<br></span>
+		</div>
 	</div>
 
 </footer>
@@ -489,10 +496,6 @@
 		// WOW animation initialize
 		new WOW().init();
 	});
-
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
 </script>
 
 <!-- script bootstrap -->

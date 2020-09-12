@@ -1,9 +1,8 @@
 package intecbrussel.yemencoffee_webshop.repositories.implementation;
 
 import intecbrussel.yemencoffee_webshop.model.ReceiveEmailFromUser;
-import intecbrussel.yemencoffee_webshop.repositories.ReceiveEmailFromUserRepo;
+import intecbrussel.yemencoffee_webshop.repositories.ReceiveEmailFromUserDao;
 import org.springframework.stereotype.Repository;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -12,7 +11,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 @Repository
-public class ReceiveEmailFromUserRepoImpl implements ReceiveEmailFromUserRepo {
+public class ReceiveEmailFromUserDaoImpl implements ReceiveEmailFromUserDao {
 
     @Override
     public void receiveEmail(ReceiveEmailFromUser receiveEmailFromUser) {

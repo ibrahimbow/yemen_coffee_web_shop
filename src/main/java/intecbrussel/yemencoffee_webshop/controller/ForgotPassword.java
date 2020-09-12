@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -61,7 +60,6 @@ public class ForgotPassword {
         customerService.addNewCustomer(customer);
         sendPassword.setToEmail(customerService.getCustomerById(id).getEmail());
         sendPassword.setCustomer(customerService.getCustomerById(id));
-
 
         sendEmailServiceImpl.sendPassword(sendPassword);
 

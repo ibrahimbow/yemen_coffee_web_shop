@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,7 +34,6 @@ public class SubscribeController {
     @PostMapping(value = "/checkEmailSubs", produces = "text/html")
     @ResponseBody
     public String checkEmailSubscribe(
-            HttpSession session,
             HttpServletRequest request,
             HttpServletResponse response) {
         String email = request.getParameter("param2");

@@ -27,5 +27,4 @@ public class SendEmailServiceImpl implements SendEmailService {
         this.sendEmailDao.sendPassword(sendEmailInfo);
     }
 
-
 }

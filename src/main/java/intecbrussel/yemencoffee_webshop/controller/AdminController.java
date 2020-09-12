@@ -11,9 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -141,7 +138,6 @@ public class AdminController {
 
     @GetMapping("/delete_product/{id}")
     public String deleteProduct(@PathVariable (value = "id") Long id) {
-
         // call delete product method
         this.productService.deleteProductById(id);
         return "redirect:/showAdminProducts";

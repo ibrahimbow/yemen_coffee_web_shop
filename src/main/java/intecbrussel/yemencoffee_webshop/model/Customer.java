@@ -1,7 +1,6 @@
 package intecbrussel.yemencoffee_webshop.model;
 
 import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +54,6 @@ public class Customer {
     //constructor
     public Customer() {
     }
-
-
 
     //Getters and Setters
     public Long getId() {

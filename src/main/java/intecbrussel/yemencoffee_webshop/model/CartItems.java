@@ -60,6 +60,7 @@ public class CartItems {
     }
 
     public int getQuantity() {
+        // this is the way to avoid show 0 in quantity input text in html
         if(quantity==0){
             return quantity=1;
         }

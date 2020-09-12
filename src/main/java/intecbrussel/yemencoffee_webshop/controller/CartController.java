@@ -29,7 +29,7 @@ public class CartController {
 
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
-        // cartItems.getQuantity() to get the quantity that selected by the customer
+        // cartItems.getQuantity() to get the quantity that is selected by the customer
         int quantity = cartItems.getQuantity();
         List<CartItems> cartItemsList = null;
         if(session.getAttribute("add_to_cart_items")==null){
@@ -122,7 +122,22 @@ public class CartController {
             }
         }
         session.setAttribute("add_to_cart_items",cartItemsList);
-        return "redirect:/cart_items";
+
+    DecimalFormat df = new DecimalFormat();
+    df.setMaximumFractionDigits(2);
+
+    double taxRate = 0.05;
+    double subtotal = cartItemsList.stream().mapToDouble(s -> s.getProduct().getPrice() * s.getQuantity()).sum();
+    double tax = subtotal * taxRate;
+    double shipping = 15;
+    double total = subtotal + tax + shipping;
+
+    session.setAttribute("subtotal_products_price", df.format(subtotal));
+    session.setAttribute("tax_products_price", df.format(tax));
+    session.setAttribute("shipping_of_products_price", shipping);
+    session.setAttribute("total_of_products_price", df.format(total));
+
+    return "redirect:/cart_items";
     }
 
 }

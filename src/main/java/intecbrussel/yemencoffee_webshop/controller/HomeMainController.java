@@ -17,8 +17,6 @@ import javax.servlet.http.HttpSession;
 
 public class HomeMainController {
 
-    public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
-
     private ProductServiceImpl productService;
 
     @Autowired
@@ -38,5 +36,11 @@ public class HomeMainController {
         model.addAttribute("user_question", new ReceiveEmailFromUser());
         model.addAttribute("subscriber", new Subscribe());
         return "index";
+    }
+
+
+    @GetMapping("/about")
+    public String showAboutPage(){
+        return "contents/aboutUs";
     }
 }

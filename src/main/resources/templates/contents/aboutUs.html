@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>about the project</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/ico_logo_coffee.ico}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/mystyle.css}"/>
+	<!-- font awesome CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" integrity="sha512-+EY0fToRDbzM7LUvphiWAG9HizDyvHzgI409LoekdEyEzr79hI1Qy1hkou2nM4ylCSuyaP8m+Dm0ji/3yJROSA==" crossorigin="anonymous" />
+	<!-- bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!--For Plugins css-->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<link rel="stylesheet" th:href="@{/css/sina-nav.css}">
+
+
+
+	<style type="text/css">
+		.nav-container{
+			min-height: 124px;
+		}
+		.sina-nav{
+			top: 40px;
+			position: absolute;
+		}
+	</style>
+	<!-- script -->
+	<script type="text/javascript" src="../../static/js/shopping_cart.js" th:src="@{/js/shopping_cart.js}"></script>
+	<script id="applicationScript2" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
+	<script id="applicationScript3" type="text/javascript" src="../../static/js/index.js" th:src="@{/js/login_register.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+</head>
+<body onload="show_cart_items()">
+
+<input type="hidden"  id="user_id" th:value="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">
+<input type="hidden"  id="quantity_items" th:value="${session.cartItems_quantity} ? ${session.cartItems_quantity}: ''">
+
+<div class="nav-container">
+	<nav class="sina-nav mobile-sidebar navbar-fixed" data-top="0">
+		<div class="container">
+			<div class="extension-nav">
+				<ul>
+					<li class="dropdown">
+						<a th:href="@{/account}" class="collapse navbar-collapse"  onmouseover="show_logout()" >
+							<i class="fa fa-user"></i>
+							<span class="card-title" th:text="${session.welcome_user} ? ${session.welcome_user.full_name}: ''">Account</span>
+						</a>
+						<div id="logout" class="text-center" style="display:none">
+							<ul class="dropdown-menu shop-menu">
+								<li class="dropdown">
+									<span sec:authentication="principal.name" ></span>
+								</li>
+								<li><a th:href="@{/customer_cms}" style="color: dodgerblue; float: right" >Settings </a></li>
+								<li><a th:href="@{/logout}" style="color: dodgerblue; float: right">Logout </a></li>
+							</ul>
+						</div>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+							<i class="fa fa-shopping-bag"></i>
+							<div id="quantity_notification" style="display:none">
+								<span class="shop-badge" th:text="${session.cartItems_quantity}" >0</span>
+							</div>
+						</a>
+						<!-- Show itemsShoppingCart -->
+						<div id="cart_items_list" class="text-center" style="display:none">
+							<ul class="dropdown-menu shop-menu" >
+								<li  th:each="cartItems: ${session.list_cart_items}">
+									<a href="#" class="shop-item-photo">
+										<img class="shop-item-photo"
+											 th:src="@{${cartItems.getProduct().getImage()}}" alt="" />
+									</a>
+									<p><a th:text="${cartItems.getProduct().product_name}"></a>
+										<span>€<span class="shop-item-price" th:text="${#numbers.formatDecimal(cartItems.getProduct().getPrice(), 0, 'DEFAULT', 2, 'DEFAULT')}"></span></span>
+										<span>x<span th:text="${cartItems.getQuantity()}"></span></span>
+									</p>
+								</li>
+								<li class="shop-total-price">
+									<a th:href="@{/cart_items}" class="shop-btn" >Cart</a>
+									<span>Subtotal: <span class="price">€<span class="shop-total-price"  th:text="${session.subtotal_products_price}"></span></span></span>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+			<!-- .extension-nav -->
+			<div class="sina-nav-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+					<i class="fa fa-bars"></i>
+				</button>
+				<a class="sina-brand" href="#">
+					<h2>
+						JAVA GAWAH
+					</h2>
+					<p>Drink the best Quality</p>
+				</a>
+			</div><!-- .sina-nav-header -->
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<ul class="sina-menu" data-in="fadeInLeft" data-out="fadeInOut">
+					<li><a th:href = "@{/}">Home</a></li>
+					<li><a th:href = "@{/}">History</a></li>
+					<li><a th:href = "@{/}">Shopping Now</a></li>
+					<li><a th:href = "@{/}">Contact</a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- .container -->
+	</nav>
+</div>
+
+<!--		about the project-->
+<div id="#about">
+</div>
+<hr  style="width: 80%; color: aquamarine;">
+</br>
+<div class="container">
+	<div class="row text-left ">
+		<div class="col-md-12">
+		<span class="title" style="color: #78bcff">About the project</span>
+		<br>
+		<br>
+		<b>Vision</b>
+		<p>
+						<span>In the future this project will be developed to cover the whole world. The main purpose of this project is to help the farmers.
+							therefore every farmer will have an application in his mobile that allows him to offer his product and also sell his product directly to the customer or companies.
+							</span>
+		</p>
+		<b>Project Idea: (make it simple)</b>
+		<span>
+								 <ul>
+									 <li>Open gate for the people all over the world to be able to buy the coffee from the country of origin</li>
+									 <li>Able to add the orders to a shopping-cart and increase or remove the quantity and pay online.</li>
+									 <li>Fresh coffee from the farmer straight to you with option Allow the customer to choose the level of roast coffee.</li>
+
+								 </ul>
+							</span>
+		<b>Project objectives:</b>
+		<ul>
+			<li>Simplify trade in coffee from Yemen.</li>
+			<li>Time efficiency for placing orders and payment and delivery.</li>
+			<li>High efficiency and accuracy in the results.</li>
+			<li>Minimize overhead and costs to get product</li>
+			<li>Make it flexible for customers to be able to access and use the website from PC, tablet or telephone anytime and anywhere.</li>
+		</ul>
+
+		<b>Limitation</b>
+		<ul>
+			<li>The target audience of customers are all people who like to drink or try Yemen Coffee.</li>
+			<li>The beneficiaries of this project are all coffee makers in Yemen and it could also be the way to encourage other farmers to plant coffee.</li>
+		</ul>
+
+		<b>Methodology</b><br>
+		<span>We will be using Agile / Scrum in this web application from SDLC methodology</span>
+		<br>
+		<br>
+		<b>Data collection</b><br>
+		<span>Data is collected from the following sources:</span>
+		<ul>
+			<li>Websites that specialized in coffee</li>
+			<li>The farmer</li>
+		</ul>
+
+		<b>Proposed requirements for web applications:</b><br>
+		<span>Hardware: (on the server)</span>
+		<ul>
+			<li>Hosting: amazon web services (AWS) </li>
+			<li>Hard disk: 15 GB</li>
+		</ul>
+		<span>Software:</span>
+		<ul>
+			<li>IntelliJ IDEA</li>
+			<li>SQL Server</li>
+			<li>Adobe XD</li>
+			<li>Photoshop</li>
+		</ul>
+		<span>Programming language and framework:</span>
+		<ul>
+			<li>Java 11</li>
+			<li>Maven xml</li>
+			<li>JPA / Hibernate</li>
+			<li>sql</li>
+			<li>Spring MVC / spring boot</li>
+			<li>Thymeleaf</li>
+			<li>Tomcat</li>
+			<li>HTML5</li>
+			<li>CSS</li>
+			<li>Javascript</li>
+		</ul>
+		</br>
+	</div>
+	</div>
+</div>
+
+			<br>
+			<br>
+			<br>
+	</div>
+</div>
+
+
+<!-- JS files -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/sina-nav.js}"></script>
+
+<!-- For All Plug-in Activation & Others -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		// WOW animation initialize
+		new WOW().init();
+	});
+</script>
+
+<!-- script bootstrap -->
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+</html>

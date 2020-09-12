@@ -5,12 +5,10 @@ import intecbrussel.yemencoffee_webshop.repositories.AdminDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class AdminRepoImpl implements AdminDao {
-
 
     private EntityManagerFactory entityManagerFactory;
 

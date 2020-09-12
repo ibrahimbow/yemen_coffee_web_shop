@@ -80,6 +80,7 @@ public class EmailImpl implements SendEmailDao {
                     sendEmailInfo.getCustomer().getZipcode() + "  " + sendEmailInfo.getCustomer().getCity()+
                     "\n" +
                     sendEmailInfo.getCustomer().getCountry() + " \n\n" +
+
                     "Thank you for your purchase and enjoy Drink the best Quality of Yemen Coffee.\n\n\n");
 
             //Attachment body part.

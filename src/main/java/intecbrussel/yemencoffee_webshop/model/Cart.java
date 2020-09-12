@@ -18,7 +18,6 @@ public class Cart {
     private Customer customer;
 
     public Cart() {
-
     }
 
 

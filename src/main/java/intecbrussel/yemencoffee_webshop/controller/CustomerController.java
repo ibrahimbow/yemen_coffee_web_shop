@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -98,7 +97,6 @@ public class CustomerController {
     @PostMapping(value = "/checkEmailRegister", produces = "text/html")
     @ResponseBody
     public String checkEmailNo(
-            HttpSession session,
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         String email = request.getParameter("param3");

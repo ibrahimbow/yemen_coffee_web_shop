@@ -5,7 +5,6 @@ import intecbrussel.yemencoffee_webshop.repositories.CartItemsRepo;
 import intecbrussel.yemencoffee_webshop.services.CartItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

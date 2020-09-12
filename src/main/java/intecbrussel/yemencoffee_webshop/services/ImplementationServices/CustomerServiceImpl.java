@@ -79,8 +79,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 
-
-
     // check if the Email is already existed in order to register new client
     public Customer checkEmail(String email) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -96,8 +94,4 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
 
     }
-
-
-
-
 }
