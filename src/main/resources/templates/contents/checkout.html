@@ -218,12 +218,12 @@
 					</tr>
 					<hr>
 					<tr>
-						<p>Subtotal <span class="price">€<span  class="price" th:text="${session.subtotal_products_price}"></span></span></p>
-						<p>Tax (5%)<span class="price">€<span  class="price" th:text="${session.tax_products_price}"></span></span></p>
-						<p>Shipping <span class="price">€<span class="price" th:text="${session.shipping_of_products_price}">€</span></span></p>
+						<p>Subtotal <span class="price">€<span  class="price" th:text="${#numbers.formatDecimal(session.subtotal_products_price, 0, 'COMMA', 2, 'POINT')}"></span></span></p>
+						<p>Tax (5%)<span class="price">€<span  class="price" th:text="${#numbers.formatDecimal(session.tax_products_price, 0, 'COMMA', 2, 'POINT')}"></span></span></p>
+						<p>Shipping <span class="price">€<span class="price" th:text="${#numbers.formatDecimal(session.shipping_of_products_price, 0, 'COMMA', 2, 'POINT')}"></span></span></p>
 						<div style="background-color: #78bcff; border-radius: 5px; height: 30px">
 							<b><p style="font-weight: bold; padding-left: 5px; padding-right: 5px"> Total
-								<span class="price">€<span class="price"  th:text="${session.total_of_products_price}"></span></span></p></b>
+								<span class="price">€<span class="price" th:text="${#numbers.formatDecimal(session.total_of_products_price, 0, 'COMMA', 2, 'POINT')}"></span></span></p></b>
 						</div>
 					</tr>
 					</tbody>

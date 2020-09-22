@@ -188,7 +188,7 @@ public class ShippingController {
 
 
 
-    // send email after confirmed that information is sorted in database
+    // send email after confirm that information is sorted in database
     @GetMapping("/successful/{id}")
     public String successful_purchase(@PathVariable ( value = "id") Long id, HttpSession session){
         List<CartItems> cartItemsList = (List<CartItems>) session.getAttribute("add_to_cart_items");

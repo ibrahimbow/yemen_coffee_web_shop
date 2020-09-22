@@ -38,7 +38,7 @@ public class EmailImpl implements SendEmailDao {
         try {
             msg.setFrom(new InternetAddress(sendEmailInfo.getFromEmail()));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(sendEmailInfo.getToEmail()));
-            msg.setSubject("Confirmation of you Order ");
+            msg.setSubject("Confirmation of your Order ");
 
             Multipart emailContent = new MimeMultipart();
 
@@ -70,7 +70,7 @@ public class EmailImpl implements SendEmailDao {
             textBodyPart.setText("Dear " + firstName +
                     "\n\n"+ "Thank you very much for your order. The order number is: " +
                     orderNumber
-                    + " dated " + LocalDateTime.now().format(formatter) +
+                    + "  dated  " + LocalDateTime.now().format(formatter) +
                     "  has ben sent to the following address \n\n" +
                     "Address:\n" +
                     sendEmailInfo.getCustomer().getFull_name() +

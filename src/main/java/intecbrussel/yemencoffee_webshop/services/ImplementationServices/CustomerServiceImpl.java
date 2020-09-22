@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (optional.isPresent()) {
             customer = optional.get();
         } else {
-            throw new RuntimeException("Customer is not found for id :: " + id);
+            throw new RuntimeException("Customer is not found for id: " + id);
         }
         return customer;
     }
@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = null;
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         String sqlQuery = "Select c from Customer as c " +
-                "where c.email = :email and c.password = :password";
+                "where c.email = :email and c.password =: password";
         TypedQuery<Customer> typedQuery = entityManager.createQuery(sqlQuery, Customer.class);
         typedQuery.setParameter("email", email);
         typedQuery.setParameter("password", password);
@@ -92,6 +92,5 @@ public class CustomerServiceImpl implements CustomerService {
             System.out.println(ex.getMessage());
         }
         return customer;
-
     }
 }

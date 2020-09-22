@@ -168,23 +168,23 @@
 			<div class="totals-item">
 				<label>Subtotal </label>
 				<div class="totals-value" id="cart-subtotal">
-					<span  class="price" th:text="${session.subtotal_products_price}"></span></div>
+					<span  class="price" th:text="${#numbers.formatDecimal(session.subtotal_products_price, 0, 'COMMA', 2, 'POINT')}"></span></div>
 			</div>
 			<div class="totals-item">
 				<label>Tax (5%)</label>
 				<div class="totals-value" id="cart-tax">
-					<span  class="price" th:text="${session.tax_products_price}"></span></div>
+					<span  class="price" th:text="${#numbers.formatDecimal(session.tax_products_price, 0, 'COMMA', 2, 'POINT')}"></span></div>
 			</div>
 			<div class="totals-item">
 				<label>Shipping</label>
-				<div class="totals-value" id="cart-shipping">15.00
-					<!--					<span class="price" th:text="${session.shipping_of_products_price}"></span>-->
+				<div class="totals-value" id="cart-shipping">
+										<span class="price"  th:text="${#numbers.formatDecimal(session.shipping_of_products_price, 0, 'COMMA', 2, 'POINT')}"></span>
 				</div>
 			</div>
 			<div class="totals-item totals-item-total">
 				<label>Grand Total</label>
 				<div class="totals-value" id="cart-total">
-					<span class="price"  th:text="${session.total_of_products_price}"></span>
+					<span class="price" th:text="${#numbers.formatDecimal(session.total_of_products_price, 0, 'COMMA', 2, 'POINT')}"></span>
 				</div>
 			</div>
 		</div>

@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 
 @Entity
 @Table (name = "products")
-public class Product {
+public class Product  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
