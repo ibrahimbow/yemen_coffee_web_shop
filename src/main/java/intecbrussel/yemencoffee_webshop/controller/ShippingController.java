@@ -98,7 +98,7 @@ public class ShippingController {
         session.setAttribute("shipping_of_products_price", shipping);
         session.setAttribute("total_of_products_price", df.format(total));
 
-        Customer customer;
+        Customer customer=null;
         if(id!=0){
             customer = customerService.getCustomerById(id);
         }else {
@@ -196,7 +196,7 @@ public class ShippingController {
         String DATE_FORMATTER = "yyyy-MM-dd ' at ' HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 
-        int orderNumber =customerService.getCustomerById(id).getOrderList()
+        int orderNumber = customerService.getCustomerById(id).getOrderList()
                 .stream().sorted(Comparator.comparingLong(Order::getId).reversed())
                 .collect(Collectors.toList())
                 .stream()

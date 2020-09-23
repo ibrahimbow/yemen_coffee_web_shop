@@ -155,7 +155,6 @@
 											<div>
 												<img alt="image" class="img-fluid card-img-top " th:src="@{${product.getImage()}}">
 											</div>
-
 											<div class="card-body">
 												<h5 class="card-title" th:text="${product.getProduct_name()}"></h5>
 												<h6 class="card-title" th:text="${product.amount}"></h6>
@@ -166,17 +165,12 @@
 													<i class="far fa-star"></i>
 												</h6>
 												<p class="card-text">
-												<h5 class="card-title" th:text="${product.product_description}"></h5>
-
-												</p>
-												<h5>
-													<span>€ <span class="price" th:text="${product.getPrice()}"></span></span>
-												</h5>
+												<h5 class="card-title" th:text="${product.product_description}"></h5></p>
+												<h5><span>€ <span class="price" th:text="${product.getPrice()}"></span></span></h5>
 												<div th:object="${quantity_ob}">
 													<input type="number" th:field="*{quantity}" min="1" max="15" id="quantity_selected"  class="input_quantity my-3" th:value="1" >
 													<button type="submit" value="Add to cart" class=" btn button btn-warning my-3">Add to Cart <i class="fas fa-shopping-cart"></i></button>
 												</div>
-
 											</div>
 										</div>
 									</form>

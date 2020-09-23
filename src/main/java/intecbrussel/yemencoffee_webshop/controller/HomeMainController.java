@@ -24,11 +24,11 @@ public class HomeMainController {
         this.productService = productService;
     }
 
-    //Display home page and show the products
+    //Display home page
     @GetMapping("/")
     public String viewProducts(Model model, HttpSession session,
                                HttpServletResponse response, HttpServletRequest request){
-
+        //view the products
         session.setAttribute("productList",productService.getAllProducts());
         // use this to be able to use the quantity of product to be added to the cart item list
         model.addAttribute("quantity_ob",new CartItems());

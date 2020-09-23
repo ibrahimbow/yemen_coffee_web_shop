@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,13 +58,17 @@ public class CustomerController {
 
 //================================================REGISTRATION======================================================
 
+// @ResponseBody is a Spring annotation which binds a method return value to the web response body.
+// It is not interpreted as a view name. It uses HTTP Message converters to convert the return value
+// to HTTP response body, based on the content-type in the request HTTP header.
+
     @PostMapping(value = "/check_email_register", produces = "text/html")
     @ResponseBody
     public String checkEmailRegisterCustomer(
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session
-    ) throws IOException {
+    )  {
 
         String userName = request.getParameter("myuserReg");
         String email = request.getParameter("email");
@@ -98,7 +101,7 @@ public class CustomerController {
     @ResponseBody
     public String checkEmailNo(
             HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+            HttpServletResponse response){
         String email = request.getParameter("param3");
 
             if(customerService.checkEmail(email)!=null) {

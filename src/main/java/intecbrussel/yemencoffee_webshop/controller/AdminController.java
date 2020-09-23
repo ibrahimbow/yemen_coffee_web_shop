@@ -25,6 +25,12 @@ public class AdminController {
     private AdminServiceImpl adminService;
     private OrderServiceImpl orderServiceImpl;
     private UploadImageService uploadImageImpl;
+    private CartItemsServiceImpl cartItemsService;
+
+    @Autowired
+    public void setCartItemsService(CartItemsServiceImpl cartItemsService) {
+        this.cartItemsService = cartItemsService;
+    }
 
     @Autowired
     public void setProductService(ProductServiceImpl productService) {
@@ -137,10 +143,20 @@ public class AdminController {
     }
 
     @GetMapping("/delete_product/{id}")
-    public String deleteProduct(@PathVariable (value = "id") Long id) {
+    public String deleteProduct(@PathVariable (value = "id") Long id,
+                               HttpSession session) {
         // call delete product method
-        this.productService.deleteProductById(id);
-        return "redirect:/showAdminProducts";
+        for(int i = 0; i<cartItemsService.getAllCartItems().size();i++) {
+            if (cartItemsService.getAllCartItems().get(i).getProduct().getId() == id) {
+                session.setAttribute("wrong",true);
+                return "redirect:/showAdminProducts";
+            }
+        }
+
+            this.productService.deleteProductById(id);
+
+            return "redirect:/showAdminProducts";
+
     }
 
 

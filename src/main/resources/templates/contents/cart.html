@@ -140,7 +140,6 @@
 					<div class="product-quantity" >
 						<input type="number" id="productQuantity"  th:value="${cartItems.quantity}" name="productQuantity"   min="1" max="15"  class="product-quantity">
 							<button type="submit" class="remove-product"  style="background-color: #78bcff; color:white; margin-left: 10px	; border-radius: 5px">Update</button>
-<!--						<a th:href="@{/updateCartItems/{id}(id=${cartItems.getProduct().getId()})} " style="color:blue;">update</a>-->
 					</div>
 					<div class="product-removal">
 							<a class="remove-product" th:href="@{/deleteCartItems/{id}(id=${cartItems.getProduct().getId()})}" style="color:white;"

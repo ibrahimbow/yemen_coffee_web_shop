@@ -71,10 +71,12 @@
 			<td ><span >€ <span th:text="${product_admin.getPrice()}"></span></span></td>
 			<td> <a th:href="@{/showFormForUpdate/{id}(id=${product_admin.id})}" class="btn btn-primary">Update</a>
 				<a th:href="@{/delete_product/{id}(id=${product_admin.id})}" class="btn btn-danger">Delete</a>
+
 			</td>
 		</tr>
 		</tbody>
 		<a th:href="@{/addNewProductForm}" class="btn btn-primary">Add New product</a>
+		<p th:if="${session.wrong}" class="error" style="color: red">OOPS..Can not delete this product..!</p>
 	</table>
 	<hr>
 

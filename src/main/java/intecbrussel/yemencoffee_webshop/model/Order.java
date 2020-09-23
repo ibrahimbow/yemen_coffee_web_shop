@@ -34,10 +34,10 @@ public class Order {
     @Column(name="tax")
     private double tax;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Customer customer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Cart cart;
 
 

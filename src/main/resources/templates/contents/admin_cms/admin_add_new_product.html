@@ -49,7 +49,7 @@
 	<form id="addNewProduct" action="#" th:action="@{/saveProduct}"  th:object="${add_update_Product}" method="POST" enctype="multipart/form-data">
 		<input type="hidden" th:field="*{id}" placeholder="Product Name" class="form-control mb-4 col-4">
 
-				<p th:if="${error}" class="error" style="color: red">Error something went wrong..!</p>
+
 		<input type="file" id="imageId" name="imageFile" placeholder="Product Image" class="form-control mb-4 col-4" >
 		<hr>
 
