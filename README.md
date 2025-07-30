@@ -55,8 +55,6 @@ Hardware: (on the server)
 
   - Hosting: amazon web services (AWS)
   
-  - Hard disk: 15 GB
- 
 Software:
 
   - IntelliJ IDEA
